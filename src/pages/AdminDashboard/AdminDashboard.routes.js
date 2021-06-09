@@ -21,8 +21,17 @@ const TheaterSystemManagement = lazy(() =>
 const ShowTimeManagement = lazy(() =>
   import("./ShowTimeManagement/ShowTimeManagement")
 );
+
+//web ban hang
 const AdminIntroduction = lazy(() =>
   import("./AdminIntroduction/AdminIntroduction")
+);
+
+const CategoryManagement = lazy(() =>
+  import("./ProductManagement/Category/index")
+);
+const ProductManagement = lazy(() =>
+  import("./ProductManagement/Product/index")
 );
 
 const {
@@ -33,12 +42,20 @@ const {
   THEATER_SYSTEM_MANAGEMENT,
   PHONGCHIEU_MANAGEMENT,
   MOVIE_TYPE_MANAGEMENT,
+
+  //web bán hàng
+  CATEGORY,
+  PRODUCTS,
+  PRODUCT_DETAIL,
 } = AdminRoutes;
 
 export default function AdminDashboardRoutes() {
   return (
     <Switch>
       <Route path={INTRODUCTION} component={AdminIntroduction} exact={true} />
+      <Route path={CATEGORY} component={CategoryManagement} exact={true} />
+      <Route path={PRODUCTS} component={ProductManagement} exact={true} />
+
       <Route path={MOVIE_MANAGEMENT} component={MovieManagement} />
       <Route path={THEATER_MANAGEMENT} component={CumRapManagement} />
       <Route path={SHOWTIME_MANAGEMENT} component={ShowTimeManagement} />

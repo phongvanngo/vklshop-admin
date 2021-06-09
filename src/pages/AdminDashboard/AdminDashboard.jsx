@@ -51,6 +51,11 @@ export default function LandingPage() {
     THEATER_SYSTEM_MANAGEMENT,
     PHONGCHIEU_MANAGEMENT,
     MOVIE_TYPE_MANAGEMENT,
+
+    //web ban hang
+    CATEGORY,
+    PRODUCTS,
+    PRODUCT_DETAIL,
   } = AdminRoutes;
 
   return (
@@ -87,6 +92,44 @@ export default function LandingPage() {
                   <i className="bx bxs-home menu-item__title__icon"></i>
                   <span className="menu-item__title__name">Trang chủ</span>
                 </div>
+              </li>
+              <li className="menu-item">
+                <div className="menu-item__title">
+                  <i className="bx bx-store-alt menu-item__title__icon"></i>
+                  <span className="menu-item__title__name">Sản phẩm</span>
+                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
+                </div>
+                <ul className="submenu-list">
+                  <Link to={CATEGORY}>
+                    <li>Danh mục sản phẩm</li>
+                  </Link>
+                  <Link to={PRODUCTS}>
+                    <li>Tất cả sản phẩm</li>
+                  </Link>
+                  <Link to={PHONGCHIEU_MANAGEMENT}>
+                    <li>Quản lý kho</li>
+                  </Link>
+                </ul>
+              </li>
+              <li className="menu-item">
+                <div className="menu-item__title">
+                  <i className="bx bx-store-alt menu-item__title__icon"></i>
+                  <span className="menu-item__title__name">
+                    Quản lý đơn hàng
+                  </span>
+                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
+                </div>
+                <ul className="submenu-list">
+                  <Link to={THEATER_SYSTEM_MANAGEMENT}>
+                    <li>Danh mục sản phẩm</li>
+                  </Link>
+                  <Link to={THEATER_MANAGEMENT}>
+                    <li>Tất cả sản phẩm</li>
+                  </Link>
+                  <Link to={PHONGCHIEU_MANAGEMENT}>
+                    <li>Quản lý kho</li>
+                  </Link>
+                </ul>
               </li>
               <li className="menu-item">
                 <div className="menu-item__title">

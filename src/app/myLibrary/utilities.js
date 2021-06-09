@@ -24,6 +24,9 @@ export function removeAccents(str) {
 }
 
 export function filterArrayBySearchTerm(myArray, searchTerm) {
+  console.log("filter array by search term: ", myArray);
+  if (!myArray) return [];
+  // if (!searchTerm) return [];
   searchTerm = removeAccents(searchTerm).toUpperCase().trim();
   let res = [];
   for (let index = 0; index < myArray.length; index++) {
@@ -41,6 +44,7 @@ export function filterArrayBySearchTerm(myArray, searchTerm) {
 
 export function convertDateTime(myDate) {
   // date to dd/mm/yyyy
+  console.log(myDate);
   let date = new Date(myDate);
   console.log(date);
   const month = date.getMonth() + 1;
@@ -61,3 +65,12 @@ export function isDateEqual(a, b) {
 
   return true;
 }
+
+export const reduceParagraph = (paragraph, numWord) => {
+  var list_word = paragraph.split(" ");
+  var res = "";
+  for (var i = 0; i < Math.min(numWord, list_word.length); i++) {
+    res = res + list_word[i] + " ";
+  }
+  return res + " ...";
+};
