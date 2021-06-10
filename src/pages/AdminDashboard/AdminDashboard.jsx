@@ -56,6 +56,8 @@ export default function LandingPage() {
     CATEGORY,
     PRODUCTS,
     PRODUCT_DETAIL,
+    INTRODUCTION,
+    CREATE_PRODUCT,
   } = AdminRoutes;
 
   return (
@@ -87,12 +89,14 @@ export default function LandingPage() {
           </header>
           <div className="menu-container">
             <ul className="menu-list">
-              <li className="menu-item">
-                <div className="menu-item__title">
-                  <i className="bx bxs-home menu-item__title__icon"></i>
-                  <span className="menu-item__title__name">Trang chủ</span>
-                </div>
-              </li>
+              <Link to={INTRODUCTION}>
+                <li className="menu-item">
+                  <div className="menu-item__title">
+                    <i className="bx bxs-home menu-item__title__icon"></i>
+                    <span className="menu-item__title__name">Trang chủ</span>
+                  </div>
+                </li>
+              </Link>
               <li className="menu-item">
                 <div className="menu-item__title">
                   <i className="bx bx-store-alt menu-item__title__icon"></i>
@@ -105,6 +109,9 @@ export default function LandingPage() {
                   </Link>
                   <Link to={PRODUCTS}>
                     <li>Tất cả sản phẩm</li>
+                  </Link>
+                  <Link to={CREATE_PRODUCT}>
+                    <li>Thêm sản phẩm mới</li>
                   </Link>
                   <Link to={PHONGCHIEU_MANAGEMENT}>
                     <li>Quản lý kho</li>

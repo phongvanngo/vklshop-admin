@@ -6,9 +6,12 @@ import { useDispatch } from "react-redux";
 import MenuDropdown from "./Product.table.menu";
 import FilterCategory from "./Product.table.filterCategory";
 import { reduceParagraph } from "app/myLibrary/utilities";
+import { useHistory } from "react-router";
+import { AdminRoutes } from "routes.const";
 
 export default function ProductTable({ listProduct }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
 
   let currentListProduct = filterArrayBySearchTerm(listProduct, searchTerm);
@@ -22,6 +25,8 @@ export default function ProductTable({ listProduct }) {
       dispatch(deleteProduct(id));
     }
   };
+
+  const { CREATE_PRODUCT } = AdminRoutes;
 
   return (
     <div className="w-full">
@@ -45,7 +50,8 @@ export default function ProductTable({ listProduct }) {
             <h1 className="text-xl font-medium">Danh sách sản phẩm</h1>
             <button
               onClick={() => {
-                dispatch(openProductFormDialog({ id: null }));
+                // dispatch(openProductFormDialog({ id: null }));
+                history.push(CREATE_PRODUCT);
               }}
               className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-100 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
             >
@@ -65,12 +71,12 @@ export default function ProductTable({ listProduct }) {
                 <th scope="col" className="w-2/12 px-2 py-3 break-words">
                   <strong></strong>
                 </th>
-                <th scope="col" className="w-3/12 px-2 py-3 break-words">
+                <th scope="col" className="w-5/12 px-2 py-3 break-words">
                   <strong>Tên sản phẩm</strong>
                 </th>
-                <th scope="col" className="w-2/12 px-2 py-3 break-words">
+                {/* <th scope="col" className="w-2/12 px-2 py-3 break-words">
                   <strong>Tên loại sản phẩm</strong>
-                </th>
+                </th> */}
                 <th scope="col" className="w-3/12 px-2 py-3 break-words">
                   <strong>Mô tả</strong>
                 </th>
@@ -96,7 +102,7 @@ export default function ProductTable({ listProduct }) {
                       />
                     </td>
                     <td className="px-2 py-4">{name}</td>
-                    <td className="px-2 py-4">{}</td>
+                    {/* <td className="px-2 py-4">{}</td> */}
                     <td className="px-2 py-4">
                       {reduceParagraph(description, 10)}
                     </td>

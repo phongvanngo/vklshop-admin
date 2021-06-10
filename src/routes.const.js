@@ -21,8 +21,10 @@ export const AdminRoutes = {
   //dành cho quản lý trang web bán hàng
   INTRODUCTION: `${PublicRoutes.ADMIN_DASHBOARD}`,
   CATEGORY: `${PublicRoutes.ADMIN_DASHBOARD}/category/`,
+  PRODUCT_DETAIL: `${PublicRoutes.ADMIN_DASHBOARD}/product_detailed/:productId`,
+  CREATE_PRODUCT: `${PublicRoutes.ADMIN_DASHBOARD}/product/create`,
+
   PRODUCTS: `${PublicRoutes.ADMIN_DASHBOARD}/product/category/:categoryInfo`,
-  PRODUCT_DETAIL: `${PublicRoutes.ADMIN_DASHBOARD}/product/:productId`,
   INVENTORY: `${PublicRoutes.ADMIN_DASHBOARD}/invetory/`,
 };
 

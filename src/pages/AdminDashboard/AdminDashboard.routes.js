@@ -33,6 +33,9 @@ const CategoryManagement = lazy(() =>
 const ProductManagement = lazy(() =>
   import("./ProductManagement/Product/index")
 );
+const ProductForm = lazy(() =>
+  import("./ProductManagement/Product/ProductFormCreate/index")
+);
 
 const {
   MOVIE_MANAGEMENT,
@@ -47,6 +50,7 @@ const {
   CATEGORY,
   PRODUCTS,
   PRODUCT_DETAIL,
+  CREATE_PRODUCT,
 } = AdminRoutes;
 
 export default function AdminDashboardRoutes() {
@@ -55,6 +59,8 @@ export default function AdminDashboardRoutes() {
       <Route path={INTRODUCTION} component={AdminIntroduction} exact={true} />
       <Route path={CATEGORY} component={CategoryManagement} exact={true} />
       <Route path={PRODUCTS} component={ProductManagement} exact={true} />
+      {/* <Route path={PRODUCT_DETAIL} component={ProductForm} exact={true} /> */}
+      <Route path={CREATE_PRODUCT} component={ProductForm} exact={true} />
 
       <Route path={MOVIE_MANAGEMENT} component={MovieManagement} />
       <Route path={THEATER_MANAGEMENT} component={CumRapManagement} />

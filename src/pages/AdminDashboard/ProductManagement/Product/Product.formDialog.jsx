@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { closeProductFormDialog } from "app/redux/dialogSlice";
-import { Fragment, useEffect, useState } from "react";
+import { createProduct, updateProduct } from "app/redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { Fragment, useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { createProduct, updateProduct } from "app/redux/productSlice";
 import FilterCategory from "./Product.formDialog.filterCategory";
 
 const schema = yup.object().shape({
@@ -76,10 +76,10 @@ export default function ProductFormModal() {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-60"
+          className=" fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-60"
           onClose={() => {}}
         >
-          <div className="min-h-screen px-4 text-center">
+          <div className=" min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -108,7 +108,7 @@ export default function ProductFormModal() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="p-0 inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="p-0 inline-block  w-10/12 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 border-b"

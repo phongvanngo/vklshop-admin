@@ -11,7 +11,7 @@ export default function ProductManagement() {
   const listProduct = useSelector((state) => state.product.listProduct);
 
   useEffect(() => {
-    dispatch(changeAdminNavbarTitle("Quản lý cụm rạp"));
+    dispatch(changeAdminNavbarTitle("Quản lý sản phẩm"));
     dispatch(fetchListProduct({}));
     dispatch(fetchListCategory({}));
   }, [dispatch]);
