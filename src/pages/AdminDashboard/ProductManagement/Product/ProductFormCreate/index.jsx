@@ -10,6 +10,7 @@ import { changeAdminNavbarTitle } from "app/redux/commonSlice";
 import MyInputField from "common/FormComponent/MyInputField";
 import MySelectionField from "common/FormComponent/MySelectionField";
 import TextEditor from "common/FormComponent/TextEditor";
+import queryString from "query-string";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -31,6 +32,7 @@ export default function ProductForm() {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
     clearErrors,
   } = useForm({
@@ -41,42 +43,49 @@ export default function ProductForm() {
     console.log(data);
   }
 
-  useEffect(() => {
-    setValue("category", "--chưa chọn--");
-  }, []);
+  useEffect(() => {}, []);
 
   console.log("Product Form render ---------------------------");
 
   return (
-    <div className="pt-20">
-      <div className="w-full ">
+    <div className="pt-10">
+      <div className="sm:w-full md:w-3/4 m-auto ">
         <div className="p-6  min-h-20 border-b border-gray-200 rounded-t-3xl bg-white">
           <ToolBar title={"Tạo mới sản phẩm"} />
         </div>
         <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
           <form id="create-product-form" onSubmit={handleSubmit(onSaveData)}>
-            <MyInputField
-              register={register}
-              name="name"
-              label="Tên sản phẩm"
-              validation={{ isError: errors.name, mess: "Không được để trống" }}
-            />
-            <MySelectionField
-              defaultValue={null}
-              register={register}
-              name="category"
-              label="Loại sản phẩm"
-              validation={{
-                isError: errors.category,
-                mess: "Không được để trống",
-              }}
-              listOptions={listCategory}
-            />
+            <div className="md:flex gap-10 sm:block">
+              <div className="md:w-1/2 sm:w-full">
+                <MyInputField
+                  register={register}
+                  name="name"
+                  label="Tên sản phẩm"
+                  validation={{
+                    isError: errors.name,
+                    mess: "Không được để trống",
+                  }}
+                />
+              </div>
+              <div className="md:w-1/2 sm:w-full">
+                <MySelectionField
+                  defaultValue={getValues("category")}
+                  register={register}
+                  name="category"
+                  label="Loại sản phẩm"
+                  validation={{
+                    isError: errors.category,
+                    mess: "Không được để trống",
+                  }}
+                  listOptions={listCategory}
+                />
+              </div>
+            </div>
+
             <MyInputField
               register={register}
               name="description"
               label="Mô tả sản phẩm"
-              validation={{ isError: errors.name, mess: "Không được để trống" }}
             />
 
             <TextEditor

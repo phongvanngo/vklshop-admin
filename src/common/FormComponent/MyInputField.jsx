@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function MyInputField({ label, register, name, validation }) {
-  const { isError, mess } = validation;
+  const { isError, mess } = validation || {};
   return (
     <>
       <div className="mb-8">
