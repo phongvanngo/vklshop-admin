@@ -6,9 +6,9 @@ export default function MySelectionField({
   label,
   register,
   name,
+  defaultValue,
   validation,
   listOptions,
-  defaultValue,
 }) {
   const { isError, mess } = validation;
   console.log("my selection field - list option : ", listOptions);

@@ -9,6 +9,7 @@ import { fetchListCategory } from "app/redux/categorySlice";
 import { changeAdminNavbarTitle } from "app/redux/commonSlice";
 import MyInputField from "common/FormComponent/MyInputField";
 import MySelectionField from "common/FormComponent/MySelectionField";
+import TextEditor from "common/FormComponent/TextEditor";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -73,9 +74,18 @@ export default function ProductForm() {
             />
             <MyInputField
               register={register}
-              name="name"
-              label="Tên sản phẩm"
+              name="description"
+              label="Mô tả sản phẩm"
               validation={{ isError: errors.name, mess: "Không được để trống" }}
+            />
+
+            <TextEditor
+              register={register}
+              setValue={(newContent) => {
+                setValue("content", newContent);
+              }}
+              name="content"
+              label="Nội dung sản phẩm"
             />
           </form>
         </div>
