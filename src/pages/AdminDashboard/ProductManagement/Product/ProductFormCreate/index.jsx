@@ -11,6 +11,7 @@ import MyInputField from "common/FormComponent/MyInputField";
 import MySelectionField from "common/FormComponent/MySelectionField";
 import TextEditor from "common/FormComponent/TextEditor";
 import queryString from "query-string";
+import CategorySelection from "./categorySelection";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -19,10 +20,9 @@ const schema = yup.object().shape({
 
 export default function ProductForm() {
   const dispatch = useDispatch();
-  const listCategory = useSelector(
-    (state) => state.category.listCategory || []
-  );
-  console.log("product form index - list category: ", listCategory);
+  // const listCategory = useSelector(
+  //   (state) => state.category.listCategory || []
+  // );
   useEffect(() => {
     dispatch(fetchListCategory({}));
     dispatch(changeAdminNavbarTitle("Quản lý sản phẩm"));
@@ -68,7 +68,7 @@ export default function ProductForm() {
                 />
               </div>
               <div className="md:w-1/2 sm:w-full">
-                <MySelectionField
+                <CategorySelection
                   defaultValue={getValues("category")}
                   register={register}
                   name="category"
@@ -77,7 +77,6 @@ export default function ProductForm() {
                     isError: errors.category,
                     mess: "Không được để trống",
                   }}
-                  listOptions={listCategory}
                 />
               </div>
             </div>

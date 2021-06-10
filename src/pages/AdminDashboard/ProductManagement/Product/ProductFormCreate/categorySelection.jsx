@@ -1,19 +1,19 @@
 import React from "react";
-import "./MySelectionField.style.scss";
 import queryString from "query-string";
+import { useDispatch, useSelector } from "react-redux";
+import { openCategoryFormDialog } from "app/redux/dialogSlice";
+import CategoryFormModal from "../../Category/Category.formDialog";
 
-export default function MySelectionField({
+export default function Category({
   label,
   register,
   name,
   defaultValue,
   validation,
-  listOptions,
 }) {
   const { isError, mess } = validation;
-  console.log("my selection field - validation : ", validation);
-  console.log("my selection field - default value : ", defaultValue);
-
+  let listOptions = useSelector((state) => state.category.listCategory);
+  const dispatch = useDispatch();
   const NoneValueOption = () => {
     if (defaultValue) return null;
     else
@@ -26,8 +26,20 @@ export default function MySelectionField({
 
   return (
     <>
+      <CategoryFormModal />
       <div className="mb-8">
-        <span className="mb-2 flex flex-col text-gray-600">{label}</span>
+        <div className="mb-3 flex justify-between items-center ">
+          <span className="text-gray-600">{label}</span>
+          <button
+            onClick={() => {
+              dispatch(openCategoryFormDialog({ id: null }));
+            }}
+            className="flex items-center justify-center bg-green-900 appearance-none  rounded-full w-100 h-full  py-1 pl-1 pr-3 text-admin_color_2 leading-tight hover:bg-green-500 focus:outline-none"
+          >
+            <i className="bx bx-plus mr-2 align-middle block"></i>
+            <span>Thêm loại</span>
+          </button>
+        </div>
         <select
           type="text"
           {...register(name, {})}

@@ -10,7 +10,7 @@ export default function TextEditor({ label, register, name, setValue }) {
 
   return (
     <div className="mb-8">
-      <span className="mb-2 flex flex-col font-extrabold">{label}</span>
+      <span className="mb-2 flex flex-col text-gray-600">{label}</span>
       <JoditEditor
         ref={editor}
         //   value={content}

@@ -5,7 +5,7 @@ export default function MyInputField({ label, register, name, validation }) {
   return (
     <>
       <div className="mb-8">
-        <span className="mb-2 flex flex-col font-extrabold">{label}</span>
+        <span className="mb-3 flex flex-col text-gray-600">{label}</span>
         <input
           type="text"
           {...register(name, {})}
