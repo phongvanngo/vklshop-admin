@@ -12,6 +12,7 @@ import MySelectionField from "common/FormComponent/MySelectionField";
 import TextEditor from "common/FormComponent/TextEditor";
 import queryString from "query-string";
 import CategorySelection from "./categorySelection";
+import UploadImageForm from "common/FormComponent/UploadImage";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -72,7 +73,7 @@ export default function ProductForm() {
                   defaultValue={getValues("category")}
                   register={register}
                   name="category"
-                  label="Loại sản phẩm"
+                  label="Phân loại"
                   validation={{
                     isError: errors.category,
                     mess: "Không được để trống",
@@ -96,6 +97,7 @@ export default function ProductForm() {
               label="Nội dung sản phẩm"
             />
           </form>
+          <UploadImageForm />
         </div>
       </div>
     </div>
