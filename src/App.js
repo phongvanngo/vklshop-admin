@@ -3,7 +3,8 @@ import React from "react";
 import AppRoutes from "routes";
 import "./App.css";
 import ErrorNotificationDialog from "common/Notification/ErrorNotification.dialog";
-import MyDatePicker from "common/DatePicker/MyDatePicker";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   console.log(process.env.REACT_APP_API_URL);
@@ -12,6 +13,7 @@ function App() {
       <ErrorNotificationDialog />
       <PageLoader />
       <AppRoutes />
+      <ToastContainer />
     </div>
   );
 }

@@ -62,7 +62,7 @@ export default function LandingPage() {
 
   return (
     <Router>
-      <div id="admin-dashboard-container" className="show-sidebar">
+      <div id="admin-dashboard-container" className="">
         <aside id="admin-sidebar">
           <header
             id="admin-sidebar__header"

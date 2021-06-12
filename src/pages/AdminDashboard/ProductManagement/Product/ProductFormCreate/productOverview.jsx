@@ -17,12 +17,15 @@ import { listVariants } from "app/api/fakeData";
 import { setEmtyListVariant } from "app/redux/variantSlice";
 import VariantFormDialog from "./variantManegement.form";
 
+import { toast } from "react-toastify";
+
 const schema = yup.object().shape({
   name: yup.string().required(),
   category: yup.string().required(),
+  unit: yup.string().required(),
 });
 
-export default function ProductOverview() {
+export default function ProductOverview({}) {
   const dispatch = useDispatch();
   // const listCategory = useSelector(
   //   (state) => state.category.listCategory || []
@@ -39,6 +42,9 @@ export default function ProductOverview() {
   });
 
   function onSaveData(data) {
+    toast.success("Success Notification !", {
+      position: toast.POSITION.TOP_CENTER,
+    });
     console.log(data);
   }
 
@@ -94,6 +100,10 @@ export default function ProductOverview() {
                 <div className="md:w-1/2 sm:w-full">
                   <MyInputField
                     register={register}
+                    validation={{
+                      isError: errors.unit,
+                      mess: "Không được để trống",
+                    }}
                     name="unit"
                     label="Đơn vị"
                   />
