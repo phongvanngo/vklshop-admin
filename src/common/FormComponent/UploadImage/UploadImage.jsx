@@ -23,6 +23,7 @@ export default function UploadImageForm({ addNewImage }) {
       fd.append("image", file, file.name);
       axios
         .post(url, fd, {
+          timeout: 10000,
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,

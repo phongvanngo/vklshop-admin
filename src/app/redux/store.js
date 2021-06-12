@@ -13,6 +13,7 @@ import movieTypeReducer from "./movieTypeSlice";
 import showTimeReducer from "./showTimeSlice";
 import categoryReducer from "./categorySlice";
 import productReducer from "./productSlice";
+import variantReducer from "./variantSlice";
 
 export const store = configureStore({
   reducer: {
@@ -30,5 +31,6 @@ export const store = configureStore({
     showTime: showTimeReducer,
     category: categoryReducer,
     product: productReducer,
+    variant: variantReducer,
   },
 });

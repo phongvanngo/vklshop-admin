@@ -15,18 +15,20 @@ const fakeListImage = [
   "https://picsum.photos/500/300",
 ];
 
-export default function Index({}) {
+export default function Index({ setImage }) {
   const [listImage, setListImage] = useState(fakeListImage);
 
   const handleAddImage = (imageToAdd) => {
     let newListImage = [...listImage];
     newListImage.push(imageToAdd);
     setListImage(newListImage);
+    setImage(newListImage);
   };
   const handleRemoveImage = (imageToDelete) => {
     if (window.confirm("Xóa hình ảnh khỏi sản phẩm ?")) {
       let newListImage = listImage.filter((image) => image !== imageToDelete);
       setListImage(newListImage);
+      setImage(newListImage);
     }
   };
   return (

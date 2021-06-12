@@ -37,6 +37,10 @@ const initialState = {
     isOpen: false,
     defaultData: null,
   },
+  variantFormDialog: {
+    isOpen: false,
+    defaultData: null,
+  },
 };
 
 export const dialogSlice = createSlice({
@@ -115,6 +119,14 @@ export const dialogSlice = createSlice({
       state.productFormDialog.isOpen = false;
       state.productFormDialog.defaultData = null;
     },
+    openVariantFormDialog: (state, action) => {
+      state.variantFormDialog.defaultData = action.payload;
+      state.variantFormDialog.isOpen = true;
+    },
+    closeVariantFormDialog: (state) => {
+      state.variantFormDialog.isOpen = false;
+      state.variantFormDialog.defaultData = null;
+    },
   },
 });
 
@@ -138,6 +150,8 @@ export const {
   closeCategoryFormDialog,
   openProductFormDialog,
   closeProductFormDialog,
+  openVariantFormDialog,
+  closeVariantFormDialog,
 } = dialogSlice.actions;
 
 export default dialogSlice.reducer;

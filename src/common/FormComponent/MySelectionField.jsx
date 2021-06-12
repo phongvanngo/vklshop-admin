@@ -1,6 +1,5 @@
 import React from "react";
 import "./MySelectionField.style.scss";
-import queryString from "query-string";
 
 export default function MySelectionField({
   label,
@@ -38,10 +37,10 @@ export default function MySelectionField({
         >
           <NoneValueOption />
           {listOptions.map((e, index) => {
-            let optionValue = queryString.stringify(e);
+            let optionValue = JSON.stringify(e);
             return (
               <option
-                selected={optionValue === queryString.stringify(defaultValue)}
+                selected={optionValue === JSON.stringify(defaultValue)}
                 className
                 value={optionValue}
                 key={index}

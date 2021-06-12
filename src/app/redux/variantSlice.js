@@ -12,11 +12,14 @@ export const fetchListVariantProduct = createAsyncThunk(
   async (payload, thunkApi) => {
     if (payload !== null) {
     }
-    const { dispatch } = thunkApi;
+    const { dispatch, getState } = thunkApi;
+    const { editingProductId } = getState().product;
+    if (editingProductId === null) {
+      //truong hop dang tao moi san pham
+    }
     dispatch(startLoading());
-    a;
     try {
-      const response = await variantApi.getListVariantProduct();
+      const response = await variantApi.getListVariantProduct(payload);
       console.log(response);
       switch (response.status) {
         case 200:
@@ -59,7 +62,7 @@ export const createVariant = createAsyncThunk(
     } catch (error) {
       dispatch(
         openErrorNofificationDialog({
-          title: "Thêm hệ thống rạp mới thất bại",
+          title: "Thêm mẫu mới thất bại",
         })
       );
       dispatch(stopLoading());
@@ -132,10 +135,17 @@ export const deleteVariant = createAsyncThunk(
 export const variantSlice = createSlice({
   name: "variant",
   initialState,
-  reducers: {},
+  reducers: {
+    setEmtyListVariant: (state) => {
+      state.listVariant = [];
+    },
+    setCurrentProdcutId: (state, action) => {
+      state.currentProductId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchListVariant.fulfilled, (state, action) => {
+      .addCase(fetchListVariantProduct.fulfilled, (state, action) => {
         if (action.payload === null) return;
         const { listVariant } = action.payload;
         state.listVariant = listVariant;
@@ -176,6 +186,6 @@ export const variantSlice = createSlice({
   },
 });
 
-export const {} = variantSlice.actions;
+export const { setEmtyListVariant } = variantSlice.actions;
 
 export default variantSlice.reducer;

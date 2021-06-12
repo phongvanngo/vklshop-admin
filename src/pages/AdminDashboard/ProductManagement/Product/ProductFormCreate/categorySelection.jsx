@@ -1,5 +1,4 @@
 import React from "react";
-import queryString from "query-string";
 import { useDispatch, useSelector } from "react-redux";
 import { openCategoryFormDialog } from "app/redux/dialogSlice";
 import CategoryFormModal from "../../Category/Category.formDialog";
@@ -50,10 +49,10 @@ export default function Category({
         >
           <NoneValueOption />
           {listOptions.map((e, index) => {
-            let optionValue = queryString.stringify(e);
+            let optionValue = JSON.stringify(e);
             return (
               <option
-                selected={optionValue === queryString.stringify(defaultValue)}
+                selected={optionValue === JSON.stringify(defaultValue)}
                 className
                 value={optionValue}
                 key={index}

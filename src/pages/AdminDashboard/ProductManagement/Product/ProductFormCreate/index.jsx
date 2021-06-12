@@ -10,11 +10,12 @@ import { changeAdminNavbarTitle } from "app/redux/commonSlice";
 import MyInputField from "common/FormComponent/MyInputField";
 import MySelectionField from "common/FormComponent/MySelectionField";
 import TextEditor from "common/FormComponent/TextEditor";
-import queryString from "query-string";
 import CategorySelection from "./categorySelection";
 import UploadImageForm from "common/FormComponent/UploadImage";
 import VariantManagement from "./variantManagement";
 import { listVariants } from "app/api/fakeData";
+import { setEmtyListVariant } from "app/redux/variantSlice";
+import VariantFormDialog from "./variantManegement.form";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -29,6 +30,7 @@ export default function ProductForm() {
   useEffect(() => {
     dispatch(fetchListCategory({}));
     dispatch(changeAdminNavbarTitle("Quản lý sản phẩm"));
+    dispatch(setEmtyListVariant());
   }, []);
 
   let {
@@ -51,65 +53,76 @@ export default function ProductForm() {
   console.log("Product Form render ---------------------------");
 
   return (
-    <div className="pt-10">
-      <div className="sm:w-full md:w-3/4 m-auto ">
-        <div className="p-6  min-h-20 border-b border-gray-200 rounded-t-3xl bg-white">
-          <ToolBar title={"Tạo mới sản phẩm"} />
-        </div>
-        <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
-          <form id="create-product-form" onSubmit={handleSubmit(onSaveData)}>
-            <div className="md:flex gap-10 sm:block">
-              <div className="md:w-1/2 sm:w-full">
-                <MyInputField
-                  register={register}
-                  name="name"
-                  label="Tên sản phẩm"
-                  validation={{
-                    isError: errors.name,
-                    mess: "Không được để trống",
-                  }}
-                />
+    <>
+      <VariantFormDialog />
+      <div className="pt-10">
+        <div className="sm:w-full md:w-3/4 m-auto ">
+          <div className="p-6  min-h-20 border-b border-gray-200 rounded-t-3xl bg-white">
+            <ToolBar title={"Tạo mới sản phẩm"} />
+          </div>
+          <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
+            <form id="create-product-form" onSubmit={handleSubmit(onSaveData)}>
+              <div className="md:flex gap-10 sm:block">
+                <div className="md:w-1/2 sm:w-full">
+                  <MyInputField
+                    register={register}
+                    name="name"
+                    label="Tên sản phẩm"
+                    validation={{
+                      isError: errors.name,
+                      mess: "Không được để trống",
+                    }}
+                  />
+                </div>
+                <div className="md:w-1/2 sm:w-full">
+                  <CategorySelection
+                    defaultValue={getValues("category")}
+                    register={register}
+                    name="category"
+                    label="Phân loại"
+                    validation={{
+                      isError: errors.category,
+                      mess: "Không được để trống",
+                    }}
+                  />
+                </div>
               </div>
-              <div className="md:w-1/2 sm:w-full">
-                <CategorySelection
-                  defaultValue={getValues("category")}
-                  register={register}
-                  name="category"
-                  label="Phân loại"
-                  validation={{
-                    isError: errors.category,
-                    mess: "Không được để trống",
-                  }}
-                />
-              </div>
-            </div>
 
-            <div className="md:flex gap-10 sm:block">
-              <div className="md:w-1/2 sm:w-full">
-                <MyInputField
-                  register={register}
-                  name="description"
-                  label="Mô tả sản phẩm"
-                />
+              <div className="md:flex gap-10 sm:block">
+                <div className="md:w-1/2 sm:w-full">
+                  <MyInputField
+                    register={register}
+                    name="description"
+                    label="Mô tả sản phẩm"
+                  />
+                </div>
+                <div className="md:w-1/2 sm:w-full">
+                  <MyInputField
+                    register={register}
+                    name="unit"
+                    label="Đơn vị"
+                  />
+                </div>
               </div>
-              <div className="md:w-1/2 sm:w-full">
-                <MyInputField register={register} name="Unit" label="Đơn vị" />
-              </div>
-            </div>
 
-            <TextEditor
-              register={register}
-              setValue={(newContent) => {
-                setValue("content", newContent);
+              <TextEditor
+                register={register}
+                setValue={(newContent) => {
+                  setValue("content", newContent);
+                }}
+                name="content"
+                label="Nội dung sản phẩm"
+              />
+            </form>
+            <UploadImageForm
+              setImage={(listImage) => {
+                setValue("images", JSON.stringify(listImage));
               }}
-              name="content"
-              label="Nội dung sản phẩm"
             />
-          </form>
-          <UploadImageForm />
-          <VariantManagement listVariants={listVariants} />
+            <VariantManagement />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

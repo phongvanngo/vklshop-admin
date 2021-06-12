@@ -2,12 +2,14 @@ import React, { useState } from "react";
 
 import MenuDropdown from "./variantManagement.dropdown";
 import { numberWithSpaces } from "app/myLibrary/utilities";
+import { useSelector } from "react-redux";
 
-export default function VariantManagement({ addVariant }) {
+export default function VariantManagement() {
   const handleDeleteVariant = (id) => {};
   const handleEditVariant = (variant) => {};
 
-  const [listVariants, setListVariants] = useState([]);
+  // const [listVariants, setListVariants] = useState([]);
+  const listVariants = useSelector((state) => state.variant.listVariant || []);
 
   return (
     <>

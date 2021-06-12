@@ -5,6 +5,7 @@ import { startLoading, stopLoading } from "./loadingSlice";
 
 const initialState = {
   listProduct: [],
+  editingProductId: null,
 };
 
 export const fetchListProduct = createAsyncThunk(
