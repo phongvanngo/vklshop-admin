@@ -36,6 +36,7 @@ const ProductManagement = lazy(() =>
 const ProductForm = lazy(() =>
   import("./ProductManagement/Product/ProductFormCreate/index")
 );
+const TestLayout = lazy(() => import("./TestLayout"));
 
 const {
   MOVIE_MANAGEMENT,
@@ -67,6 +68,7 @@ export default function AdminDashboardRoutes() {
       <Route path={SHOWTIME_MANAGEMENT} component={ShowTimeManagement} />
       <Route path={PHONGCHIEU_MANAGEMENT} component={PhongChieuManagement} />
       <Route path={MOVIE_TYPE_MANAGEMENT} component={MovieTypeManagement} />
+      <Route path={INTRODUCTION + "/test"} component={TestLayout} />
       <Route
         path={THEATER_SYSTEM_MANAGEMENT}
         component={TheaterSystemManagement}

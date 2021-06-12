@@ -16,6 +16,7 @@ import VariantManagement from "./variantManagement";
 import { listVariants } from "app/api/fakeData";
 import { setEmtyListVariant } from "app/redux/variantSlice";
 import VariantFormDialog from "./variantManegement.form";
+import ProductOverview from "./productOverview";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -33,96 +34,61 @@ export default function ProductForm() {
     dispatch(setEmtyListVariant());
   }, []);
 
-  let {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors },
-    clearErrors,
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const [currentTab, setCurrentTab] = useState(0);
 
-  function onSaveData(data) {
-    console.log(data);
-  }
-
-  useEffect(() => {}, []);
+  const listTab = [
+    {
+      title: "Chi tiết sản phẩm",
+      component: <ProductOverview key="1" />,
+    },
+    { title: "Quản lý mẫu mã", component: <VariantManagement key="2" /> },
+  ];
 
   console.log("Product Form render ---------------------------");
 
   return (
     <>
-      <VariantFormDialog />
-      <div className="pt-10">
-        <div className="sm:w-full md:w-3/4 m-auto ">
-          <div className="p-6  min-h-20 border-b border-gray-200 rounded-t-3xl bg-white">
-            <ToolBar title={"Tạo mới sản phẩm"} />
+      <div className="p-5">
+        <div className="w-full rounded-2xl bg-white py-5 px-7 shadow-sm">
+          <div>
+            <h1 className="text-xl mb-5 font-medium">{"Tạo mới sản phẩm"}</h1>
           </div>
-          <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
-            <form id="create-product-form" onSubmit={handleSubmit(onSaveData)}>
-              <div className="md:flex gap-10 sm:block">
-                <div className="md:w-1/2 sm:w-full">
-                  <MyInputField
-                    register={register}
-                    name="name"
-                    label="Tên sản phẩm"
-                    validation={{
-                      isError: errors.name,
-                      mess: "Không được để trống",
-                    }}
-                  />
-                </div>
-                <div className="md:w-1/2 sm:w-full">
-                  <CategorySelection
-                    defaultValue={getValues("category")}
-                    register={register}
-                    name="category"
-                    label="Phân loại"
-                    validation={{
-                      isError: errors.category,
-                      mess: "Không được để trống",
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="md:flex gap-10 sm:block">
-                <div className="md:w-1/2 sm:w-full">
-                  <MyInputField
-                    register={register}
-                    name="description"
-                    label="Mô tả sản phẩm"
-                  />
-                </div>
-                <div className="md:w-1/2 sm:w-full">
-                  <MyInputField
-                    register={register}
-                    name="unit"
-                    label="Đơn vị"
-                  />
-                </div>
-              </div>
-
-              <TextEditor
-                register={register}
-                setValue={(newContent) => {
-                  setValue("content", newContent);
-                }}
-                name="content"
-                label="Nội dung sản phẩm"
-              />
-            </form>
-            <UploadImageForm
-              setImage={(listImage) => {
-                setValue("images", JSON.stringify(listImage));
-              }}
-            />
-            <VariantManagement />
+          <ul className="flex gap-5 border-b border-gray-200">
+            {listTab.map((tab, index) => {
+              return (
+                <li
+                  onClick={() => {
+                    setCurrentTab(index);
+                  }}
+                  key={index}
+                  style={
+                    currentTab === index
+                      ? {
+                          marginBottom: "-1px",
+                          borderBottom: "1px solid #42389d",
+                          color: "#42389d",
+                        }
+                      : {}
+                  }
+                  className="p-2 cursor-pointer"
+                >
+                  <span>{tab.title}</span>
+                </li>
+              );
+            })}
+          </ul>
+          <div>
+            <div className="py-5">{[listTab[currentTab].component]}</div>
           </div>
         </div>
       </div>
+
+      {/* <VariantFormDialog />
+      <div className="pt-10">
+        <div className="sm:w-full md:w-3/4 m-auto ">
+          <ProductOverview />
+        </div>
+      </div> */}
     </>
   );
 }

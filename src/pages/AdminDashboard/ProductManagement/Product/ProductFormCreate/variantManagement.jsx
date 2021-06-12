@@ -15,15 +15,15 @@ export default function VariantManagement() {
     <>
       <div className="w-full mb-8 ">
         <div className="mb-3 flex justify-between items-center ">
-          <span className="text-gray-600">Mẫu mã sản phẩm</span>
+          <span className="text-gray-600"></span>
           <button
-            onClick={() => {
-              // dispatch(openCategoryFormDialog({ id: null }));
-            }}
-            className="flex items-center justify-center bg-green-900 appearance-none  rounded-full w-100 h-full  py-1 pl-1 pr-3 text-admin_color_2 leading-tight hover:bg-green-500 focus:outline-none"
+            type="submit"
+            form="create-product-form"
+            onClick={() => {}}
+            className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-30 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
           >
             <i className="bx bx-plus mr-2 align-middle block"></i>
-            <span>Thêm</span>
+            <span>Thêm mẫu mã</span>
           </button>
         </div>
         <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
