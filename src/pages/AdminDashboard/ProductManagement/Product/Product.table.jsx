@@ -26,7 +26,7 @@ export default function ProductTable({ listProduct }) {
     }
   };
 
-  const { CREATE_PRODUCT } = AdminRoutes;
+  const { EDIT_PRODUCT } = AdminRoutes;
 
   return (
     <div className="w-full">
@@ -51,7 +51,7 @@ export default function ProductTable({ listProduct }) {
             <button
               onClick={() => {
                 // dispatch(openProductFormDialog({ id: null }));
-                history.push(CREATE_PRODUCT);
+                history.push(EDIT_PRODUCT);
               }}
               className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-100 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
             >

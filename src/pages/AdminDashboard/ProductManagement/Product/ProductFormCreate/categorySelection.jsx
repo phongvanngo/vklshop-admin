@@ -23,6 +23,8 @@ export default function Category({
       );
   };
 
+  console.log("  category selection ", defaultValue);
+
   return (
     <>
       <CategoryFormModal />

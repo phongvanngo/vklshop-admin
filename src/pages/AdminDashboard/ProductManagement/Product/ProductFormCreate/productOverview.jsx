@@ -16,8 +16,7 @@ import VariantManagement from "./variantManagement";
 import { listVariants } from "app/api/fakeData";
 import { setEmtyListVariant } from "app/redux/variantSlice";
 import VariantFormDialog from "./variantManegement.form";
-
-import { toast } from "react-toastify";
+import { createProduct } from "app/redux/productSlice";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -25,11 +24,11 @@ const schema = yup.object().shape({
   unit: yup.string().required(),
 });
 
-export default function ProductOverview({}) {
+export default function ProductOverview({ productToEdit }) {
   const dispatch = useDispatch();
-  // const listCategory = useSelector(
-  //   (state) => state.category.listCategory || []
-  // );
+  const listCategory = useSelector(
+    (state) => state.category.listCategory || []
+  );
   let {
     register,
     handleSubmit,
@@ -42,19 +41,36 @@ export default function ProductOverview({}) {
   });
 
   function onSaveData(data) {
-    toast.success("Success Notification !", {
-      position: toast.POSITION.TOP_CENTER,
-    });
-    console.log(data);
+    dispatch(createProduct(data));
   }
 
   function submitFormHandler() {
     document.getElementById("create-product-form").submit();
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("product overview - product to edit: ", productToEdit);
+    if (productToEdit?.id) {
+      const { name, unit, category_id, description, content } = productToEdit;
+      setValue("name", name);
+      setValue("description", description);
+      setValue("content", content);
+      setValue("unit", unit);
 
-  console.log("Product Form render ---------------------------");
+      let productCategory =
+        listCategory.find((element) => element.id === category_id) || {};
+
+      setValue("category", JSON.stringify(productCategory));
+    } else {
+      // setValue("name", "");
+      // setValue("information", "");
+    }
+  }, [productToEdit]);
+
+  console.log(
+    "Product Form render ---------------------------",
+    getValues("content")
+  );
 
   return (
     <>
@@ -134,6 +150,7 @@ export default function ProductOverview({}) {
               </div>
 
               <TextEditor
+                defaultValue={productToEdit?.content}
                 register={register}
                 setValue={(newContent) => {
                   setValue("content", newContent);

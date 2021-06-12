@@ -22,7 +22,7 @@ export const AdminRoutes = {
   INTRODUCTION: `${PublicRoutes.ADMIN_DASHBOARD}`,
   CATEGORY: `${PublicRoutes.ADMIN_DASHBOARD}/category/`,
   PRODUCT_DETAIL: `${PublicRoutes.ADMIN_DASHBOARD}/product_detailed/:productId`,
-  CREATE_PRODUCT: `${PublicRoutes.ADMIN_DASHBOARD}/product/create`,
+  EDIT_PRODUCT: `${PublicRoutes.ADMIN_DASHBOARD}/product/edit`,
 
   PRODUCTS: `${PublicRoutes.ADMIN_DASHBOARD}/product/category/:categoryInfo`,
   INVENTORY: `${PublicRoutes.ADMIN_DASHBOARD}/invetory/`,

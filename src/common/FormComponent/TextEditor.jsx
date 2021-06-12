@@ -1,12 +1,24 @@
 import React, { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
+import { useEffect } from "react";
 
-export default function TextEditor({ label, register, name, setValue }) {
+export default function TextEditor({
+  label,
+  register,
+  name,
+  setValue,
+  defaultValue,
+}) {
   const editor = useRef(null);
   //   const [content, setContent] = useState("");
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   };
+
+  useEffect(() => {
+    console.log("text editor useEffect --", defaultValue);
+    editor.current.value = "<p>" + defaultValue + "</p>";
+  }, [defaultValue]);
 
   return (
     <div className="mb-8">
@@ -14,6 +26,7 @@ export default function TextEditor({ label, register, name, setValue }) {
       <JoditEditor
         ref={editor}
         //   value={content}
+
         config={config}
         tabIndex={1} // tabIndex of textarea
         onBlur={(newContent) => {

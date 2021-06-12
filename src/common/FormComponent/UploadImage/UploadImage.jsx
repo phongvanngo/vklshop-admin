@@ -33,8 +33,8 @@ export default function UploadImageForm({ addNewImage }) {
           console.log(res);
           switch (res.status) {
             case 200:
-              let linkImage = `${process.env.REACT_APP_API_URL}${res.data.data.filename}`;
-              addNewImage(linkImage.replace("/image/", "/image/product/"));
+              let linkImage = `${process.env.REACT_APP_API_URL}/image/product/${res.data.data.filename}`;
+              addNewImage(linkImage);
               break;
             default:
               break;

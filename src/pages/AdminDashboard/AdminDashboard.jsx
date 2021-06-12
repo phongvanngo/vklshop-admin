@@ -6,6 +6,7 @@ import { AdminRoutes } from "routes.const";
 import "./AdminDashboard.scss";
 import AdminDashboardRoutes from "./AdminDashboard.routes";
 import Navbar from "./Navbar";
+import queryString from "query-string";
 
 export default function LandingPage() {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export default function LandingPage() {
     PRODUCTS,
     PRODUCT_DETAIL,
     INTRODUCTION,
-    CREATE_PRODUCT,
+    EDIT_PRODUCT,
   } = AdminRoutes;
 
   return (
@@ -110,7 +111,13 @@ export default function LandingPage() {
                   <Link to={PRODUCTS}>
                     <li>Tất cả sản phẩm</li>
                   </Link>
-                  <Link to={CREATE_PRODUCT}>
+                  <Link
+                    to={
+                      EDIT_PRODUCT +
+                      "/" +
+                      queryString.stringify({ productId: 2 })
+                    }
+                  >
                     <li>Thêm sản phẩm mới</li>
                   </Link>
                   <Link to={PHONGCHIEU_MANAGEMENT}>
