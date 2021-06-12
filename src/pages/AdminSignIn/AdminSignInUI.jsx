@@ -33,7 +33,7 @@ export default function AdminSignInUI({ handleLogin }) {
 
   return (
     <div className="bg-gray-200 h-screen w-screen pt-20">
-      <div className="bg-white m-auto w-4/12  shadow-md">
+      <div className="bg-white m-auto max-w-md  shadow-md">
         <div className="p-10">
           <h1 className="text-xl text-center">Đăng nhập</h1>
           <form onSubmit={handleSubmit(onSaveData)}>

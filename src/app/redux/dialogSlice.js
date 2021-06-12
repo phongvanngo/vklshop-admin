@@ -27,7 +27,7 @@ const initialState = {
   },
   errorNotificationDialog: {
     isOpen: false,
-    defaultData: { title: "" },
+    defaultData: { title: "", content: "" },
   },
   categoryFormDialog: {
     isOpen: false,

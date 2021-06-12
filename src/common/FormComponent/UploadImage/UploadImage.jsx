@@ -1,19 +1,46 @@
 import React from "react";
+import axios from "axios";
 
-export default function UploadImageForm({ LinkImage }) {
+export default function UploadImageForm({ addNewImage }) {
   function handleUploadImage(event) {
     console.log(event.target.files);
+    const listImages = Array.from(event?.target?.files);
+    console.log(listImages);
+    uploadImageToServerHanlder(listImages);
   }
 
   function handleChooseImage() {
     document.getElementById("input-image").click();
   }
 
+  const uploadImageToServerHanlder = async (files) => {
+    if (!files) return;
+    let token = localStorage.getItem("id_token");
+    let url = "http://103.142.137.207:3000/product/image";
+    files.forEach((file) => {
+      const fd = new FormData();
+      fd.append("image", file, file.name);
+      axios
+        .post(url, fd, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
   return (
     <div>
       <input
         id="input-image"
         type="file"
+        multiple
         accept="image/png, image/gif, image/jpeg"
         style={{ display: "none" }}
         onChange={handleUploadImage}

@@ -15,13 +15,27 @@ const fakeListImage = [
 export default function Index({}) {
   const [listImage, setListImage] = useState(fakeListImage);
 
-  const handleNewImage = (linkImage) => {};
+  const handleAddImage = (imageToAdd) => {
+    let newListImage = [...listImage];
+    newListImage.push(imageToAdd);
+    setListImage(newListImage);
+  };
+  const handleRemoveImage = (imageToDelete) => {
+    if (window.confirm("Xóa hình ảnh khỏi sản phẩm ?")) {
+      let newListImage = listImage.filter((image) => image !== imageToDelete);
+      setListImage(newListImage);
+    }
+  };
   return (
     <>
       <div className="mb-8">
         <div className="mb-3 flex justify-between items-center ">
           <span className="text-gray-600">Hình ảnh</span>
-          <UploadImageComp />
+          <UploadImageComp
+            addNewImage={(image) => {
+              handleAddImage(image);
+            }}
+          />
         </div>
         <div>
           <div
@@ -52,7 +66,12 @@ export default function Index({}) {
                       <img className="max-w-full max-h-full" src={image} />
                       <div className="absolute w-full h-full opacity-0 hover:opacity-100 transition flex items-center justify-center ">
                         <div className="absolute items-center bg-black opacity-60 w-full h-full "></div>
-                        <button className="relative text-black bg-white rounded-full flex items-center justify-center px-2 py-2 hover:bg-black hover:text-white transition-all">
+                        <button
+                          onClick={() => {
+                            handleRemoveImage(image);
+                          }}
+                          className="appearance-none focus:outline-none relative text-black bg-white rounded-full flex items-center justify-center px-2 py-2 hover:bg-black hover:text-white transition-all"
+                        >
                           <i className="text-md  bx bxs-trash-alt"></i>
                         </button>
                       </div>
