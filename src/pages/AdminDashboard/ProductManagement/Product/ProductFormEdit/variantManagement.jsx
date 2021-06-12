@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 import MenuDropdown from "./variantManagement.dropdown";
 import { numberWithSpaces } from "app/myLibrary/utilities";
 
-export default function VariantManagement({ addVariant }) {
+export default function VariantManagement({ listVariants }) {
   const handleDeleteVariant = (id) => {};
+
   const handleEditVariant = (variant) => {};
-
-  const [listVariants, setListVariants] = useState([]);
-
   return (
     <>
       <div className="w-full mb-8 ">

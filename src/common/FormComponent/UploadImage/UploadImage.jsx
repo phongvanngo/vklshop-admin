@@ -16,7 +16,8 @@ export default function UploadImageForm({ addNewImage }) {
   const uploadImageToServerHandler = async (files) => {
     if (!files) return;
     let token = localStorage.getItem("id_token");
-    let url = "http://103.142.137.207:3000/product/image";
+    // let url = `${process.env.REACT_APP_API_URL}/product/image`;
+    let url = `http://103.142.137.207:3000/product/image`;
     files.forEach((file) => {
       const fd = new FormData();
       fd.append("image", file, file.name);
@@ -29,6 +30,15 @@ export default function UploadImageForm({ addNewImage }) {
         })
         .then((res) => {
           console.log(res);
+          switch (res.status) {
+            case 200:
+              addNewImage(
+                `${process.env.REACT_APP_API_URL}${res.data.data.filename}`
+              );
+              break;
+            default:
+              break;
+          }
         })
         .catch((error) => {
           console.log(error);

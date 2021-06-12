@@ -6,6 +6,7 @@ import ErrorNotificationDialog from "common/Notification/ErrorNotification.dialo
 import MyDatePicker from "common/DatePicker/MyDatePicker";
 
 function App() {
+  console.log(process.env.REACT_APP_API_URL);
   return (
     <div className="App">
       <ErrorNotificationDialog />

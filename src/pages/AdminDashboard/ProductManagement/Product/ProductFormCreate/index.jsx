@@ -13,6 +13,8 @@ import TextEditor from "common/FormComponent/TextEditor";
 import queryString from "query-string";
 import CategorySelection from "./categorySelection";
 import UploadImageForm from "common/FormComponent/UploadImage";
+import VariantManagement from "./variantManagement";
+import { listVariants } from "app/api/fakeData";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -98,6 +100,7 @@ export default function ProductForm() {
             />
           </form>
           <UploadImageForm />
+          <VariantManagement listVariants={listVariants} />
         </div>
       </div>
     </div>
