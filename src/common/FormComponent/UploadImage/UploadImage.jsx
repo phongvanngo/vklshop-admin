@@ -6,14 +6,14 @@ export default function UploadImageForm({ addNewImage }) {
     console.log(event.target.files);
     const listImages = Array.from(event?.target?.files);
     console.log(listImages);
-    uploadImageToServerHanlder(listImages);
+    uploadImageToServerHandler(listImages);
   }
 
   function handleChooseImage() {
     document.getElementById("input-image").click();
   }
 
-  const uploadImageToServerHanlder = async (files) => {
+  const uploadImageToServerHandler = async (files) => {
     if (!files) return;
     let token = localStorage.getItem("id_token");
     let url = "http://103.142.137.207:3000/product/image";
@@ -23,6 +23,7 @@ export default function UploadImageForm({ addNewImage }) {
       axios
         .post(url, fd, {
           headers: {
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         })
