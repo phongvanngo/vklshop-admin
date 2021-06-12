@@ -84,11 +84,18 @@ export default function ProductForm() {
               </div>
             </div>
 
-            <MyInputField
-              register={register}
-              name="description"
-              label="Mô tả sản phẩm"
-            />
+            <div className="md:flex gap-10 sm:block">
+              <div className="md:w-1/2 sm:w-full">
+                <MyInputField
+                  register={register}
+                  name="description"
+                  label="Mô tả sản phẩm"
+                />
+              </div>
+              <div className="md:w-1/2 sm:w-full">
+                <MyInputField register={register} name="Unit" label="Đơn vị" />
+              </div>
+            </div>
 
             <TextEditor
               register={register}

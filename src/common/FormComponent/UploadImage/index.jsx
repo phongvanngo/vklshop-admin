@@ -3,7 +3,10 @@ import UploadImageComp from "./UploadImage";
 import ImageIcon from "assets/image/ImageIcon.png";
 
 const fakeListImage = [
-  "https://picsum.photos/200/300",
+  "http://103.142.137.207:3000/image/product/image-1623488503224.png",
+  "http://103.142.137.207:3000/image/product/image-1623488503224.png",
+  "http://103.142.137.207:3000/image/product/image-1623488503224.png",
+  "http://103.142.137.207:3000/image/product/image-1623488503224.png",
   "https://picsum.photos/300/300",
   "https://picsum.photos/500/300",
   "https://picsum.photos/900/300",
