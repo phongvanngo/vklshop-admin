@@ -59,7 +59,11 @@ export default function AdminDashboardRoutes() {
     <Switch>
       <Route path={INTRODUCTION} component={AdminIntroduction} exact={true} />
       <Route path={CATEGORY} component={CategoryManagement} exact={true} />
-      <Route path={PRODUCTS} component={ProductManagement} exact={true} />
+      <Route
+        path={PRODUCTS + "/:categoryId"}
+        component={ProductManagement}
+        exact={true}
+      />
       {/* <Route path={PRODUCT_DETAIL} component={ProductForm} exact={true} /> */}
       <Route
         path={EDIT_PRODUCT + "/:productInfo"}

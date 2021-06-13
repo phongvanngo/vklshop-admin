@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import categoryApi from "app/api/categoryApi";
 import { openErrorNofificationDialog } from "./dialogSlice";
 import { startLoading, stopLoading } from "./loadingSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   listCategory: [],
@@ -30,6 +31,9 @@ export const fetchListCategory = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }

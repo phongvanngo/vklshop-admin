@@ -7,10 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React, { useState } from "react";
 import { createVariant, updateVariant } from "app/redux/variantSlice";
+import MyInputField from "common/FormComponent/MyInputField";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  priceCost: yup.number().required(),
+  costPrice: yup.number().required(),
   price: yup.number().required(),
   stock: yup.number().required(),
 });
@@ -34,7 +35,7 @@ export default function VariantFormModal() {
   function onSaveData(data) {
     if (defaultData?.id === null) {
       console.log(data);
-      dispatch(createVariant({ ...data }));
+      dispatch(createVariant({ ...data, productId: defaultData.productId }));
       dispatch(closeVariantFormDialog());
     } else {
       dispatch(
@@ -55,12 +56,16 @@ export default function VariantFormModal() {
   useEffect(() => {
     clearErrors("name");
     if (defaultData?.id) {
-      const { name, image } = defaultData;
+      const { name, price, costPrice, stock } = defaultData;
       setValue("name", name);
-      setValue("image", image);
+      setValue("price", price);
+      setValue("costPrice", costPrice);
+      setValue("stock", stock);
     } else {
       setValue("name", "");
-      setValue("image", "");
+      setValue("price", "");
+      setValue("costPrice", "");
+      setValue("stock", "");
     }
   }, [setValue, defaultData]);
 
@@ -109,10 +114,10 @@ export default function VariantFormModal() {
                   className="text-lg font-medium leading-6 text-gray-900 border-b"
                 >
                   <div className="pr-5 pl-5 pt-4 pb-3 w-full flex justify-between">
-                    <h1 className="font-normal">
+                    <h1 className="font-bold">
                       {defaultData?.id
-                        ? "Chỉnh sửa danh mục sản phẩm"
-                        : "Thêm danh mục sản phẩm"}
+                        ? "Chỉnh sửa mẫu mã sản phẩm"
+                        : "Thêm mẫu mã sản phẩm"}
                     </h1>
                     <button
                       onClick={handleCloseModal}
@@ -124,38 +129,42 @@ export default function VariantFormModal() {
                 </Dialog.Title>
                 <form onSubmit={handleSubmit(onSaveData)}>
                   <div className="mt-2 p-6">
-                    <div className="mb-8">
-                      <span className="mb-2 flex flex-col font-extrabold">
-                        Tên danh mục
-                      </span>
-                      <input
-                        type="text"
-                        {...register("name", {})}
-                        className={
-                          "h-full w-full appearance-none rounded-full  w-30 py-4 px-6 leading-tight focus:outline-none border  text-gray-500" +
-                          (errors.name
-                            ? " border-red-500"
-                            : " focus:border-indigo-500")
-                        }
-                      />
-                      {errors.name ? (
-                        <span className="ml-2 mt-2 text-red-500">
-                          *Không được để trống
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className="mb-8">
-                      <span className="font-extrabold mb-2 flex flex-col">
-                        Hình ảnh
-                      </span>
-                      <input
-                        type="text"
-                        {...register("image", {})}
-                        className="h-full w-full appearance-none rounded-full border w-30 py-4 px-6 leading-tight focus:outline-none focus:border-indigo-500 text-gray-500"
-                      />
-                    </div>
+                    <MyInputField
+                      register={register}
+                      validation={{
+                        isError: errors.name,
+                        mess: "Không được để trống",
+                      }}
+                      name="name"
+                      label="Tên mẫu mã"
+                    />
+                    <MyInputField
+                      register={register}
+                      validation={{
+                        isError: errors.costPrice,
+                        mess: "Dữ liệu phải là số và không được để trống",
+                      }}
+                      name="costPrice"
+                      label="Giá gốc"
+                    />
+                    <MyInputField
+                      register={register}
+                      validation={{
+                        isError: errors.price,
+                        mess: "Dữ liệu phải là số và không được để trống",
+                      }}
+                      name="price"
+                      label="Giá bán"
+                    />
+                    <MyInputField
+                      register={register}
+                      validation={{
+                        isError: errors.stock,
+                        mess: "Dữ liệu phải là số và không được để trống",
+                      }}
+                      name="stock"
+                      label="Tồn kho"
+                    />
                   </div>
 
                   <div className="mb-4 p-6 overflow-hidden">

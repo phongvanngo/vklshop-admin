@@ -59,6 +59,34 @@ const productApi = {
     //   timeOut: 1000,
     // });
     // return response;
+    const url = `/product/${productId}`;
+    let response = await axiosClient.get(url).then((res) => res);
+    const {
+      id,
+      name,
+      description,
+      content,
+      category_id,
+      unit,
+      images,
+      product_variants,
+    } = response?.data?.data || {};
+
+    let productDetail = {
+      id,
+      name,
+      description,
+      content,
+      categoryId: category_id,
+      unit,
+      image: (images || [])[0]?.name,
+      images,
+      productVariants: product_variants,
+    };
+    return {
+      status: response.status,
+      data: { productDetail },
+    };
   },
   getListProductByCategory: async ({ categoryId }) => {
     // let dt = {

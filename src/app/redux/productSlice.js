@@ -33,6 +33,9 @@ export const fetchListProduct = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -61,6 +64,9 @@ export const fetchProductById = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -89,6 +95,9 @@ export const fetchListProductInCategory = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -193,7 +202,11 @@ export const deleteProduct = createAsyncThunk(
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    setProductToEdit: (state, action) => {
+      state.productToEdit = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchListProduct.fulfilled, (state, action) => {
@@ -250,6 +263,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const {} = productSlice.actions;
+export const { setProductToEdit } = productSlice.actions;
 
 export default productSlice.reducer;

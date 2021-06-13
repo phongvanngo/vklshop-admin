@@ -24,7 +24,7 @@ export const AdminRoutes = {
   PRODUCT_DETAIL: `${PublicRoutes.ADMIN_DASHBOARD}/product_detailed/:productId`,
   EDIT_PRODUCT: `${PublicRoutes.ADMIN_DASHBOARD}/product/edit`,
 
-  PRODUCTS: `${PublicRoutes.ADMIN_DASHBOARD}/product/category/:categoryInfo`,
+  PRODUCTS: `${PublicRoutes.ADMIN_DASHBOARD}/product/category`,
   INVENTORY: `${PublicRoutes.ADMIN_DASHBOARD}/invetory/`,
 };
 

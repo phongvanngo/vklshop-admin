@@ -17,6 +17,9 @@ import { listVariants } from "app/api/fakeData";
 import { setEmtyListVariant } from "app/redux/variantSlice";
 import VariantFormDialog from "./variantManegement.form";
 import { createProduct } from "app/redux/productSlice";
+import { useHistory } from "react-router-dom";
+import { AdminRoutes } from "routes.const";
+import queryString from "query-string";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -26,6 +29,7 @@ const schema = yup.object().shape({
 
 export default function ProductOverview({ productToEdit }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const listCategory = useSelector(
     (state) => state.category.listCategory || []
   );
@@ -63,8 +67,8 @@ export default function ProductOverview({ productToEdit }) {
       setValue("unit", unit);
       setValue("images", JSON.stringify(images));
 
-      let productCategory =
-        listCategory.find((element) => element.id === category) || {};
+      // let productCategory =
+      //   listCategory.find((element) => element.id === category) || {};
 
       // setValue("category", JSON.stringify(productCategory));
     } else {
@@ -140,7 +144,7 @@ export default function ProductOverview({ productToEdit }) {
 
                 <div className="md:w-1/2 sm:w-full">
                   <CategorySelection
-                    defaultValue={productToEdit?.category}
+                    defaultValue={productToEdit?.categoryId}
                     register={register}
                     name="category"
                     label="Phân loại"

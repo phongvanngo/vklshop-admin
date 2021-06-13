@@ -8,8 +8,10 @@ import FilterCategory from "./Product.table.filterCategory";
 import { reduceParagraph } from "app/myLibrary/utilities";
 import { useHistory } from "react-router";
 import { AdminRoutes } from "routes.const";
+import queryString from "query-string";
+import { useParams } from "react-router-dom";
 
-export default function ProductTable({ listProduct }) {
+export default function ProductTable({ listProduct, currentCategoryId }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +19,10 @@ export default function ProductTable({ listProduct }) {
   let currentListProduct = filterArrayBySearchTerm(listProduct, searchTerm);
 
   const handleEditProduct = (productData) => {
-    dispatch(openProductFormDialog(productData));
+    // dispatch(openProductFormDialog(productData));
+    history.push(
+      EDIT_PRODUCT + "/" + queryString.stringify({ productId: productData.id })
+    );
   };
 
   const handleDeleteProduct = (id) => {
@@ -25,6 +30,8 @@ export default function ProductTable({ listProduct }) {
       dispatch(deleteProduct(id));
     }
   };
+
+  console.log("product table current selected id: ", currentCategoryId);
 
   const { EDIT_PRODUCT } = AdminRoutes;
 
@@ -51,7 +58,11 @@ export default function ProductTable({ listProduct }) {
             <button
               onClick={() => {
                 // dispatch(openProductFormDialog({ id: null }));
-                history.push(EDIT_PRODUCT);
+                history.push(
+                  EDIT_PRODUCT +
+                    "/" +
+                    queryString.stringify({ productId: null })
+                );
               }}
               className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-100 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
             >
@@ -59,7 +70,7 @@ export default function ProductTable({ listProduct }) {
               <span>Thêm sản phẩm mới</span>
             </button>
           </div>
-          <FilterCategory />
+          <FilterCategory defaultSelectedId={currentCategoryId} />
         </div>
         <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
           <table className="table-fixed w-full mb-10">

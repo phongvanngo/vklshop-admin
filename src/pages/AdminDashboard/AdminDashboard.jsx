@@ -108,14 +108,20 @@ export default function LandingPage() {
                   <Link to={CATEGORY}>
                     <li>Danh mục sản phẩm</li>
                   </Link>
-                  <Link to={PRODUCTS}>
+                  <Link
+                    to={
+                      PRODUCTS +
+                      "/" +
+                      queryString.stringify({ categoryId: null })
+                    }
+                  >
                     <li>Tất cả sản phẩm</li>
                   </Link>
                   <Link
                     to={
                       EDIT_PRODUCT +
                       "/" +
-                      queryString.stringify({ productId: 2 })
+                      queryString.stringify({ productId: null })
                     }
                   >
                     <li>Thêm sản phẩm mới</li>

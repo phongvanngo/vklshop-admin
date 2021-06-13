@@ -2,14 +2,33 @@ import React, { useState } from "react";
 
 import MenuDropdown from "./variantManagement.dropdown";
 import { numberWithSpaces } from "app/myLibrary/utilities";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { openVariantFormDialog } from "app/redux/dialogSlice";
+import { useEffect } from "react";
+import { deleteVariant, setListVariant } from "app/redux/variantSlice";
 
-export default function VariantManagement() {
-  const handleDeleteVariant = (id) => {};
+export default function VariantManagement({ productToEdit }) {
+  const handleDeleteVariant = (variant) => {
+    if (window.confirm("Xóa mẫu sản phẩm này ?")) {
+      dispatch(deleteVariant(variant));
+    }
+  };
   const handleEditVariant = (variant) => {};
+  const dispatch = useDispatch();
 
-  // const [listVariants, setListVariants] = useState([]);
-  const listVariants = useSelector((state) => state.variant.listVariant || []);
+  // const [listVariants, setListVariants] = useState(
+  //   productToEdit?.productVariants
+  // );
+  // const listVariants = useSelector((state) => state.variant.listVariant || []);
+
+  const listVariants = useSelector((state) => state.variant.listVariant);
+  console.log("varaint managment - list Variants", listVariants);
+
+  // useEffect(() => {
+  //   if (productToEdit) {
+  //     dispatch(setListVariant(productToEdit.productVariants));
+  //   }
+  // }, [productToEdit]);
 
   return (
     <>
@@ -17,9 +36,14 @@ export default function VariantManagement() {
         <div className="mb-3 flex justify-between items-center ">
           <span className="text-gray-600"></span>
           <button
-            type="submit"
-            form="create-product-form"
-            onClick={() => {}}
+            onClick={() => {
+              dispatch(
+                openVariantFormDialog({
+                  id: null,
+                  productId: productToEdit.id,
+                })
+              );
+            }}
             className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-30 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
           >
             <i className="bx bx-plus mr-2 align-middle block"></i>
@@ -69,7 +93,7 @@ export default function VariantManagement() {
                     <td className="px-2 py-4">
                       <MenuDropdown
                         handleDelete={() => {
-                          handleDeleteVariant(id);
+                          handleDeleteVariant(variant);
                         }}
                         handleEdit={() => {
                           handleEditVariant(variant);

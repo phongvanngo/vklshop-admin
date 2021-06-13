@@ -3,6 +3,8 @@ import variantApi from "app/api/variantApi";
 import { openErrorNofificationDialog } from "./dialogSlice";
 import { startLoading, stopLoading } from "./loadingSlice";
 
+import { toast } from "react-toastify";
+
 const initialState = {
   listVariant: [],
 };
@@ -49,7 +51,9 @@ export const createVariant = createAsyncThunk(
       const response = await variantApi.postVariant(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Tạo mới mẫu mã thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newVariant: payload, responseData: response.data };
         case 401:
@@ -62,7 +66,8 @@ export const createVariant = createAsyncThunk(
     } catch (error) {
       dispatch(
         openErrorNofificationDialog({
-          title: "Thêm mẫu mới thất bại",
+          title: "Thất bại",
+          content: "Kiểm tra lại kết nối của bạn",
         })
       );
       dispatch(stopLoading());
@@ -80,6 +85,9 @@ export const updateVariant = createAsyncThunk(
       const response = await variantApi.postVariant(payload);
       switch (response.status) {
         case 200:
+          toast.success("Cập nhật mẫu mã mới thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newVariant: payload, responseData: response.data };
         case 401:
@@ -110,7 +118,9 @@ export const deleteVariant = createAsyncThunk(
       const response = await variantApi.deleteVariant(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Xóa thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { id: payload, responseData: response.data };
         case 401:
@@ -141,6 +151,20 @@ export const variantSlice = createSlice({
     },
     setCurrentProdcutId: (state, action) => {
       state.currentProductId = action.payload;
+    },
+    setListVariant: (state, action) => {
+      let listVariant = action.payload;
+      state.listVariant = (listVariant || []).map((e) => {
+        const { id, product_id, name, cost_price, price, stock } = e;
+        return {
+          id,
+          productId: product_id,
+          name,
+          costPrice: cost_price,
+          price,
+          stock,
+        };
+      });
     },
   },
   extraReducers: (builder) => {
@@ -177,7 +201,7 @@ export const variantSlice = createSlice({
       })
       .addCase(deleteVariant.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        let { id } = action.payload;
+        let { id } = action.payload.responseData;
 
         state.listVariant = state.listVariant.filter(
           (variantSystem) => variantSystem.id !== id
@@ -186,6 +210,6 @@ export const variantSlice = createSlice({
   },
 });
 
-export const { setEmtyListVariant } = variantSlice.actions;
+export const { setListVariant, setEmtyListVariant } = variantSlice.actions;
 
 export default variantSlice.reducer;
