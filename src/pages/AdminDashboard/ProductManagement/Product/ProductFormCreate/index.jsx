@@ -49,7 +49,7 @@ export default function ProductForm() {
         <div className="w-full rounded-2xl bg-white py-5 px-7 shadow-sm">
           <div>
             <h1 className="text-xl mb-5 font-medium">
-              {productToEdit ? "Chỉnh sửa sản phẩm" : "Tạo sản phẩm mới"}
+              {productId ? "Chỉnh sửa sản phẩm" : "Tạo sản phẩm mới"}
             </h1>
           </div>
           <ul className="flex gap-5 border-b border-gray-200">

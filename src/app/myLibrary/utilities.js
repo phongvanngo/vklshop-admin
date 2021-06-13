@@ -18,7 +18,7 @@ export function removeAccents(str) {
   for (var i = 0; i < AccentsMap.length; i++) {
     var re = new RegExp("[" + AccentsMap[i].substr(1) + "]", "g");
     var char = AccentsMap[i][0];
-    str = str.replace(re, char);
+    str = str?.replace(re, char);
   }
   return str;
 }
@@ -32,8 +32,9 @@ export function filterArrayBySearchTerm(myArray, searchTerm) {
   for (let index = 0; index < myArray.length; index++) {
     let element = myArray[index];
     for (var key in element) {
-      let value = removeAccents(element[key].toString().toUpperCase());
-      if (value.includes(searchTerm)) {
+      if (!element[key]) continue;
+      let value = removeAccents(element[key]?.toString().toUpperCase());
+      if (value?.includes(searchTerm)) {
         res.push(element);
         break;
       }
@@ -72,7 +73,7 @@ export const reduceParagraph = (paragraph, numWord) => {
   for (var i = 0; i < Math.min(numWord, list_word.length); i++) {
     res = res + list_word[i] + " ";
   }
-  return res + " ...";
+  return res + (list_word.length > numWord ? " ..." : "");
 };
 
 export function numberWithSpaces(x) {

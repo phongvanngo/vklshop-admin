@@ -20,7 +20,9 @@ export default function TextEditor({
   }, [defaultValue]);
 
   try {
-    editor.current.value = "<p>" + defaultValue + "</p>";
+    if (defaultValue) {
+      editor.current.value = "<p>" + defaultValue + "</p>";
+    }
   } catch (error) {}
 
   return (

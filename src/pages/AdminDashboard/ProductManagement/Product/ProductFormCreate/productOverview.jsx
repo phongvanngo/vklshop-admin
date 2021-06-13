@@ -73,10 +73,7 @@ export default function ProductOverview({ productToEdit }) {
     }
   }, [productToEdit]);
 
-  console.log(
-    "Product over view render ---------------------------",
-    getValues("content")
-  );
+  console.log("Product overview render ---------------------------");
 
   return (
     <>

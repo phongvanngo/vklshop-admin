@@ -204,7 +204,8 @@ export const productSlice = createSlice({
       .addCase(fetchProductById.fulfilled, (state, action) => {
         if (action.payload === null) return;
         const { productDetail } = action.payload;
-        state.currentProduct = productDetail;
+        // state.currentProduct = productDetail;
+        state.productToEdit = productDetail;
       })
       .addCase(fetchListProductInCategory.fulfilled, (state, action) => {
         if (action.payload === null) return;
