@@ -61,6 +61,7 @@ export const createCategory = createAsyncThunk(
           title: "Thêm danh mục sản phẩm mới thất bại",
         })
       );
+      console.log(error);
       dispatch(stopLoading());
       return null;
     }
@@ -146,7 +147,7 @@ export const categorySlice = createSlice({
         newCategory = { ...newCategory, id: responseData.id };
 
         let newListCategory = state.listCategory;
-        newListCategory.push(newCategory);
+        newListCategory = [newCategory, ...state.listCategory];
 
         state.listCategory = newListCategory;
       })

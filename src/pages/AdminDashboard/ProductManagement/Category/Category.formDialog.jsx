@@ -44,16 +44,20 @@ export default function CategoryFormModal() {
   function onSaveData(data) {
     if (defaultData?.id === null) {
       console.log(data);
-      dispatch(createCategory({ ...data }));
-      dispatch(closeCategoryFormDialog());
+      try {
+        dispatch(createCategory({ ...data }));
+      } catch (error) {
+        console.log(error);
+      }
+      // dispatch(closeCategoryFormDialog());
     } else {
-      dispatch(
-        updateCategory({
-          ...data,
-          id: defaultData.id,
-        })
-      );
-      dispatch(closeCategoryFormDialog());
+      // dispatch(
+      //   updateCategory({
+      //     ...data,
+      //     id: defaultData.id,
+      //   })
+      // );
+      // dispatch(closeCategoryFormDialog());
     }
   }
   function handleCloseModal() {
@@ -172,9 +176,9 @@ export default function CategoryFormModal() {
                     form="category-form"
                     value="Lưu"
                     className="inline-flex float-right px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    // onClick={() => {
-                    //   handleSubmit(onSaveData);
-                    // }}
+                    onClick={() => {
+                      handleSubmit(onSaveData);
+                    }}
                   />
                 </div>
               </div>
