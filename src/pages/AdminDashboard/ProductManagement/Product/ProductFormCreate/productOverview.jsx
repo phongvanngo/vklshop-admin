@@ -42,6 +42,7 @@ export default function ProductOverview({ productToEdit }) {
 
   function onSaveData(data) {
     dispatch(createProduct(data));
+    console.log(data);
   }
 
   function submitFormHandler() {

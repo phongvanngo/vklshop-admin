@@ -248,7 +248,7 @@ $primary-color: var(--admin-color-1);
       height: $height-navbar;
       border-bottom: 1px solid #eee;
       background-color: var(--admin-color-2);
-      z-index: 1;
+      z-index: 10;
       #header-toggle-icon {
         font-size: 35px;
         color: var(--admin-color-1);

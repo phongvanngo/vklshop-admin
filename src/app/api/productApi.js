@@ -1,4 +1,4 @@
-// import axiosClient from './AxiosClient';
+import axiosClient from "./AxiosClient";
 import { fakeApi } from "./fakeApi";
 import { allProducts } from "./fakeData";
 
@@ -57,16 +57,27 @@ const productApi = {
     return response;
   },
   postProduct: async (product) => {
-    let response = await fakeApi({
-      // request: loginInfo,
-      response: {
-        status: 200,
-        data: {
-          id: Math.floor(Math.random() * 1000),
-        },
-      },
-      timeOut: 1000,
-    });
+    // let response = await fakeApi({
+    //   // request: loginInfo,
+    //   response: {
+    //     status: 200,
+    //     data: {
+    //       id: Math.floor(Math.random() * 1000),
+    //     },
+    //   },
+    //   timeOut: 1000,
+    // });
+    // return response;
+    console.log("product api - post product - product payload - ", product);
+    let { name, unit, description, category, content, images } = product;
+    images = JSON.parse(images || {});
+    let category_id = JSON.parse(category)?.id;
+
+    let payload = { name, unit, description, category_id, content, images };
+
+    let url = "/product/create";
+    let response = await axiosClient.post(url, payload).then((res) => res);
+    console.log("product api - post product - response ", response);
     return response;
   },
   patchProduct: async (product) => {

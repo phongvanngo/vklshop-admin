@@ -17,8 +17,11 @@ export default function TextEditor({
 
   useEffect(() => {
     console.log("text editor useEffect --", defaultValue);
-    editor.current.value = "<p>" + defaultValue + "</p>";
   }, [defaultValue]);
+
+  try {
+    editor.current.value = "<p>" + defaultValue + "</p>";
+  } catch (error) {}
 
   return (
     <div className="mb-8">

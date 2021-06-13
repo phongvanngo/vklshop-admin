@@ -119,6 +119,7 @@ export const createProduct = createAsyncThunk(
           title: "Thêm sản phẩm mới thất bại",
         })
       );
+      console.log(error);
       dispatch(stopLoading());
       return null;
     }
@@ -209,6 +210,7 @@ export const productSlice = createSlice({
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         if (action.payload === null) return;
+        console.log("create product fullfilled: data response", action.payload);
         let { newProduct, responseData } = action.payload;
 
         newProduct = { ...newProduct, id: responseData.id };

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React, { forwardRef, useState } from "react";
 import { createCategory, updateCategory } from "app/redux/categorySlice";
+import UploadOneImageForm from "common/FormComponent/UploadOneImage";
 
 const CustomDatePickerInput = forwardRef(
   ({ value, onClick, onChange }, ref) => (
@@ -131,8 +132,8 @@ export default function CategoryFormModal() {
                     </button>
                   </div>
                 </Dialog.Title>
-                <form onSubmit={handleSubmit(onSaveData)}>
-                  <div className="mt-2 p-6">
+                <div className="mt-2 p-6">
+                  <form id="category-form" onSubmit={handleSubmit(onSaveData)}>
                     <div className="mb-8">
                       <span className="mb-2 flex flex-col font-extrabold">
                         Tên danh mục
@@ -155,29 +156,27 @@ export default function CategoryFormModal() {
                         ""
                       )}
                     </div>
-                    <div className="mb-8">
-                      <span className="font-extrabold mb-2 flex flex-col">
-                        Hình ảnh
-                      </span>
-                      <input
-                        type="text"
-                        {...register("image", {})}
-                        className="h-full w-full appearance-none rounded-full border w-30 py-4 px-6 leading-tight focus:outline-none focus:border-indigo-500 text-gray-500"
-                      />
-                    </div>
-                  </div>
+                  </form>
 
-                  <div className="mb-4 p-6 overflow-hidden">
-                    <input
-                      type="submit"
-                      value="Lưu"
-                      className="inline-flex float-right px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                      onClick={() => {
-                        handleSubmit(onSaveData);
-                      }}
-                    />
-                  </div>
-                </form>
+                  <UploadOneImageForm
+                    defaultImage={defaultData?.image}
+                    setImage={(image) => {
+                      setValue("image", image);
+                    }}
+                  />
+                </div>
+
+                <div className="mb-4 p-6 overflow-hidden">
+                  <input
+                    type="submit"
+                    form="category-form"
+                    value="Lưu"
+                    className="inline-flex float-right px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    // onClick={() => {
+                    //   handleSubmit(onSaveData);
+                    // }}
+                  />
+                </div>
               </div>
             </Transition.Child>
           </div>

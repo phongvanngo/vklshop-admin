@@ -15,7 +15,7 @@ const fakeListImage = [
   "https://picsum.photos/500/300",
 ];
 
-export default function Index({ setImage }) {
+export default function UploadImageForm({ setImage }) {
   const [listImage, setListImage] = useState(fakeListImage);
 
   const handleAddImage = (imageToAdd) => {
