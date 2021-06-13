@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productApi from "app/api/productApi";
 import { openErrorNofificationDialog } from "./dialogSlice";
 import { startLoading, stopLoading } from "./loadingSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   listProduct: [],
@@ -103,7 +104,9 @@ export const createProduct = createAsyncThunk(
       const response = await productApi.postProduct(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Tạo sản phẩm mới thành công!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newProduct: payload, responseData: response.data };
         case 401:
@@ -218,6 +221,7 @@ export const productSlice = createSlice({
         let newListProduct = state.listProduct;
         newListProduct.push(newProduct);
 
+        state.productToEdit = newProduct;
         state.listProduct = newListProduct;
       })
       .addCase(updateProduct.fulfilled, (state, action) => {

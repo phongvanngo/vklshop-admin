@@ -51,7 +51,6 @@ export default function UploadImageForm({ addNewImage }) {
       <input
         id="input-image"
         type="file"
-        multiple
         accept="image/png, image/gif, image/jpeg"
         style={{ display: "none" }}
         onChange={handleUploadImage}

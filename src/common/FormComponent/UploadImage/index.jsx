@@ -15,12 +15,12 @@ const fakeListImage = [
   "https://picsum.photos/500/300",
 ];
 
-export default function UploadImageForm({ setImage }) {
-  const [listImage, setListImage] = useState(fakeListImage);
+export default function UploadImageForm({ setImage, defaultValue }) {
+  const [listImage, setListImage] = useState(defaultValue || []);
 
   const handleAddImage = (imageToAdd) => {
     let newListImage = [...listImage];
-    newListImage.push(imageToAdd);
+    newListImage.push({ name: imageToAdd });
     setListImage(newListImage);
     setImage(newListImage);
   };
@@ -68,7 +68,7 @@ export default function UploadImageForm({ setImage }) {
                       key={index}
                       className="relative border border-md  w-36 h-36 flex items-center justify-center"
                     >
-                      <img className="max-w-full max-h-full" src={image} />
+                      <img className="max-w-full max-h-full" src={image.name} />
                       <div className="absolute w-full h-full opacity-0 hover:opacity-100 transition flex items-center justify-center ">
                         <div className="absolute items-center bg-black opacity-60 w-full h-full "></div>
                         <button

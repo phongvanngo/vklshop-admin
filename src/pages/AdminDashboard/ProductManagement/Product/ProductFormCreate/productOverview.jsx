@@ -41,8 +41,11 @@ export default function ProductOverview({ productToEdit }) {
   });
 
   function onSaveData(data) {
-    dispatch(createProduct(data));
-    console.log(data);
+    if (productToEdit) {
+      //sua product
+    } else {
+      dispatch(createProduct(data));
+    }
   }
 
   function submitFormHandler() {
@@ -52,16 +55,18 @@ export default function ProductOverview({ productToEdit }) {
   useEffect(() => {
     console.log("product overview - product to edit: ", productToEdit);
     if (productToEdit?.id) {
-      const { name, unit, category_id, description, content } = productToEdit;
+      const { images, name, unit, category, description, content } =
+        productToEdit;
       setValue("name", name);
       setValue("description", description);
       setValue("content", content);
       setValue("unit", unit);
+      setValue("images", JSON.stringify(images));
 
       let productCategory =
-        listCategory.find((element) => element.id === category_id) || {};
+        listCategory.find((element) => element.id === category) || {};
 
-      setValue("category", JSON.stringify(productCategory));
+      // setValue("category", JSON.stringify(productCategory));
     } else {
       // setValue("name", "");
       // setValue("information", "");
@@ -69,7 +74,7 @@ export default function ProductOverview({ productToEdit }) {
   }, [productToEdit]);
 
   console.log(
-    "Product Form render ---------------------------",
+    "Product over view render ---------------------------",
     getValues("content")
   );
 
@@ -138,7 +143,7 @@ export default function ProductOverview({ productToEdit }) {
 
                 <div className="md:w-1/2 sm:w-full">
                   <CategorySelection
-                    defaultValue={getValues("category")}
+                    defaultValue={productToEdit?.category}
                     register={register}
                     name="category"
                     label="Phân loại"
@@ -161,6 +166,7 @@ export default function ProductOverview({ productToEdit }) {
               />
             </form>
             <UploadImageForm
+              defaultValue={JSON.parse(productToEdit?.images || "[]")}
               setImage={(listImage) => {
                 setValue("images", JSON.stringify(listImage));
               }}

@@ -27,7 +27,7 @@ export default function ProductForm() {
 
   const [currentTab, setCurrentTab] = useState(0);
 
-  const productToEdit = useSelector((state) => state.product.currentProduct);
+  const productToEdit = useSelector((state) => state.product.productToEdit);
 
   console.log("create product - product to edit - ", productToEdit);
 
@@ -40,6 +40,8 @@ export default function ProductForm() {
   ];
 
   console.log("Product Form render ---------------------------");
+
+  console.log("product form index -  product to Edit", productToEdit);
 
   return (
     <>

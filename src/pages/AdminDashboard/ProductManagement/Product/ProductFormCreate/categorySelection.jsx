@@ -54,9 +54,9 @@ export default function Category({
             let optionValue = JSON.stringify(e);
             return (
               <option
-                selected={optionValue === JSON.stringify(defaultValue)}
+                selected={e.id == defaultValue}
                 className
-                value={optionValue}
+                value={e.id}
                 key={index}
               >
                 {e.name}

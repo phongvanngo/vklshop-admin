@@ -34,7 +34,7 @@ export default function UploadOneImageForm({ setImage, defaultImage }) {
             }}
           >
             <div>
-              {currentImage === "" ? (
+              {!currentImage ? (
                 <div className="w-full h-full p-5 opacity-30 bg-gray-600">
                   <img
                     className="w-20 h-20 m-auto"

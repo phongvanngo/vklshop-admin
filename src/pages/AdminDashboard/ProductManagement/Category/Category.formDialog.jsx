@@ -49,7 +49,7 @@ export default function CategoryFormModal() {
       } catch (error) {
         console.log(error);
       }
-      // dispatch(closeCategoryFormDialog());
+      dispatch(closeCategoryFormDialog());
     } else {
       // dispatch(
       //   updateCategory({

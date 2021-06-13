@@ -70,15 +70,15 @@ const productApi = {
     // return response;
     console.log("product api - post product - product payload - ", product);
     let { name, unit, description, category, content, images } = product;
-    images = JSON.parse(images || {});
-    let category_id = JSON.parse(category)?.id;
+    if (images) images = JSON.parse(images);
+    let category_id = category;
 
     let payload = { name, unit, description, category_id, content, images };
 
     let url = "/product/create";
     let response = await axiosClient.post(url, payload).then((res) => res);
     console.log("product api - post product - response ", response);
-    return response;
+    return { status: response.status, data: { id: response.data.data.id } };
   },
   patchProduct: async (product) => {
     let response = await fakeApi({
