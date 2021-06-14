@@ -21,7 +21,11 @@ const categoryApi = {
       status: response.status,
       data: {
         listCategory: response.data.data.map((element) => {
-          return { id: element.id, image: element.image, name: element.name };
+          return {
+            id: element.id,
+            image: `${process.env.REACT_APP_API_URL}${element.image}`,
+            name: element.name,
+          };
         }),
       },
     };
@@ -47,7 +51,13 @@ const categoryApi = {
     const url = "/category/create";
     console.log("cateogry api - postCategory - category payload - ", category);
     const { image, name } = category;
-    const payload = { image, name };
+    const payload = {
+      image: image.replace(
+        `${process.env.REACT_APP_API_URL}/image/category/`,
+        ""
+      ),
+      name,
+    };
     let response = await axiosClient.post(url, payload).then((res) => res);
     let format_response = {
       status: response.status,
@@ -69,7 +79,13 @@ const categoryApi = {
     // return response;
     const { image, name, id } = category;
     const url = "/category/" + id;
-    const payload = { image, name };
+    const payload = {
+      image: image.replace(
+        `${process.env.REACT_APP_API_URL}/image/category/`,
+        ""
+      ),
+      name,
+    };
     let response = await axiosClient.patch(url, payload).then((res) => res);
     let format_response = {
       status: response.status,

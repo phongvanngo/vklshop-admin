@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React, { forwardRef, useState } from "react";
 import { createCategory, updateCategory } from "app/redux/categorySlice";
-import UploadOneImageForm from "common/FormComponent/UploadOneImage";
+import UploadOneImageForm from "./UploadOneImage";
 
 const CustomDatePickerInput = forwardRef(
   ({ value, onClick, onChange }, ref) => (
