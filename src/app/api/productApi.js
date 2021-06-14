@@ -40,7 +40,9 @@ const productApi = {
             categoryId: category_id,
             unit,
             image: (images || [])[0]?.name,
-            images,
+            images: images.map((e) => ({
+              name: e.name,
+            })),
             productVariants: product_variants,
           };
         }),
@@ -80,7 +82,9 @@ const productApi = {
       categoryId: category_id,
       unit,
       image: (images || [])[0]?.name,
-      images,
+      images: images.map((e) => ({
+        name: e.name,
+      })),
       productVariants: product_variants,
     };
     return {
@@ -160,7 +164,7 @@ const productApi = {
     // return response;
     console.log("product api - post product - product payload - ", product);
     let { name, unit, description, category, content, images } = product;
-    if (images) images = JSON.parse(images);
+    // if (images) images = JSON.parse(images);
     let category_id = category;
 
     let payload = { name, unit, description, category_id, content, images };
@@ -171,15 +175,26 @@ const productApi = {
     return { status: response.status, data: { id: response.data.data.id } };
   },
   patchProduct: async (product) => {
-    let response = await fakeApi({
-      // request: loginInfo,
-      response: {
-        status: 200,
-        data: {},
-      },
-      timeOut: 1000,
-    });
-    return response;
+    // let response = await fakeApi({
+    //   // request: loginInfo,
+    //   response: {
+    //     status: 200,
+    //     data: {},
+    //   },
+    //   timeOut: 1000,
+    // });
+    // return response;
+    console.log("product api - patch product - product payload - ", product);
+    let { name, unit, description, category, content, images, id } = product;
+    if (images) images = JSON.parse(images);
+    let category_id = category;
+
+    let payload = { name, unit, description, category_id, content, images };
+
+    let url = "/product/" + id;
+    let response = await axiosClient.patch(url, payload).then((res) => res);
+    console.log("product api - post product - response ", response);
+    return { status: response.status, data: {} };
   },
   deleteProduct: async (productId) => {
     console.log("delete prodcut api - product ", productId);

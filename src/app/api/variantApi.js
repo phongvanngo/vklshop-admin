@@ -44,15 +44,34 @@ const variantApi = {
     // return response;
   },
   patchVariant: async (variant) => {
-    let response = await fakeApi({
-      // request: loginInfo,
-      response: {
-        status: 200,
-        data: {},
-      },
-      timeOut: 1000,
-    });
-    return response;
+    console.log("patch variant - variant: ", variant);
+    const { name, stock, price, productId, costPrice, id } = variant;
+    let payload = {
+      name,
+      stock,
+      price,
+      product_id: productId,
+      cost_price: costPrice,
+    };
+    const url = `/product/${productId}/edit-variant/${id}`;
+
+    let response = await axiosClient
+      .patch(url, payload)
+      .then((res) => res)
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
+    return { status: response?.status, data: { id: response?.data?.data?.id } };
+    // let response = await fakeApi({
+    //   // request: loginInfo,
+    //   response: {
+    //     status: 200,
+    //     data: {},
+    //   },
+    //   timeOut: 1000,
+    // });
+    // return response;
   },
   deleteVariant: async (variant) => {
     console.log("variant api - delete variant - variant : ", variant);

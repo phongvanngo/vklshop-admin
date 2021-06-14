@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-
-import MenuDropdown from "./variantManagement.dropdown";
 import { numberWithSpaces } from "app/myLibrary/utilities";
-import { useDispatch, useSelector } from "react-redux";
 import { openVariantFormDialog } from "app/redux/dialogSlice";
-import { useEffect } from "react";
-import { deleteVariant, setListVariant } from "app/redux/variantSlice";
+import { deleteVariant } from "app/redux/variantSlice";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import MenuDropdown from "./variantManagement.dropdown";
 
 export default function VariantManagement({ productToEdit }) {
   const handleDeleteVariant = (variant) => {
@@ -13,7 +11,15 @@ export default function VariantManagement({ productToEdit }) {
       dispatch(deleteVariant(variant));
     }
   };
-  const handleEditVariant = (variant) => {};
+  const handleEditVariant = (variant) => {
+    dispatch(
+      openVariantFormDialog({
+        productId: productToEdit.id,
+        ...variant,
+      })
+    );
+    // dispatch(updateVariant(variant));
+  };
   const dispatch = useDispatch();
 
   // const [listVariants, setListVariants] = useState(

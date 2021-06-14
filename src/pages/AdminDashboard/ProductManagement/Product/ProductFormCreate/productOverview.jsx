@@ -11,12 +11,12 @@ import MyInputField from "common/FormComponent/MyInputField";
 import MySelectionField from "common/FormComponent/MySelectionField";
 import TextEditor from "common/FormComponent/TextEditor";
 import CategorySelection from "./categorySelection";
-import UploadImageForm from "common/FormComponent/UploadImage";
+import UploadImageForm from "./UploadImage";
 import VariantManagement from "./variantManagement";
 import { listVariants } from "app/api/fakeData";
 import { setEmtyListVariant } from "app/redux/variantSlice";
 import VariantFormDialog from "./variantManegement.form";
-import { createProduct } from "app/redux/productSlice";
+import { createProduct, updateProduct } from "app/redux/productSlice";
 import { useHistory } from "react-router-dom";
 import { AdminRoutes } from "routes.const";
 import queryString from "query-string";
@@ -47,8 +47,16 @@ export default function ProductOverview({ productToEdit }) {
   function onSaveData(data) {
     if (productToEdit) {
       //sua product
+      dispatch(
+        updateProduct({
+          ...data,
+          id: productToEdit.id,
+          images: JSON.parse(data.images),
+        })
+      );
     } else {
-      dispatch(createProduct(data));
+      console.log();
+      dispatch(createProduct({ ...data, images: JSON.parse(data.images) }));
     }
   }
 
@@ -59,13 +67,13 @@ export default function ProductOverview({ productToEdit }) {
   useEffect(() => {
     console.log("product overview - product to edit: ", productToEdit);
     if (productToEdit?.id) {
-      const { images, name, unit, category, description, content } =
+      const { images, name, unit, categoryId, description, content } =
         productToEdit;
       setValue("name", name);
       setValue("description", description);
       setValue("content", content);
+      setValue("category", categoryId);
       setValue("unit", unit);
-      setValue("images", JSON.stringify(images));
 
       // let productCategory =
       //   listCategory.find((element) => element.id === category) || {};
@@ -74,6 +82,7 @@ export default function ProductOverview({ productToEdit }) {
     } else {
       // setValue("name", "");
       // setValue("information", "");
+      setValue("images", "[]");
     }
   }, [productToEdit]);
 
@@ -167,7 +176,7 @@ export default function ProductOverview({ productToEdit }) {
               />
             </form>
             <UploadImageForm
-              defaultValue={JSON.parse(productToEdit?.images || "[]")}
+              defaultValue={productToEdit?.images || []}
               setImage={(listImage) => {
                 setValue("images", JSON.stringify(listImage));
               }}

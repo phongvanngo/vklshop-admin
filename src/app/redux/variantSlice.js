@@ -82,7 +82,8 @@ export const updateVariant = createAsyncThunk(
     console.log(payload);
     dispatch(startLoading());
     try {
-      const response = await variantApi.postVariant(payload);
+      const response = await variantApi.patchVariant(payload);
+      console.log("update variant - response: ", response);
       switch (response.status) {
         case 200:
           toast.success("Cập nhật mẫu mã mới thành công", {
@@ -198,6 +199,9 @@ export const variantSlice = createSlice({
         console.log(newListVariant);
 
         state.listVariant = newListVariant;
+      })
+      .addCase(updateVariant.rejected, (state, action) => {
+        console.log("reject");
       })
       .addCase(deleteVariant.fulfilled, (state, action) => {
         if (action.payload === null) return;

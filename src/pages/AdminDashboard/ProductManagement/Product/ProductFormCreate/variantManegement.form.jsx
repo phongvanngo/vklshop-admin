@@ -42,8 +42,11 @@ export default function VariantFormModal() {
         updateVariant({
           ...data,
           id: defaultData.id,
+          productId: defaultData.productId,
         })
-      );
+      ).catch((err) => {
+        console.log(err);
+      });
       dispatch(closeVariantFormDialog());
     }
   }

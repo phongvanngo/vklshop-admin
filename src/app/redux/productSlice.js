@@ -144,7 +144,7 @@ export const updateProduct = createAsyncThunk(
     console.log(payload);
     dispatch(startLoading());
     try {
-      const response = await productApi.postProduct(payload);
+      const response = await productApi.patchProduct(payload);
       switch (response.status) {
         case 200:
           toast.success("Cập nhật sản phẩm thành công!", {

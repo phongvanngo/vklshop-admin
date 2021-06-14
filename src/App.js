@@ -4,15 +4,18 @@ import AppRoutes from "routes";
 import "./App.css";
 import ErrorNotificationDialog from "common/Notification/ErrorNotification.dialog";
 import CustomReactToastify from "common/ReactToastifyCustom";
+import ErrorBoundary from "ErrorBoundary";
 
 function App() {
   console.log(process.env.REACT_APP_API_URL);
   return (
     <div className="App">
-      <ErrorNotificationDialog />
-      <PageLoader />
-      <AppRoutes />
-      <CustomReactToastify />
+      <ErrorBoundary>
+        <ErrorNotificationDialog />
+        <PageLoader />
+        <AppRoutes />
+        <CustomReactToastify />
+      </ErrorBoundary>
     </div>
   );
 }
