@@ -147,6 +147,9 @@ export const updateProduct = createAsyncThunk(
       const response = await productApi.postProduct(payload);
       switch (response.status) {
         case 200:
+          toast.success("Cập nhật sản phẩm thành công!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newProduct: payload, responseData: response.data };
         case 401:
@@ -177,7 +180,9 @@ export const deleteProduct = createAsyncThunk(
       const response = await productApi.deleteProduct(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Xóa sản phẩm thành công!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { id: payload, responseData: response.data };
         case 401:

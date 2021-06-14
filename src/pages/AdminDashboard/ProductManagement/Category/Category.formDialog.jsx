@@ -51,13 +51,13 @@ export default function CategoryFormModal() {
       }
       dispatch(closeCategoryFormDialog());
     } else {
-      // dispatch(
-      //   updateCategory({
-      //     ...data,
-      //     id: defaultData.id,
-      //   })
-      // );
-      // dispatch(closeCategoryFormDialog());
+      dispatch(
+        updateCategory({
+          ...data,
+          id: defaultData.id,
+        })
+      );
+      dispatch(closeCategoryFormDialog());
     }
   }
   function handleCloseModal() {

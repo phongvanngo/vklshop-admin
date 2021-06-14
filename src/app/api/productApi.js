@@ -181,16 +181,20 @@ const productApi = {
     });
     return response;
   },
-  deleteProduct: async (product) => {
-    let response = await fakeApi({
-      // request: loginInfo,
-      response: {
-        status: 200,
-        data: {},
-      },
-      timeOut: 1000,
-    });
-    return response;
+  deleteProduct: async (productId) => {
+    console.log("delete prodcut api - product ", productId);
+    const url = "/product/delete/" + productId;
+    let response = await axiosClient.delete(url).then((res) => res);
+    return { status: response.status, data: {} };
+    // let response = await fakeApi({
+    //   // request: loginInfo,
+    //   response: {
+    //     status: 200,
+    //     data: {},
+    //   },
+    //   timeOut: 1000,
+    // });
+    // return response;
   },
 };
 

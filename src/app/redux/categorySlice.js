@@ -49,7 +49,9 @@ export const createCategory = createAsyncThunk(
       const response = await categoryApi.postCategory(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Tạo danh mục sản phẩm mới thành công!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newCategory: payload, responseData: response.data };
         case 401:
@@ -78,9 +80,12 @@ export const updateCategory = createAsyncThunk(
     console.log(payload);
     dispatch(startLoading());
     try {
-      const response = await categoryApi.postCategory(payload);
+      const response = await categoryApi.patchCategory(payload);
       switch (response.status) {
         case 200:
+          toast.success("Cập nhật thành công!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newCategory: payload, responseData: response.data };
         case 401:

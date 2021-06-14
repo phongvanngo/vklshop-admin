@@ -57,15 +57,26 @@ const categoryApi = {
     return format_response || {};
   },
   patchCategory: async (category) => {
-    let response = await fakeApi({
-      // request: loginInfo,
-      response: {
-        status: 200,
-        data: {},
-      },
-      timeOut: 1000,
-    });
-    return response;
+    console.log("patch category - ", category);
+    // let response = await fakeApi({
+    //   // request: loginInfo,
+    //   response: {
+    //     status: 200,
+    //     data: {},
+    //   },
+    //   timeOut: 1000,
+    // });
+    // return response;
+    const { image, name, id } = category;
+    const url = "/category/" + id;
+    const payload = { image, name };
+    let response = await axiosClient.patch(url, payload).then((res) => res);
+    let format_response = {
+      status: response.status,
+      data: {},
+    };
+    console.log(format_response);
+    return format_response || {};
   },
   deleteCategory: async (categoryId) => {
     console.log("delete category api - ", categoryId);
