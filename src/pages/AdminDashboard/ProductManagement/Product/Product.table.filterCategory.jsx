@@ -19,16 +19,9 @@ export default function FilterCategory({ defaultSelectedId }) {
   const categoryOptions = [{ name: "Tất cả", id: null }, ...listCategory];
   const [selected, setSelected] = useState(categoryOptions[0]);
 
-   
-
   useEffect(() => {
     let defaultOption = listCategory.find((e) => e.id == defaultSelectedId);
-     
-      "use effect product table fileter",
-      listCategory,
-      defaultSelectedId,
-      defaultOption
-    );
+
     if (defaultOption) {
       setSelected(defaultOption);
     }
@@ -62,7 +55,7 @@ export default function FilterCategory({ defaultSelectedId }) {
         value={selected}
         onChange={(e) => {
           setSelected(e);
-           
+
           history.push(
             AdminRoutes.PRODUCTS +
               "/" +
