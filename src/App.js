@@ -7,7 +7,6 @@ import CustomReactToastify from "common/ReactToastifyCustom";
 import ErrorBoundary from "ErrorBoundary";
 
 function App() {
-  console.log(process.env.REACT_APP_API_URL);
   return (
     <div className="App">
       <ErrorBoundary>

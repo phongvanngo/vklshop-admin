@@ -29,7 +29,7 @@ const categoryApi = {
         }),
       },
     };
-    console.log(
+     
       "category api , get list category - response, format response",
       response,
       format_response
@@ -49,7 +49,7 @@ const categoryApi = {
     // });
     // return response;
     const url = "/category/create";
-    console.log("cateogry api - postCategory - category payload - ", category);
+     
     const { image, name } = category;
     const payload = {
       image: image.replace(
@@ -59,15 +59,15 @@ const categoryApi = {
       name,
     };
     let response = await axiosClient.post(url, payload).then((res) => res);
+     
     let format_response = {
       status: response.status,
       data: { id: response.data.data.id },
     };
-    console.log(format_response);
     return format_response || {};
   },
   patchCategory: async (category) => {
-    console.log("patch category - ", category);
+     
     // let response = await fakeApi({
     //   // request: loginInfo,
     //   response: {
@@ -91,11 +91,11 @@ const categoryApi = {
       status: response.status,
       data: {},
     };
-    console.log(format_response);
+     
     return format_response || {};
   },
   deleteCategory: async (categoryId) => {
-    console.log("delete category api - ", categoryId);
+     
     // let response = await fakeApi({
     //   // request: loginInfo,
     //   response: {

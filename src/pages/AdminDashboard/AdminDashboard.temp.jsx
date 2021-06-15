@@ -15,7 +15,6 @@ export default function LandingPage() {
 
   useEffect(() => {
     const linkColor = document.querySelectorAll(".sidebar__link");
-    console.log(linkColor);
     function colorLink() {
       if (linkColor) {
         linkColor.forEach((l) => l.classList.remove("active"));
@@ -32,11 +31,8 @@ export default function LandingPage() {
     adminLayout.classList.toggle("show-sidebar");
   };
 
-  const {
-    MOVIE_MANAGEMENT,
-    THEATER_MANAGEMENT,
-    SHOWTIME_MANAGEMENT,
-  } = AdminRoutes;
+  const { MOVIE_MANAGEMENT, THEATER_MANAGEMENT, SHOWTIME_MANAGEMENT } =
+    AdminRoutes;
 
   return (
     <Router>

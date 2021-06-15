@@ -9,18 +9,6 @@ import React, { forwardRef, useState } from "react";
 import { createCategory, updateCategory } from "app/redux/categorySlice";
 import UploadOneImageForm from "./UploadOneImage";
 
-const CustomDatePickerInput = forwardRef(
-  ({ value, onClick, onChange }, ref) => (
-    <input
-      className="h-full w-full appearance-none rounded-full border w-30 py-4 px-6 leading-tight focus:outline-none focus:border-indigo-500 text-gray-500"
-      onClick={onClick}
-      ref={ref}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  )
-);
-
 const schema = yup.object().shape({
   name: yup.string().required(),
 });
@@ -43,13 +31,10 @@ export default function CategoryFormModal() {
 
   function onSaveData(data) {
     if (defaultData?.id === null) {
-      console.log(data);
       try {
         dispatch(createCategory({ ...data }));
-      } catch (error) {
-        console.log(error);
-      }
-      dispatch(closeCategoryFormDialog());
+      } catch (error) {}
+      // dispatch(closeCategoryFormDialog());
     } else {
       dispatch(
         updateCategory({
@@ -57,14 +42,12 @@ export default function CategoryFormModal() {
           id: defaultData.id,
         })
       );
-      dispatch(closeCategoryFormDialog());
+      // dispatch(closeCategoryFormDialog());
     }
   }
   function handleCloseModal() {
     dispatch(closeCategoryFormDialog());
   }
-
-  console.log("render");
 
   useEffect(() => {
     clearErrors("name");
@@ -78,10 +61,8 @@ export default function CategoryFormModal() {
     }
   }, [setValue, defaultData]);
 
-  console.log(errors);
-
   return (
-    <>
+    <div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -176,9 +157,9 @@ export default function CategoryFormModal() {
                     form="category-form"
                     value="Lưu"
                     className="inline-flex float-right px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={() => {
-                      handleSubmit(onSaveData);
-                    }}
+                    // onClick={() => {
+                    //   handleSubmit(onSaveData);
+                    // }}
                   />
                 </div>
               </div>
@@ -186,6 +167,6 @@ export default function CategoryFormModal() {
           </div>
         </Dialog>
       </Transition>
-    </>
+    </div>
   );
 }

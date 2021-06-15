@@ -17,13 +17,13 @@ export const fetchListShowTime = createAsyncThunk(
     }
     const { dispatch, getState } = thunkApi;
     const { selectedCumRap, selectedDate } = getState().showTime;
-    console.log(selectedCumRap, selectedDate);
+     
     let params = { cumRapId: selectedCumRap.cumRapId, time: selectedDate };
-    console.log(params);
+     
     dispatch(startLoading());
     try {
       const response = await showTimeApi.getListShowTime(params);
-      console.log(response);
+       
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -31,7 +31,7 @@ export const fetchListShowTime = createAsyncThunk(
         case 401:
           throw new Error("Unauthorize");
         case 400:
-          console.log("hi");
+           
           throw new Error("");
         default:
           throw new Error("Error");
@@ -48,8 +48,8 @@ export const createShowTime = createAsyncThunk(
     const { dispatch, getState } = thunkApi;
     let selectedDate = new Date(getState().showTime.selectedDate);
     const { hour, minute, phongChieuId, movieId } = payload;
-    console.log(selectedDate, payload);
-    console.log(
+     
+     
       selectedDate.getFullYear(),
       selectedDate.getMonth(),
       selectedDate.getDate(),
@@ -96,7 +96,7 @@ export const updateShowTime = createAsyncThunk(
   "showTime/updateShowTime",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
+     
     dispatch(startLoading());
     try {
       const response = await showTimeApi.postShowTime(payload);
@@ -126,7 +126,7 @@ export const deleteShowTime = createAsyncThunk(
   "showTime/deleteShowTime",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
+     
     dispatch(startLoading());
     try {
       const response = await showTimeApi.deleteShowTime(payload);
@@ -202,7 +202,7 @@ export const showTimeSlice = createSlice({
           (showTimeSystem) => showTimeSystem.id === newShowTime.id
         );
         newListShowTime[index] = newShowTime;
-        console.log(newListShowTime);
+         
 
         state.listShowTime = newListShowTime;
       })

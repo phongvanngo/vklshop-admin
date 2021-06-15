@@ -31,23 +31,20 @@ export default function TheaterSystemFormModal() {
     (state) => state.dialog.theaterSystemFormDialog
   );
 
-  console.log(defaultData);
-
   function onSaveData(data) {
     if (defaultData?.id === null) {
-      console.log(data);
       dispatch(createTheaterSystem(data));
       dispatch(closeTheaterSystemFormDialog());
     } else {
       dispatch(updateTheaterSystem({ ...data, id: defaultData.id }));
       dispatch(closeTheaterSystemFormDialog());
     }
+    //
+    // throw new Error("new error");
   }
   function handleCloseModal() {
     dispatch(closeTheaterSystemFormDialog());
   }
-
-  console.log("render");
 
   useEffect(() => {
     clearErrors("name");
@@ -63,8 +60,6 @@ export default function TheaterSystemFormModal() {
       setValue("logo", "");
     }
   }, [setValue, defaultData]);
-
-  console.log(errors);
 
   return (
     <>

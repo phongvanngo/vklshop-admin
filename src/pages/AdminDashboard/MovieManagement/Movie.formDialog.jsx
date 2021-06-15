@@ -57,7 +57,6 @@ export default function MovieFormModal() {
       movieTypeName: selectedMovieType?.name,
     };
     if (defaultData?.id === null) {
-      console.log(data);
       dispatch(
         createMovie({
           ...data,
@@ -82,8 +81,6 @@ export default function MovieFormModal() {
     dispatch(closeMovieFormDialog());
   }
 
-  console.log("render");
-
   useEffect(() => {
     clearErrors("name");
     if (defaultData?.id) {
@@ -101,8 +98,6 @@ export default function MovieFormModal() {
       setStartDate(new Date());
     }
   }, [setValue, defaultData]);
-
-  console.log(errors);
 
   return (
     <>

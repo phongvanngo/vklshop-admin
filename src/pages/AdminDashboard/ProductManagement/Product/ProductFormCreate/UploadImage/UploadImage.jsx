@@ -3,14 +3,13 @@ import axios from "axios";
 
 export default function UploadImageForm({ addNewImage }) {
   function handleUploadImage(event) {
-    console.log(event.target.files);
     const listImages = Array.from(event?.target?.files);
-    console.log(listImages);
+
     uploadImageToServerHandler(listImages);
   }
 
   function handleChooseImage() {
-    document.getElementById("input-image").click();
+    document.getElementById("input-product-image").click();
   }
 
   const uploadImageToServerHandler = async (files) => {
@@ -30,7 +29,6 @@ export default function UploadImageForm({ addNewImage }) {
           },
         })
         .then((res) => {
-          console.log(res);
           switch (res.status) {
             case 200:
               let linkImage = `${process.env.REACT_APP_API_URL}/image/product/${res.data.data.filename}`;
@@ -40,16 +38,14 @@ export default function UploadImageForm({ addNewImage }) {
               break;
           }
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => {});
     });
   };
 
   return (
     <div>
       <input
-        id="input-image"
+        id="input-product-image"
         type="file"
         multiple
         accept="image/png, image/gif, image/jpeg"

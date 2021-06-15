@@ -26,11 +26,11 @@ instance.interceptors.request.use(
 
 // const getNewTokenAndReattemptRequest = async (config, refToken) => {
 //   try {
-//     //console.log(refToken);
+//     //
 //     const getNewToken = await axios.post('127.0.0.1/users/token', {
 //       refreshtoken: refToken,
 //     });
-//     //console.log(getNewToken);
+//     //
 //     const { token, refreshtoken } = getNewToken.data;
 //     save('accessToken', token);
 //     save('refreshToken', refreshtoken);
@@ -52,10 +52,10 @@ instance.interceptors.response.use(
     //   response: { status },
     // } = error;
     return error.response;
-    // console.log(error.config,error.response);
+    //
     // if (validateStatus()) return error;
     // if (status === 401) {
-    //   //console.log('hello from refresh');
+    //   //
     //   // const refreshToken = get('refreshToken');
     //   // if (refreshToken)
     //   //   return getNewTokenAndReattemptRequest(config, refreshToken);
@@ -63,7 +63,7 @@ instance.interceptors.response.use(
     //   //   window.location.reload();
     //   //   return;
     //   // }
-    //   // console.log('401');
+    //   //
     //   return 401;
     // }
     // if (status === 404) {

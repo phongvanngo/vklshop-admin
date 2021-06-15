@@ -19,7 +19,6 @@ export const fetchListProduct = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await productApi.getListProduct();
-      console.log(response);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -27,7 +26,6 @@ export const fetchListProduct = createAsyncThunk(
         case 401:
           throw new Error("Unauthorize");
         case 400:
-          console.log("hi");
           throw new Error("");
         default:
           throw new Error("Error");
@@ -50,7 +48,6 @@ export const fetchProductById = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await productApi.getProductById(payload);
-      console.log(response);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -58,7 +55,6 @@ export const fetchProductById = createAsyncThunk(
         case 401:
           throw new Error("Unauthorize");
         case 400:
-          console.log("hi");
           throw new Error("");
         default:
           throw new Error("Error");
@@ -81,7 +77,6 @@ export const fetchListProductInCategory = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await productApi.getListProductByCategory(payload);
-      console.log(response);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -89,7 +84,6 @@ export const fetchListProductInCategory = createAsyncThunk(
         case 401:
           throw new Error("Unauthorize");
         case 400:
-          console.log("hi");
           throw new Error("");
         default:
           throw new Error("Error");
@@ -107,7 +101,6 @@ export const createProduct = createAsyncThunk(
   "product/createProduct",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
     dispatch(startLoading());
     try {
       const response = await productApi.postProduct(payload);
@@ -131,7 +124,6 @@ export const createProduct = createAsyncThunk(
           title: "Thêm sản phẩm mới thất bại",
         })
       );
-      console.log(error);
       dispatch(stopLoading());
       return null;
     }
@@ -141,7 +133,6 @@ export const updateProduct = createAsyncThunk(
   "product/updateProduct",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
     dispatch(startLoading());
     try {
       const response = await productApi.patchProduct(payload);
@@ -174,7 +165,6 @@ export const deleteProduct = createAsyncThunk(
   "product/deleteProduct",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
     dispatch(startLoading());
     try {
       const response = await productApi.deleteProduct(payload);
@@ -232,7 +222,6 @@ export const productSlice = createSlice({
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        console.log("create product fullfilled: data response", action.payload);
         let { newProduct, responseData } = action.payload;
 
         newProduct = { ...newProduct, id: responseData.id };
@@ -253,7 +242,6 @@ export const productSlice = createSlice({
           (productSystem) => productSystem.id === newProduct.id
         );
         newListProduct[index] = newProduct;
-        console.log(newListProduct);
 
         state.listProduct = newListProduct;
       })

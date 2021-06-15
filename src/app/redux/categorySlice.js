@@ -17,7 +17,7 @@ export const fetchListCategory = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await categoryApi.getListCategory();
-      console.log(response);
+
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -25,7 +25,6 @@ export const fetchListCategory = createAsyncThunk(
         case 401:
           throw new Error("Unauthorize");
         case 400:
-          console.log("hi");
           throw new Error("");
         default:
           throw new Error("Error");
@@ -43,7 +42,7 @@ export const createCategory = createAsyncThunk(
   "category/createCategory",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
+
     dispatch(startLoading());
     try {
       const response = await categoryApi.postCategory(payload);
@@ -56,18 +55,20 @@ export const createCategory = createAsyncThunk(
           return { newCategory: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
+        case 442:
+          toast.error("422: Dữ liệu không hợp lệ", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          throw new Error("Unauthorize");
         case 400:
           throw new Error("");
         default:
+          toast.error("Kiểm tra kết nối mạng của bạn", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Thêm danh mục sản phẩm mới thất bại",
-        })
-      );
-      console.log(error);
       dispatch(stopLoading());
       return null;
     }
@@ -77,7 +78,7 @@ export const updateCategory = createAsyncThunk(
   "category/updateCategory",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
+
     dispatch(startLoading());
     try {
       const response = await categoryApi.patchCategory(payload);
@@ -110,7 +111,7 @@ export const deleteCategory = createAsyncThunk(
   "category/deleteCategory",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
+
     dispatch(startLoading());
     try {
       const response = await categoryApi.deleteCategory(payload);
@@ -170,7 +171,6 @@ export const categorySlice = createSlice({
           (categorySystem) => categorySystem.id === newCategory.id
         );
         newListCategory[index] = newCategory;
-        console.log(newListCategory);
 
         state.listCategory = newListCategory;
       })

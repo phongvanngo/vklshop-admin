@@ -32,15 +32,12 @@ export default function ProductFormModal() {
 
   const [selectedCategory, setSelectedTheaterSytem] = useState([]);
 
-  console.log(defaultData);
-
   function onSaveData(data) {
     let categoryInfo = {
       categoryId: selectedCategory?.id,
       categoryName: selectedCategory?.name,
     };
     if (defaultData?.id === null) {
-      console.log(data);
       dispatch(createProduct({ ...data, ...categoryInfo }));
       dispatch(closeProductFormDialog());
     } else {
@@ -51,8 +48,6 @@ export default function ProductFormModal() {
   function handleCloseModal() {
     dispatch(closeProductFormDialog());
   }
-
-  console.log("render");
 
   useEffect(() => {
     clearErrors("name");
@@ -68,8 +63,6 @@ export default function ProductFormModal() {
       setValue("information", "");
     }
   }, [setValue, defaultData]);
-
-  console.log(errors);
 
   return (
     <>

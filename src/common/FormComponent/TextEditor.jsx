@@ -15,9 +15,7 @@ export default function TextEditor({
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   };
 
-  useEffect(() => {
-    console.log("text editor useEffect --", defaultValue);
-  }, [defaultValue]);
+  useEffect(() => {}, [defaultValue]);
 
   try {
     if (defaultValue) {

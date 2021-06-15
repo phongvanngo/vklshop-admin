@@ -4,7 +4,6 @@ import { listPhongChieu } from "./fakeData";
 
 const phongChieuApi = {
   getListPhongChieu: async (loginInfo) => {
-    console.log(listPhongChieu);
     let response = await fakeApi({
       // request: loginInfo,
       response: {
@@ -15,11 +14,10 @@ const phongChieuApi = {
       },
       timeOut: 1000,
     });
-    console.log(response);
+
     return response;
   },
   getListPhongChieuInCumRap: async (cumRapId) => {
-    console.log(listPhongChieu);
     let response = await fakeApi({
       // request: loginInfo,
       response: {
@@ -30,7 +28,7 @@ const phongChieuApi = {
       },
       timeOut: 1000,
     });
-    console.log(response);
+
     return response;
   },
   postPhongChieu: async (phongChieu) => {

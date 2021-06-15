@@ -21,7 +21,7 @@ export default function AdminSignInUI({ handleLogin }) {
 
   function onSaveData(data) {
     // if (defaultData?.id === null) {
-    //   console.log(data);
+    //
     //   dispatch(createTheaterSystem(data));
     //   dispatch(closeTheaterSystemFormDialog());
     // } else {

@@ -31,8 +31,6 @@ export default function ProductTable({ listProduct, currentCategoryId }) {
     }
   };
 
-  console.log("product table current selected id: ", currentCategoryId);
-
   const { EDIT_PRODUCT } = AdminRoutes;
 
   return (

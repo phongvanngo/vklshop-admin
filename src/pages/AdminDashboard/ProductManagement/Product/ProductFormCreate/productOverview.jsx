@@ -27,7 +27,7 @@ const schema = yup.object().shape({
   unit: yup.string().required(),
 });
 
-export default function ProductOverview({ productToEdit }) {
+export default function ProductOverview({ editingProductId, productToEdit }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const listCategory = useSelector(
@@ -55,17 +55,26 @@ export default function ProductOverview({ productToEdit }) {
         })
       );
     } else {
-      console.log();
       dispatch(createProduct({ ...data, images: JSON.parse(data.images) }));
     }
   }
 
-  function submitFormHandler() {
-    document.getElementById("create-product-form").submit();
-  }
+  // function submitFormHandler() {
+  //   document.getElementById("create-product-form").submit();
+  // }
+
+  // const [editingProductId, setEditingProductId] = useState(productToEdit?.id);
 
   useEffect(() => {
-    console.log("product overview - product to edit: ", productToEdit);
+    //Truong hop moi tao xong san pham -> chuyen qua chuc nang edit san pham
+    if (!editingProductId && productToEdit?.id) {
+      history.replace(
+        AdminRoutes.EDIT_PRODUCT +
+          "/" +
+          queryString.stringify({ productId: productToEdit?.id })
+      );
+    }
+
     if (productToEdit?.id) {
       const { images, name, unit, categoryId, description, content } =
         productToEdit;
@@ -85,8 +94,6 @@ export default function ProductOverview({ productToEdit }) {
       setValue("images", "[]");
     }
   }, [productToEdit]);
-
-  console.log("Product overview render ---------------------------");
 
   return (
     <>

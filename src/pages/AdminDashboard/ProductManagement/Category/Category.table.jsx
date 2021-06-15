@@ -11,7 +11,6 @@ import MenuDropdown from "./Category.table.menu";
 export default function CategoryTable({ listCategory }) {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-  console.log("category table index - list cateogry: ", listCategory);
   let currentListCategory = filterArrayBySearchTerm(listCategory, searchTerm);
 
   const handleEditCategory = (categoryData) => {

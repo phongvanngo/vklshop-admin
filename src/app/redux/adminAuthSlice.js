@@ -15,11 +15,18 @@ export const adminLoginRequest = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await adminAuthApi.sendLoginInfo(loginInfo);
-      console.log("admin auth slice response ", response);
+
       switch (response.status) {
         case 200:
           // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
           dispatch(stopLoading());
+          // dispatch(
+          //   openErrorNofificationDialog({
+          //     title: "Đăng nhập thất bại",
+          //     content: "Sai tên đăng nhập hoặc mật khẩu",
+          //   })
+          // );
+          // return null;
           return response.data;
         case 401:
           dispatch(

@@ -34,7 +34,7 @@ export default function ComboBoxCumRap() {
         value={selected}
         onChange={(cumRap) => {
           if (cumRap.id === null) return;
-          console.log("change selected");
+
           setSelected(cumRap);
           dispatch(
             setSelectedCumRap({ cumRapId: cumRap.id, cumRapName: cumRap.name })

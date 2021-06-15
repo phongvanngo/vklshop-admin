@@ -22,7 +22,6 @@ export const fetchListVariantProduct = createAsyncThunk(
     dispatch(startLoading());
     try {
       const response = await variantApi.getListVariantProduct(payload);
-      console.log(response);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -30,7 +29,6 @@ export const fetchListVariantProduct = createAsyncThunk(
         case 401:
           throw new Error("Unauthorize");
         case 400:
-          console.log("hi");
           throw new Error("");
         default:
           throw new Error("Error");
@@ -45,7 +43,6 @@ export const createVariant = createAsyncThunk(
   "variant/createVariant",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
     dispatch(startLoading());
     try {
       const response = await variantApi.postVariant(payload);
@@ -61,15 +58,12 @@ export const createVariant = createAsyncThunk(
         case 400:
           throw new Error("");
         default:
+          toast.error("Kiểm tra kết nối mạng của bạn", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Thất bại",
-          content: "Kiểm tra lại kết nối của bạn",
-        })
-      );
       dispatch(stopLoading());
       return null;
     }
@@ -79,11 +73,9 @@ export const updateVariant = createAsyncThunk(
   "variant/updateVariant",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
     dispatch(startLoading());
     try {
       const response = await variantApi.patchVariant(payload);
-      console.log("update variant - response: ", response);
       switch (response.status) {
         case 200:
           toast.success("Cập nhật mẫu mã mới thành công", {
@@ -96,14 +88,18 @@ export const updateVariant = createAsyncThunk(
         case 400:
           throw new Error("");
         default:
+          toast.error("Kiểm tra kết nối mạng của bạn", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Cập nhập hệ thống rạp thất bại",
-        })
-      );
+      // dispatch(
+      //   openErrorNofificationDialog({
+      //     title: "Cập nhập hệ thống rạp thất bại",
+      //   })
+      // );
+
       dispatch(stopLoading());
       return null;
     }
@@ -113,7 +109,6 @@ export const deleteVariant = createAsyncThunk(
   "variant/deleteVariant",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
-    console.log(payload);
     dispatch(startLoading());
     try {
       const response = await variantApi.deleteVariant(payload);
@@ -129,14 +124,12 @@ export const deleteVariant = createAsyncThunk(
         case 400:
           throw new Error("");
         default:
+          toast.error("Kiểm tra kết nối mạng của bạn", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Xóa rạp thất bại",
-        })
-      );
       dispatch(stopLoading());
       return null;
     }
@@ -196,13 +189,10 @@ export const variantSlice = createSlice({
           (variantSystem) => variantSystem.id === newVariant.id
         );
         newListVariant[index] = newVariant;
-        console.log(newListVariant);
 
         state.listVariant = newListVariant;
       })
-      .addCase(updateVariant.rejected, (state, action) => {
-        console.log("reject");
-      })
+      .addCase(updateVariant.rejected, (state, action) => {})
       .addCase(deleteVariant.fulfilled, (state, action) => {
         if (action.payload === null) return;
         let { id } = action.payload.responseData;

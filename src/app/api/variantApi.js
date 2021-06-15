@@ -17,7 +17,6 @@ const variantApi = {
     return response;
   },
   postVariant: async (variant) => {
-    console.log("post variant - variant: ", variant);
     const { name, stock, price, productId, costPrice } = variant;
     let payload = {
       name,
@@ -44,7 +43,6 @@ const variantApi = {
     // return response;
   },
   patchVariant: async (variant) => {
-    console.log("patch variant - variant: ", variant);
     const { name, stock, price, productId, costPrice, id } = variant;
     let payload = {
       name,
@@ -59,7 +57,6 @@ const variantApi = {
       .patch(url, payload)
       .then((res) => res)
       .catch((err) => {
-        console.log(err);
         return null;
       });
     return { status: response?.status, data: { id: response?.data?.data?.id } };
@@ -74,7 +71,6 @@ const variantApi = {
     // return response;
   },
   deleteVariant: async (variant) => {
-    console.log("variant api - delete variant - variant : ", variant);
     const { id, productId } = variant;
 
     const url = `/product/${productId}/delete-variant?id=${id}`;

@@ -16,10 +16,10 @@ const adminAuthApi = {
     // )
     // return response;
     let url = "/user/login";
-    console.log("admin auth api - sendLoginInfo - login Info: ,", loginInfo);
+
     const { name, password } = loginInfo;
     let payload = { email: name, password };
-    console.log("admin auth api - sendLoginInfo - payload: ,", payload);
+
     let response = await axiosClient.post(url, payload).then((res) => {
       return res;
     });

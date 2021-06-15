@@ -4,7 +4,6 @@ import { listCumRap } from "./fakeData";
 
 const cumRapApi = {
   getListCumRap: async (loginInfo) => {
-    console.log(listCumRap);
     let response = await fakeApi({
       // request: loginInfo,
       response: {
@@ -18,7 +17,6 @@ const cumRapApi = {
     return response;
   },
   getListCumRapInTheaterSytem: async (theaterSytemId) => {
-    console.log(listCumRap);
     let response = await fakeApi({
       // request: loginInfo,
       response: {

@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openCategoryFormDialog } from "app/redux/dialogSlice";
-import CategoryFormModal from "../../Category/Category.formDialog";
 
 export default function Category({
   label,
@@ -23,11 +22,8 @@ export default function Category({
       );
   };
 
-  console.log("  category selection ", defaultValue);
-
   return (
     <>
-      <CategoryFormModal />
       <div className="mb-8">
         <div className="mb-3 flex justify-between items-center ">
           <span className="text-gray-600">{label}</span>

@@ -16,7 +16,6 @@ export default function ProductManagement() {
   const dispatch = useDispatch();
   let { categoryId } = useParams();
   categoryId = queryString.parse(categoryId)?.categoryId;
-  console.log("product manager: category id: ", categoryId);
 
   const listProduct = useSelector((state) => state.product.listProduct);
 

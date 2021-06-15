@@ -96,6 +96,10 @@ export const dialogSlice = createSlice({
       state.phongChieuFormDialog.defaultData = null;
     },
     openErrorNofificationDialog: (state, action) => {
+      for (var prop in state) {
+        state[prop].isOpen = false;
+      }
+
       state.errorNotificationDialog.defaultData = action.payload;
       state.errorNotificationDialog.isOpen = true;
     },

@@ -28,7 +28,6 @@ export default function VariantManagement({ productToEdit }) {
   // const listVariants = useSelector((state) => state.variant.listVariant || []);
 
   const listVariants = useSelector((state) => state.variant.listVariant);
-  console.log("varaint managment - list Variants", listVariants);
 
   // useEffect(() => {
   //   if (productToEdit) {

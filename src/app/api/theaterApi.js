@@ -14,13 +14,16 @@ const theaterApi = {
     let response = await fakeApi({
       // request: loginInfo,
       response: {
-        status: 200,
+        status: 1000,
         data: {
           listTheaterSystem: listTheaterSystem,
         },
       },
       timeOut: 1000,
     });
+
+    throw new Error("loi nhan ha");
+
     return response;
   },
   postTheaterSystem: async (theaterSystem) => {

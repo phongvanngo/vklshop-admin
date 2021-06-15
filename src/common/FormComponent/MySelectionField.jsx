@@ -10,8 +10,6 @@ export default function MySelectionField({
   listOptions,
 }) {
   const { isError, mess } = validation;
-  console.log("my selection field - validation : ", validation);
-  console.log("my selection field - default value : ", defaultValue);
 
   const NoneValueOption = () => {
     if (defaultValue) return null;

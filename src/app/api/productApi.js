@@ -98,7 +98,7 @@ const productApi = {
     //     (product) => product.categoryId == categoryId
     //   ),
     // };
-    // console.log(
+    //
     //   "get list product by cateogry api - payload, all product, categoryId, data filter",
     //   allProducts,
     //   categoryId,
@@ -162,7 +162,7 @@ const productApi = {
     //   timeOut: 1000,
     // });
     // return response;
-    console.log("product api - post product - product payload - ", product);
+
     let { name, unit, description, category, content, images } = product;
     // if (images) images = JSON.parse(images);
     let category_id = category;
@@ -171,7 +171,7 @@ const productApi = {
 
     let url = "/product/create";
     let response = await axiosClient.post(url, payload).then((res) => res);
-    console.log("product api - post product - response ", response);
+
     return { status: response.status, data: { id: response.data.data.id } };
   },
   patchProduct: async (product) => {
@@ -184,7 +184,7 @@ const productApi = {
     //   timeOut: 1000,
     // });
     // return response;
-    console.log("product api - patch product - product payload - ", product);
+
     let { name, unit, description, category, content, images, id } = product;
     if (images) images = JSON.parse(images);
     let category_id = category;
@@ -193,11 +193,10 @@ const productApi = {
 
     let url = "/product/" + id;
     let response = await axiosClient.patch(url, payload).then((res) => res);
-    console.log("product api - post product - response ", response);
+
     return { status: response.status, data: {} };
   },
   deleteProduct: async (productId) => {
-    console.log("delete prodcut api - product ", productId);
     const url = "/product/delete/" + productId;
     let response = await axiosClient.delete(url).then((res) => res);
     return { status: response.status, data: {} };

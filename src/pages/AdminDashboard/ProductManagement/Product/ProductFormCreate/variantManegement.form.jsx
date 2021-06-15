@@ -34,7 +34,6 @@ export default function VariantFormModal() {
 
   function onSaveData(data) {
     if (defaultData?.id === null) {
-      console.log(data);
       dispatch(createVariant({ ...data, productId: defaultData.productId }));
       dispatch(closeVariantFormDialog());
     } else {
@@ -44,17 +43,13 @@ export default function VariantFormModal() {
           id: defaultData.id,
           productId: defaultData.productId,
         })
-      ).catch((err) => {
-        console.log(err);
-      });
+      ).catch((err) => {});
       dispatch(closeVariantFormDialog());
     }
   }
   function handleCloseModal() {
     dispatch(closeVariantFormDialog());
   }
-
-  console.log("render");
 
   useEffect(() => {
     clearErrors("name");
@@ -71,8 +66,6 @@ export default function VariantFormModal() {
       setValue("stock", "");
     }
   }, [setValue, defaultData]);
-
-  console.log(errors);
 
   return (
     <>
