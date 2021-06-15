@@ -16,7 +16,14 @@ import VariantManagement from "./variantManagement";
 import { listVariants } from "app/api/fakeData";
 import { setEmtyListVariant } from "app/redux/variantSlice";
 import VariantFormDialog from "./variantManegement.form";
-import { createProduct, updateProduct } from "app/redux/productSlice";
+import {
+  addImageProduct,
+  addImageToProduct,
+  createProduct,
+  removeImageFromProduct,
+  removeImageProduct,
+  updateProduct,
+} from "app/redux/productSlice";
 import { useHistory } from "react-router-dom";
 import { AdminRoutes } from "routes.const";
 import queryString from "query-string";
@@ -83,6 +90,7 @@ export default function ProductOverview({ editingProductId, productToEdit }) {
       setValue("content", content);
       setValue("category", categoryId);
       setValue("unit", unit);
+      setValue("images", JSON.stringify(images));
 
       // let productCategory =
       //   listCategory.find((element) => element.id === category) || {};
@@ -186,6 +194,22 @@ export default function ProductOverview({ editingProductId, productToEdit }) {
               defaultValue={productToEdit?.images || []}
               setImage={(listImage) => {
                 setValue("images", JSON.stringify(listImage));
+              }}
+              addImage={(image) => {
+                //TH sửa sản phẩm
+                if (editingProductId) {
+                  console.log(image);
+                  dispatch(
+                    addImageToProduct({ image, productId: editingProductId })
+                  );
+                }
+              }}
+              removeImage={(image) => {
+                //TH sửa sản phẩm
+                if (editingProductId) {
+                  console.log(image);
+                  dispatch(removeImageFromProduct(image));
+                }
               }}
             />
           </div>

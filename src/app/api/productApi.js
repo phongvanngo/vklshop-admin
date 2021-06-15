@@ -39,10 +39,10 @@ const productApi = {
             content,
             categoryId: category_id,
             unit,
-            image: (images || [])[0]?.name,
-            images: images.map((e) => ({
-              name: e.name,
-            })),
+            image: `${process.env.REACT_APP_API_URL}/image/product/${
+              (images || [])[0]?.name
+            }`,
+            images,
             productVariants: product_variants,
           };
         }),
@@ -81,10 +81,10 @@ const productApi = {
       content,
       categoryId: category_id,
       unit,
-      image: (images || [])[0]?.name,
-      images: images.map((e) => ({
-        name: e.name,
-      })),
+      image: `${process.env.REACT_APP_API_URL}/image/product/${
+        (images || [])[0]?.name
+      }`,
+      images,
       productVariants: product_variants,
     };
     return {
@@ -142,7 +142,9 @@ const productApi = {
             content,
             categoryId: category_id,
             unit,
-            image: (images || [])[0]?.name,
+            image: `${process.env.REACT_APP_API_URL}/image/product/${
+              (images || [])[0]?.name
+            }`,
             images,
             productVariants: product_variants,
           };
@@ -174,6 +176,18 @@ const productApi = {
 
     return { status: response.status, data: { id: response.data.data.id } };
   },
+  postProductImage: async ({ image, productId }) => {
+    const url = `product/${productId}/add-image`;
+    let response = await axiosClient.post(url, { image: image.name });
+    console.log("post product image api, response ", response);
+    return { status: response.status };
+  },
+  deleteProductImage: async (image) => {
+    const url = `product/image/${image.name}`;
+    let response = await axiosClient.delete(url);
+    console.log("delete product image api, response: ", response);
+    return { status: response.status };
+  },
   patchProduct: async (product) => {
     // let response = await fakeApi({
     //   // request: loginInfo,
@@ -186,7 +200,6 @@ const productApi = {
     // return response;
 
     let { name, unit, description, category, content, images, id } = product;
-    if (images) images = JSON.parse(images);
     let category_id = category;
 
     let payload = { name, unit, description, category_id, content, images };

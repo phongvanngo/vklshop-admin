@@ -16,7 +16,12 @@ const fakeListImage = [
   "https://picsum.photos/500/300",
 ];
 
-export default function UploadImageForm({ setImage, defaultValue }) {
+export default function UploadImageForm({
+  setImage,
+  defaultValue,
+  addImage,
+  removeImage,
+}) {
   const [listImage, setListImage] = useState(defaultValue || []);
 
   const handleAddImage = (imageToAdd) => {
@@ -24,12 +29,20 @@ export default function UploadImageForm({ setImage, defaultValue }) {
     newListImage.push({ name: imageToAdd });
     setListImage(newListImage);
     setImage(newListImage);
+
+    //TH sua san pham
+    addImage({ name: imageToAdd });
   };
   const handleRemoveImage = (imageToDelete) => {
     if (window.confirm("Xóa hình ảnh khỏi sản phẩm ?")) {
-      let newListImage = listImage.filter((image) => image !== imageToDelete);
+      let newListImage = listImage.filter(
+        (image) => image.name !== imageToDelete.name
+      );
       setListImage(newListImage);
       setImage(newListImage);
+
+      //TH sua san pham
+      removeImage(imageToDelete);
     }
   };
 
@@ -74,7 +87,10 @@ export default function UploadImageForm({ setImage, defaultValue }) {
                       key={index}
                       className="relative border border-md  w-36 h-36 flex items-center justify-center"
                     >
-                      <img className="max-w-full max-h-full" src={image.name} />
+                      <img
+                        className="max-w-full max-h-full"
+                        src={`${process.env.REACT_APP_API_URL}/image/product/${image.name}`}
+                      />
                       <div className="absolute w-full h-full opacity-0 hover:opacity-100 transition flex items-center justify-center ">
                         <div className="absolute items-center bg-black opacity-60 w-full h-full "></div>
                         <button

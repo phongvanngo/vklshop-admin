@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import categoryApi from "app/api/categoryApi";
-import { openErrorNofificationDialog } from "./dialogSlice";
+import {
+  closeCategoryFormDialog,
+  openErrorNofificationDialog,
+} from "./dialogSlice";
 import { startLoading, stopLoading } from "./loadingSlice";
 import { toast } from "react-toastify";
 
@@ -52,6 +55,7 @@ export const createCategory = createAsyncThunk(
             position: toast.POSITION.TOP_RIGHT,
           });
           dispatch(stopLoading());
+          dispatch(closeCategoryFormDialog());
           return { newCategory: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
@@ -59,7 +63,6 @@ export const createCategory = createAsyncThunk(
           toast.error("422: Dữ liệu không hợp lệ", {
             position: toast.POSITION.TOP_RIGHT,
           });
-          throw new Error("Unauthorize");
         case 400:
           throw new Error("");
         default:
@@ -87,21 +90,24 @@ export const updateCategory = createAsyncThunk(
           toast.success("Cập nhật thành công!", {
             position: toast.POSITION.TOP_RIGHT,
           });
+          dispatch(closeCategoryFormDialog());
           dispatch(stopLoading());
           return { newCategory: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
+        case 442:
+          toast.error("422: Dữ liệu không hợp lệ", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         case 400:
           throw new Error("");
         default:
+          toast.error("Kiểm tra kết nối mạng của bạn", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Cập nhập danh mục sản phẩm thất bại",
-        })
-      );
       dispatch(stopLoading());
       return null;
     }
