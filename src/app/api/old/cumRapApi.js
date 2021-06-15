@@ -1,6 +1,6 @@
 // import axiosClient from './AxiosClient';
-import { fakeApi } from "./fakeApi";
-import { listCumRap } from "./fakeData";
+import { fakeApi } from "../fakeApi";
+import { listCumRap } from "../fakeData";
 
 const cumRapApi = {
   getListCumRap: async (loginInfo) => {

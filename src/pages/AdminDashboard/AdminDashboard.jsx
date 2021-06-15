@@ -45,13 +45,6 @@ export default function LandingPage() {
   };
 
   const {
-    MOVIE_MANAGEMENT,
-    THEATER_MANAGEMENT,
-    SHOWTIME_MANAGEMENT,
-    THEATER_SYSTEM_MANAGEMENT,
-    PHONGCHIEU_MANAGEMENT,
-    MOVIE_TYPE_MANAGEMENT,
-
     //web ban hang
     CATEGORY,
     PRODUCTS,
@@ -125,7 +118,7 @@ export default function LandingPage() {
                   >
                     <li>Thêm sản phẩm mới</li>
                   </Link>
-                  <Link to={PHONGCHIEU_MANAGEMENT}>
+                  <Link to={""}>
                     <li>Quản lý kho</li>
                   </Link>
                 </ul>
@@ -139,51 +132,19 @@ export default function LandingPage() {
                   <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
                 </div>
                 <ul className="submenu-list">
-                  <Link to={THEATER_SYSTEM_MANAGEMENT}>
+                  <Link to={""}>
                     <li>Danh mục sản phẩm</li>
                   </Link>
-                  <Link to={THEATER_MANAGEMENT}>
+                  <Link to={""}>
                     <li>Tất cả sản phẩm</li>
                   </Link>
-                  <Link to={PHONGCHIEU_MANAGEMENT}>
+                  <Link to={""}>
                     <li>Quản lý kho</li>
                   </Link>
                 </ul>
               </li>
-              <li className="menu-item">
-                <div className="menu-item__title">
-                  <i className="bx bx-store-alt menu-item__title__icon"></i>
-                  <span className="menu-item__title__name">Quản lý rạp</span>
-                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
-                </div>
-                <ul className="submenu-list">
-                  <Link to={THEATER_SYSTEM_MANAGEMENT}>
-                    <li>Hệ thống rạp</li>
-                  </Link>
-                  <Link to={THEATER_MANAGEMENT}>
-                    <li>Cụm rạp</li>
-                  </Link>
-                  <Link to={PHONGCHIEU_MANAGEMENT}>
-                    <li>Phòng chiếu</li>
-                  </Link>
-                </ul>
-              </li>
-              <li className="menu-item">
-                <div className="menu-item__title">
-                  <i className="bx bx-film menu-item__title__icon"></i>
-                  <span className="menu-item__title__name">Quản lý phim</span>
-                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
-                </div>
-                <ul className="submenu-list">
-                  <Link to={MOVIE_TYPE_MANAGEMENT}>
-                    <li>Thể loại phim</li>
-                  </Link>
-                  <Link to={MOVIE_MANAGEMENT}>
-                    <li>Phim</li>
-                  </Link>
-                </ul>
-              </li>
-              <Link to={SHOWTIME_MANAGEMENT}>
+
+              <Link to={""}>
                 <li className="menu-item">
                   <div className="menu-item__title">
                     <i className="bx bx-camera-movie menu-item__title__icon"></i>
