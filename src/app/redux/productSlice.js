@@ -149,7 +149,9 @@ export const updateProduct = createAsyncThunk(
           dispatch(stopLoading());
           return { newProduct: payload, responseData: response.data };
         case 401:
+          return null;
         case 400:
+          return null;
         default:
       }
     } catch (error) {
@@ -177,7 +179,9 @@ export const addImageToProduct = createAsyncThunk(
           dispatch(stopLoading());
           return {};
         case 401:
+          return null;
         case 400:
+          return null;
         default:
       }
     } catch (error) {
@@ -208,7 +212,9 @@ export const removeImageFromProduct = createAsyncThunk(
           dispatch(stopLoading());
           return {};
         case 401:
+          return null;
         case 400:
+          return null;
         default:
       }
     } catch (error) {

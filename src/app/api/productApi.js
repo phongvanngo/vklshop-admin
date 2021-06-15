@@ -199,10 +199,10 @@ const productApi = {
     // });
     // return response;
 
-    let { name, unit, description, category, content, images, id } = product;
+    let { name, unit, description, category, content, id } = product;
     let category_id = category;
 
-    let payload = { name, unit, description, category_id, content, images };
+    let payload = { name, unit, description, category_id, content };
 
     let url = "/product/" + id;
     let response = await axiosClient.patch(url, payload).then((res) => res);
