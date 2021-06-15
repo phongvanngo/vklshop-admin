@@ -1,48 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import cumRapApi from "app/api/old/cumRapApi";
-import { openErrorNofificationDialog } from "../dialogSlice";
-import { startLoading, stopLoading } from "../loadingSlice";
+import shippingMethodApi from "app/api/shippingMethodApi";
+import { openErrorNofificationDialog } from "./dialogSlice";
+import { startLoading, stopLoading } from "./loadingSlice";
 
 const initialState = {
-  listCumRap: [],
+  listShippingMethod: [],
 };
 
-export const fetchListCumRap = createAsyncThunk(
-  "cumRap/fetchListCumRap",
+export const fetchListShippingMethod = createAsyncThunk(
+  "shippingMethod/fetchListShippingMethod",
   async (payload, thunkApi) => {
     if (payload !== null) {
     }
     const { dispatch } = thunkApi;
     dispatch(startLoading());
+
     try {
-      const response = await cumRapApi.getListCumRap();
-      switch (response.status) {
-        case 200:
-          dispatch(stopLoading());
-          return response.data;
-        case 401:
-          throw new Error("Unauthorize");
-        case 400:
-          throw new Error("");
-        default:
-          throw new Error("Error");
-      }
-    } catch (error) {
-      dispatch(stopLoading());
-      return null;
-    }
-  }
-);
-export const fetchListCumRapInTheaterSystem = createAsyncThunk(
-  "cumRap/fetchListCumRapInTheaterSystem",
-  async (payload, thunkApi) => {
-    const { theaterSystemId } = payload;
-    const { dispatch } = thunkApi;
-    dispatch(startLoading());
-    try {
-      const response = await cumRapApi.getListCumRapInTheaterSytem(
-        theaterSystemId
-      );
+      const response = await shippingMethodApi.getListShippingMethod();
 
       switch (response.status) {
         case 200:
@@ -61,19 +35,19 @@ export const fetchListCumRapInTheaterSystem = createAsyncThunk(
     }
   }
 );
-export const createCumRap = createAsyncThunk(
-  "cumRap/createCumRap",
+export const createShippingMethod = createAsyncThunk(
+  "shippingMethod/createShippingMethod",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
 
     dispatch(startLoading());
     try {
-      const response = await cumRapApi.postCumRap(payload);
+      const response = await shippingMethodApi.postShippingMethod(payload);
       switch (response.status) {
         case 200:
           // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
           dispatch(stopLoading());
-          return { newCumRap: payload, responseData: response.data };
+          return { newShippingMethod: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
         case 400:
@@ -92,18 +66,18 @@ export const createCumRap = createAsyncThunk(
     }
   }
 );
-export const updateCumRap = createAsyncThunk(
-  "cumRap/updateCumRap",
+export const updateShippingMethod = createAsyncThunk(
+  "shippingMethod/updateShippingMethod",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
 
     dispatch(startLoading());
     try {
-      const response = await cumRapApi.postCumRap(payload);
+      const response = await shippingMethodApi.postShippingMethod(payload);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
-          return { newCumRap: payload, responseData: response.data };
+          return { newShippingMethod: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
         case 400:
@@ -122,14 +96,14 @@ export const updateCumRap = createAsyncThunk(
     }
   }
 );
-export const deleteCumRap = createAsyncThunk(
-  "cumRap/deleteCumRap",
+export const deleteShippingMethod = createAsyncThunk(
+  "shippingMethod/deleteShippingMethod",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
 
     dispatch(startLoading());
     try {
-      const response = await cumRapApi.deleteCumRap(payload);
+      const response = await shippingMethodApi.deleteShippingMethod(payload);
       switch (response.status) {
         case 200:
           // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
@@ -154,61 +128,53 @@ export const deleteCumRap = createAsyncThunk(
   }
 );
 
-export const cumRapSlice = createSlice({
-  name: "cumRap",
+export const shippingMethodSlice = createSlice({
+  name: "shippingMethod",
   initialState,
-  reducers: {
-    setEmtyListCumRap: (state) => {
-      state.listCumRap = [];
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchListCumRap.fulfilled, (state, action) => {
+      .addCase(fetchListShippingMethod.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        const { listCumRap } = action.payload;
-        state.listCumRap = listCumRap;
+        const { listShippingMethod } = action.payload;
+        state.listShippingMethod = listShippingMethod;
       })
-      .addCase(fetchListCumRapInTheaterSystem.fulfilled, (state, action) => {
+      .addCase(createShippingMethod.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        const { listCumRap } = action.payload;
-        state.listCumRap = listCumRap;
+        let { newShippingMethod, responseData } = action.payload;
+
+        newShippingMethod = { ...newShippingMethod, id: responseData.id };
+
+        let newListShippingMethod = state.listShippingMethod;
+        newListShippingMethod.push(newShippingMethod);
+
+        state.listShippingMethod = newListShippingMethod;
       })
-      .addCase(createCumRap.fulfilled, (state, action) => {
+      .addCase(updateShippingMethod.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        let { newCumRap, responseData } = action.payload;
+        let { newShippingMethod } = action.payload;
 
-        newCumRap = { ...newCumRap, id: responseData.id };
+        let newListShippingMethod = [...state.listShippingMethod];
 
-        let newListCumRap = state.listCumRap;
-        newListCumRap.push(newCumRap);
-
-        state.listCumRap = newListCumRap;
-      })
-      .addCase(updateCumRap.fulfilled, (state, action) => {
-        if (action.payload === null) return;
-        let { newCumRap } = action.payload;
-
-        let newListCumRap = [...state.listCumRap];
-
-        let index = newListCumRap.findIndex(
-          (cumRap) => cumRap.id === newCumRap.id
+        let index = newListShippingMethod.findIndex(
+          (shippingMethodSystem) =>
+            shippingMethodSystem.id === newShippingMethod.id
         );
-        newListCumRap[index] = newCumRap;
+        newListShippingMethod[index] = newShippingMethod;
 
-        state.listCumRap = newListCumRap;
+        state.listShippingMethod = newListShippingMethod;
       })
-      .addCase(deleteCumRap.fulfilled, (state, action) => {
+      .addCase(deleteShippingMethod.fulfilled, (state, action) => {
         if (action.payload === null) return;
         let { id } = action.payload;
 
-        state.listCumRap = state.listCumRap.filter(
-          (cumRap) => cumRap.id !== id
+        state.listShippingMethod = state.listShippingMethod.filter(
+          (shippingMethodSystem) => shippingMethodSystem.id !== id
         );
       });
   },
 });
 
-export const { setEmtyListCumRap } = cumRapSlice.actions;
+export const {} = shippingMethodSlice.actions;
 
-export default cumRapSlice.reducer;
+export default shippingMethodSlice.reducer;

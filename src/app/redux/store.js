@@ -8,6 +8,8 @@ import dialogReducer from "./dialogSlice";
 import categoryReducer from "./categorySlice";
 import productReducer from "./productSlice";
 import variantReducer from "./variantSlice";
+import cardTypeReducer from "./cardTypeSlice";
+import shippingMethodReducer from "./shippingMethodSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,5 +23,7 @@ export const store = configureStore({
     category: categoryReducer,
     product: productReducer,
     variant: variantReducer,
+    cardType: cardTypeReducer,
+    shippingMethod: shippingMethodReducer,
   },
 });

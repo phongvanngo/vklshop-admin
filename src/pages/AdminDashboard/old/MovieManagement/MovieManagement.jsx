@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MovieTable from "./Movie.table";
 import MovieFormModal from "./Movie.formDialog";
-import { fetchListMovieType } from "app/redux/movieTypeSlice";
+import { fetchListMovieType } from "app/redux/shippingMethodSlice";
 
 export default function MovieManagement() {
   const dispatch = useDispatch();

@@ -1,30 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  theaterSystemFormDialog: {
-    isOpen: false,
-    defaultData: null,
-  },
-  movieFormDialog: {
-    isOpen: false,
-    defaultData: null,
-  },
-  cumRapFormDialog: {
-    isOpen: false,
-    defaultData: null,
-  },
-  phongChieuFormDialog: {
-    isOpen: false,
-    defaultData: null,
-  },
-  showTimeFormDialog: {
-    isOpen: false,
-    defaultData: null,
-  },
-  movieTypeFormDialog: {
-    isOpen: false,
-    defaultData: null,
-  },
   errorNotificationDialog: {
     isOpen: false,
     defaultData: { title: "", content: "" },
@@ -41,60 +17,20 @@ const initialState = {
     isOpen: false,
     defaultData: null,
   },
+  cardTypeFormDialog: {
+    isOpen: false,
+    defaultData: null,
+  },
+  shippingMethodFormDialog: {
+    isOpen: false,
+    defaultData: null,
+  },
 };
 
 export const dialogSlice = createSlice({
   name: "dialog",
   initialState,
   reducers: {
-    openTheaterSystemFormDialog: (state, action) => {
-      state.theaterSystemFormDialog.defaultData = action.payload;
-      state.theaterSystemFormDialog.isOpen = true;
-    },
-    closeTheaterSystemFormDialog: (state) => {
-      state.theaterSystemFormDialog.isOpen = false;
-      state.theaterSystemFormDialog.defaultData = null;
-    },
-    openMovieFormDialog: (state, action) => {
-      state.movieFormDialog.defaultData = action.payload;
-      state.movieFormDialog.isOpen = true;
-    },
-    closeMovieFormDialog: (state) => {
-      state.movieFormDialog.isOpen = false;
-      state.movieFormDialog.defaultData = null;
-    },
-    openCumRapFormDialog: (state, action) => {
-      state.cumRapFormDialog.defaultData = action.payload;
-      state.cumRapFormDialog.isOpen = true;
-    },
-    closeCumRapFormDialog: (state) => {
-      state.cumRapFormDialog.isOpen = false;
-      state.cumRapFormDialog.defaultData = null;
-    },
-    openMovieTypeFormDialog: (state, action) => {
-      state.movieTypeFormDialog.defaultData = action.payload;
-      state.movieTypeFormDialog.isOpen = true;
-    },
-    closeMovieTypeFormDialog: (state) => {
-      state.movieTypeFormDialog.isOpen = false;
-      state.movieTypeFormDialog.defaultData = null;
-    },
-    openShowTimeFormDialog: (state, action) => {
-      state.showTimeFormDialog.defaultData = action.payload;
-      state.showTimeFormDialog.isOpen = true;
-    },
-    closeShowTimeFormDialog: (state) => {
-      state.showTimeFormDialog.isOpen = false;
-      state.showTimeFormDialog.defaultData = null;
-    },
-    openPhongChieuFormDialog: (state, action) => {
-      state.phongChieuFormDialog.defaultData = action.payload;
-      state.phongChieuFormDialog.isOpen = true;
-    },
-    closePhongChieuFormDialog: (state) => {
-      state.phongChieuFormDialog.isOpen = false;
-      state.phongChieuFormDialog.defaultData = null;
-    },
     openErrorNofificationDialog: (state, action) => {
       for (var prop in state) {
         state[prop].isOpen = false;
@@ -131,24 +67,28 @@ export const dialogSlice = createSlice({
       state.variantFormDialog.isOpen = false;
       state.variantFormDialog.defaultData = null;
     },
+    openCardTypeFormDialog: (state, action) => {
+      state.cardTypeFormDialog.defaultData = action.payload;
+      state.cardTypeFormDialog.isOpen = true;
+    },
+    closeCardTypeFormDialog: (state) => {
+      state.cardTypeFormDialog.isOpen = false;
+      state.cardTypeFormDialog.defaultData = null;
+    },
+    openShippingMethodFormDialog: (state, action) => {
+      state.shippingMethodFormDialog.defaultData = action.payload;
+      state.shippingMethodFormDialog.isOpen = true;
+    },
+    closeShippingMethodFormDialog: (state) => {
+      state.shippingMethodFormDialog.isOpen = false;
+      state.shippingMethodFormDialog.defaultData = null;
+    },
   },
 });
 
 export const {
   openErrorNofificationDialog,
   closeErrorNotificationDialog,
-  openTheaterSystemFormDialog,
-  closeTheaterSystemFormDialog,
-  openMovieFormDialog,
-  closeMovieFormDialog,
-  openCumRapFormDialog,
-  closeCumRapFormDialog,
-  openPhongChieuFormDialog,
-  closePhongChieuFormDialog,
-  openMovieTypeFormDialog,
-  closeMovieTypeFormDialog,
-  openShowTimeFormDialog,
-  closeShowTimeFormDialog,
 
   openCategoryFormDialog,
   closeCategoryFormDialog,
@@ -156,6 +96,10 @@ export const {
   closeProductFormDialog,
   openVariantFormDialog,
   closeVariantFormDialog,
+  openCardTypeFormDialog,
+  closeCardTypeFormDialog,
+  openShippingMethodFormDialog,
+  closeShippingMethodFormDialog,
 } = dialogSlice.actions;
 
 export default dialogSlice.reducer;

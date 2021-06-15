@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchListCumRapInTheaterSystem } from "app/redux/cumRapSlice";
+import { fetchListCumRapInTheaterSystem } from "app/redux/old/cumRapSlice";
 
 export default function FilterTheaterSystem() {
   const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PhongChieuTable from "./PhongChieu.table";
 import PhongChieuFormModal from "./PhongChieu.formDialog";
-import { setEmtyListCumRap } from "app/redux/cumRapSlice";
+import { setEmtyListCumRap } from "app/redux/old/cumRapSlice";
 
 export default function PhongChieuManagement() {
   const dispatch = useDispatch();

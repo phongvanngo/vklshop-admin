@@ -11,13 +11,6 @@ export const PublicRoutes = {
 };
 
 export const AdminRoutes = {
-  MOVIE_MANAGEMENT: `${PublicRoutes.ADMIN_DASHBOARD}/movie-management`,
-  MOVIE_TYPE_MANAGEMENT: `${PublicRoutes.ADMIN_DASHBOARD}/movie-type-management`,
-  THEATER_MANAGEMENT: `${PublicRoutes.ADMIN_DASHBOARD}/theater-management`,
-  PHONGCHIEU_MANAGEMENT: `${PublicRoutes.ADMIN_DASHBOARD}/phongChieu`,
-  THEATER_SYSTEM_MANAGEMENT: `${PublicRoutes.ADMIN_DASHBOARD}/theater-system-management`,
-  SHOWTIME_MANAGEMENT: `${PublicRoutes.ADMIN_DASHBOARD}/showtime-management`,
-
   //dành cho quản lý trang web bán hàng
   INTRODUCTION: `${PublicRoutes.ADMIN_DASHBOARD}`,
   CATEGORY: `${PublicRoutes.ADMIN_DASHBOARD}/category/`,
@@ -26,6 +19,9 @@ export const AdminRoutes = {
 
   PRODUCTS: `${PublicRoutes.ADMIN_DASHBOARD}/product/category`,
   INVENTORY: `${PublicRoutes.ADMIN_DASHBOARD}/invetory/`,
+
+  SHIPPING_METHOD: `${PublicRoutes.ADMIN_DASHBOARD}/product/shipping_method`,
+  CARD_TYPE: `${PublicRoutes.ADMIN_DASHBOARD}/product/card_type`,
 };
 
 export const UserRoutes = {

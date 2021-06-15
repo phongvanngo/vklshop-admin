@@ -1,18 +1,22 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { closeCumRapFormDialog } from "app/redux/dialogSlice";
-import { Fragment, useEffect, useState } from "react";
+import { closeCardTypeFormDialog } from "app/redux/dialogSlice";
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { createCumRap, updateCumRap } from "app/redux/old/cumRapSlice";
-import FilterTheaterSystem from "./CumRap.formDialog.filterTheaterSystem";
+import React, { forwardRef, useState } from "react";
+import { createCardType, updateCardType } from "app/redux/cardTypeSlice";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
+  fee: yup.number().required(),
 });
 
-export default function CumRapFormModal() {
+export default function CardTypeFormModal() {
+  const dispatch = useDispatch();
   let {
     register,
     handleSubmit,
@@ -23,49 +27,38 @@ export default function CumRapFormModal() {
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useDispatch();
   const { isOpen, defaultData } = useSelector(
-    (state) => state.dialog.cumRapFormDialog
+    (state) => state.dialog.cardTypeFormDialog
   );
-
-  let listTheaterSystem = useSelector(
-    (state) => state.theater.listTheaterSystem
-  );
-
-  const [selectedTheaterSystem, setSelectedTheaterSytem] = useState([]);
 
   function onSaveData(data) {
-    let theaterSystemInfo = {
-      theaterSystemId: selectedTheaterSystem?.id,
-      theaterSystemName: selectedTheaterSystem?.name,
-    };
     if (defaultData?.id === null) {
-      dispatch(createCumRap({ ...data, ...theaterSystemInfo }));
-      dispatch(closeCumRapFormDialog());
+      dispatch(createCardType({ name: data.name, fee: data.fee / 100 }));
+      dispatch(closeCardTypeFormDialog());
     } else {
       dispatch(
-        updateCumRap({ ...data, ...theaterSystemInfo, id: defaultData.id })
+        updateCardType({
+          name: data.name,
+          fee: data.fee / 100,
+          id: defaultData.id,
+        })
       );
-      dispatch(closeCumRapFormDialog());
+      dispatch(closeCardTypeFormDialog());
     }
   }
   function handleCloseModal() {
-    dispatch(closeCumRapFormDialog());
+    dispatch(closeCardTypeFormDialog());
   }
 
   useEffect(() => {
     clearErrors("name");
     if (defaultData?.id) {
-      const { name, information, theaterSystemId } = defaultData;
+      const { name, fee } = defaultData;
       setValue("name", name);
-      setValue("information", information);
-      setSelectedTheaterSytem(
-        listTheaterSystem.find((element) => element.id === theaterSystemId) ||
-          {}
-      );
+      setValue("fee", fee * 100);
     } else {
       setValue("name", "");
-      setValue("information", "");
+      setValue("fee", "");
     }
   }, [setValue, defaultData]);
 
@@ -113,7 +106,7 @@ export default function CumRapFormModal() {
                 >
                   <div className="pr-5 pl-5 pt-4 pb-3 w-full flex justify-between">
                     <h1 className="font-normal">
-                      {defaultData?.id ? "Chỉnh sửa cụm rạp" : "Thêm cụm rạp"}
+                      {defaultData?.id ? "Chỉnh sửa thẻ" : "Thêm thẻ mới"}
                     </h1>
                     <button
                       onClick={handleCloseModal}
@@ -127,7 +120,7 @@ export default function CumRapFormModal() {
                   <div className="mt-2 p-6">
                     <div className="mb-8">
                       <span className="mb-2 flex flex-col font-extrabold">
-                        Tên cụm rạp
+                        Tên thẻ
                       </span>
                       <input
                         type="text"
@@ -148,25 +141,26 @@ export default function CumRapFormModal() {
                       )}
                     </div>
                     <div className="mb-8">
-                      <span className="font-extrabold mb-2 flex flex-col">
-                        Hệ thống rạp
-                      </span>
-                      <FilterTheaterSystem
-                        listTheaterSystem={listTheaterSystem}
-                        selected={selectedTheaterSystem}
-                        setSelected={setSelectedTheaterSytem}
-                      />
-                    </div>
-
-                    <div className="mb-8">
-                      <span className="font-extrabold mb-2 flex flex-col">
-                        Thông tin
+                      <span className="mb-2 flex flex-col font-extrabold">
+                        Phí (% giá trị hóa đơn)
                       </span>
                       <input
                         type="text"
-                        {...register("information", {})}
-                        className="h-full w-full appearance-none rounded-full border w-30 py-4 px-6 leading-tight focus:outline-none focus:border-indigo-500 text-gray-500"
+                        {...register("fee", {})}
+                        className={
+                          "h-full w-full appearance-none rounded-full  w-30 py-4 px-6 leading-tight focus:outline-none border  text-gray-500" +
+                          (errors.fee
+                            ? " border-red-500"
+                            : " focus:border-indigo-500")
+                        }
                       />
+                      {errors.fee ? (
+                        <span className="ml-2 mt-2 text-red-500">
+                          *Dữ liệu phải là số và không được để trống
+                        </span>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
 

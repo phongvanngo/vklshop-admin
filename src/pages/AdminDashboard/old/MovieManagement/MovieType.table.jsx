@@ -3,7 +3,7 @@ import {
   filterArrayBySearchTerm,
 } from "app/myLibrary/utilities";
 import { openMovieTypeFormDialog } from "app/redux/dialogSlice";
-import { deleteMovieType } from "app/redux/movieTypeSlice";
+import { deleteMovieType } from "app/redux/shippingMethodSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import MenuDropdown from "./MovieType.table.menu";

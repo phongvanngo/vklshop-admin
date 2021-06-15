@@ -1,5 +1,5 @@
 import { changeAdminNavbarTitle } from "app/redux/commonSlice";
-import { fetchListMovieType } from "app/redux/movieTypeSlice";
+import { fetchListMovieType } from "app/redux/shippingMethodSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MovieTypeTable from "./MovieType.table";

@@ -1,48 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import cumRapApi from "app/api/old/cumRapApi";
-import { openErrorNofificationDialog } from "../dialogSlice";
-import { startLoading, stopLoading } from "../loadingSlice";
+import cardTypeApi from "app/api/cardTypeApi";
+import { openErrorNofificationDialog } from "./dialogSlice";
+import { startLoading, stopLoading } from "./loadingSlice";
 
 const initialState = {
-  listCumRap: [],
+  listCardType: [],
 };
 
-export const fetchListCumRap = createAsyncThunk(
-  "cumRap/fetchListCumRap",
+export const fetchListCardType = createAsyncThunk(
+  "cardType/fetchListCardType",
   async (payload, thunkApi) => {
     if (payload !== null) {
     }
     const { dispatch } = thunkApi;
     dispatch(startLoading());
+
     try {
-      const response = await cumRapApi.getListCumRap();
-      switch (response.status) {
-        case 200:
-          dispatch(stopLoading());
-          return response.data;
-        case 401:
-          throw new Error("Unauthorize");
-        case 400:
-          throw new Error("");
-        default:
-          throw new Error("Error");
-      }
-    } catch (error) {
-      dispatch(stopLoading());
-      return null;
-    }
-  }
-);
-export const fetchListCumRapInTheaterSystem = createAsyncThunk(
-  "cumRap/fetchListCumRapInTheaterSystem",
-  async (payload, thunkApi) => {
-    const { theaterSystemId } = payload;
-    const { dispatch } = thunkApi;
-    dispatch(startLoading());
-    try {
-      const response = await cumRapApi.getListCumRapInTheaterSytem(
-        theaterSystemId
-      );
+      const response = await cardTypeApi.getListCardType();
 
       switch (response.status) {
         case 200:
@@ -61,19 +35,19 @@ export const fetchListCumRapInTheaterSystem = createAsyncThunk(
     }
   }
 );
-export const createCumRap = createAsyncThunk(
-  "cumRap/createCumRap",
+export const createCardType = createAsyncThunk(
+  "cardType/createCardType",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
 
     dispatch(startLoading());
     try {
-      const response = await cumRapApi.postCumRap(payload);
+      const response = await cardTypeApi.postCardType(payload);
       switch (response.status) {
         case 200:
           // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
           dispatch(stopLoading());
-          return { newCumRap: payload, responseData: response.data };
+          return { newCardType: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
         case 400:
@@ -92,18 +66,18 @@ export const createCumRap = createAsyncThunk(
     }
   }
 );
-export const updateCumRap = createAsyncThunk(
-  "cumRap/updateCumRap",
+export const updateCardType = createAsyncThunk(
+  "cardType/updateCardType",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
 
     dispatch(startLoading());
     try {
-      const response = await cumRapApi.postCumRap(payload);
+      const response = await cardTypeApi.postCardType(payload);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
-          return { newCumRap: payload, responseData: response.data };
+          return { newCardType: payload, responseData: response.data };
         case 401:
           throw new Error("Unauthorize");
         case 400:
@@ -122,14 +96,14 @@ export const updateCumRap = createAsyncThunk(
     }
   }
 );
-export const deleteCumRap = createAsyncThunk(
-  "cumRap/deleteCumRap",
+export const deleteCardType = createAsyncThunk(
+  "cardType/deleteCardType",
   async (payload, thunkApi) => {
     const { dispatch } = thunkApi;
 
     dispatch(startLoading());
     try {
-      const response = await cumRapApi.deleteCumRap(payload);
+      const response = await cardTypeApi.deleteCardType(payload);
       switch (response.status) {
         case 200:
           // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
@@ -154,61 +128,52 @@ export const deleteCumRap = createAsyncThunk(
   }
 );
 
-export const cumRapSlice = createSlice({
-  name: "cumRap",
+export const cardTypeSlice = createSlice({
+  name: "cardType",
   initialState,
-  reducers: {
-    setEmtyListCumRap: (state) => {
-      state.listCumRap = [];
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchListCumRap.fulfilled, (state, action) => {
+      .addCase(fetchListCardType.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        const { listCumRap } = action.payload;
-        state.listCumRap = listCumRap;
+        const { listCardType } = action.payload;
+        state.listCardType = listCardType;
       })
-      .addCase(fetchListCumRapInTheaterSystem.fulfilled, (state, action) => {
+      .addCase(createCardType.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        const { listCumRap } = action.payload;
-        state.listCumRap = listCumRap;
+        let { newCardType, responseData } = action.payload;
+
+        newCardType = { ...newCardType, id: responseData.id };
+
+        let newListCardType = state.listCardType;
+        newListCardType.push(newCardType);
+
+        state.listCardType = newListCardType;
       })
-      .addCase(createCumRap.fulfilled, (state, action) => {
+      .addCase(updateCardType.fulfilled, (state, action) => {
         if (action.payload === null) return;
-        let { newCumRap, responseData } = action.payload;
+        let { newCardType } = action.payload;
 
-        newCumRap = { ...newCumRap, id: responseData.id };
+        let newListCardType = [...state.listCardType];
 
-        let newListCumRap = state.listCumRap;
-        newListCumRap.push(newCumRap);
-
-        state.listCumRap = newListCumRap;
-      })
-      .addCase(updateCumRap.fulfilled, (state, action) => {
-        if (action.payload === null) return;
-        let { newCumRap } = action.payload;
-
-        let newListCumRap = [...state.listCumRap];
-
-        let index = newListCumRap.findIndex(
-          (cumRap) => cumRap.id === newCumRap.id
+        let index = newListCardType.findIndex(
+          (cardTypeSystem) => cardTypeSystem.id === newCardType.id
         );
-        newListCumRap[index] = newCumRap;
+        newListCardType[index] = newCardType;
 
-        state.listCumRap = newListCumRap;
+        state.listCardType = newListCardType;
       })
-      .addCase(deleteCumRap.fulfilled, (state, action) => {
+      .addCase(deleteCardType.fulfilled, (state, action) => {
         if (action.payload === null) return;
         let { id } = action.payload;
 
-        state.listCumRap = state.listCumRap.filter(
-          (cumRap) => cumRap.id !== id
+        state.listCardType = state.listCardType.filter(
+          (cardTypeSystem) => cardTypeSystem.id !== id
         );
       });
   },
 });
 
-export const { setEmtyListCumRap } = cumRapSlice.actions;
+export const {} = cardTypeSlice.actions;
 
-export default cumRapSlice.reducer;
+export default cardTypeSlice.reducer;

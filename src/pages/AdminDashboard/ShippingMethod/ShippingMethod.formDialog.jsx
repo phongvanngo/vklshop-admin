@@ -1,18 +1,36 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { closeCumRapFormDialog } from "app/redux/dialogSlice";
-import { Fragment, useEffect, useState } from "react";
+import { closeShippingMethodFormDialog } from "app/redux/dialogSlice";
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { createCumRap, updateCumRap } from "app/redux/old/cumRapSlice";
-import FilterTheaterSystem from "./CumRap.formDialog.filterTheaterSystem";
+import React, { forwardRef, useState } from "react";
+import {
+  createShippingMethod,
+  updateShippingMethod,
+} from "app/redux/shippingMethodSlice";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+const CustomDatePickerInput = forwardRef(
+  ({ value, onClick, onChange }, ref) => (
+    <input
+      className="h-full w-full appearance-none rounded-full border w-30 py-4 px-6 leading-tight focus:outline-none focus:border-indigo-500 text-gray-500"
+      onClick={onClick}
+      ref={ref}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  )
+);
 
 const schema = yup.object().shape({
   name: yup.string().required(),
 });
 
-export default function CumRapFormModal() {
+export default function ShippingMethodFormModal() {
+  const dispatch = useDispatch();
   let {
     register,
     handleSubmit,
@@ -23,49 +41,42 @@ export default function CumRapFormModal() {
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useDispatch();
   const { isOpen, defaultData } = useSelector(
-    (state) => state.dialog.cumRapFormDialog
+    (state) => state.dialog.shippingMethodFormDialog
   );
 
-  let listTheaterSystem = useSelector(
-    (state) => state.theater.listTheaterSystem
-  );
-
-  const [selectedTheaterSystem, setSelectedTheaterSytem] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
 
   function onSaveData(data) {
-    let theaterSystemInfo = {
-      theaterSystemId: selectedTheaterSystem?.id,
-      theaterSystemName: selectedTheaterSystem?.name,
-    };
     if (defaultData?.id === null) {
-      dispatch(createCumRap({ ...data, ...theaterSystemInfo }));
-      dispatch(closeCumRapFormDialog());
+      dispatch(
+        createShippingMethod({ ...data, premiereDay: startDate.toDateString() })
+      );
+      dispatch(closeShippingMethodFormDialog());
     } else {
       dispatch(
-        updateCumRap({ ...data, ...theaterSystemInfo, id: defaultData.id })
+        updateShippingMethod({
+          ...data,
+          premiereDay: startDate.toDateString(),
+          id: defaultData.id,
+        })
       );
-      dispatch(closeCumRapFormDialog());
+      dispatch(closeShippingMethodFormDialog());
     }
   }
   function handleCloseModal() {
-    dispatch(closeCumRapFormDialog());
+    dispatch(closeShippingMethodFormDialog());
   }
 
   useEffect(() => {
     clearErrors("name");
     if (defaultData?.id) {
-      const { name, information, theaterSystemId } = defaultData;
+      const { name, description } = defaultData;
       setValue("name", name);
-      setValue("information", information);
-      setSelectedTheaterSytem(
-        listTheaterSystem.find((element) => element.id === theaterSystemId) ||
-          {}
-      );
+      setValue("description", description);
     } else {
       setValue("name", "");
-      setValue("information", "");
+      setValue("description", "");
     }
   }, [setValue, defaultData]);
 
@@ -113,7 +124,9 @@ export default function CumRapFormModal() {
                 >
                   <div className="pr-5 pl-5 pt-4 pb-3 w-full flex justify-between">
                     <h1 className="font-normal">
-                      {defaultData?.id ? "Chỉnh sửa cụm rạp" : "Thêm cụm rạp"}
+                      {defaultData?.id
+                        ? "Chỉnh sửa phương thức vận chuyển"
+                        : "Thêm phương thức vận chuyển"}
                     </h1>
                     <button
                       onClick={handleCloseModal}
@@ -127,7 +140,7 @@ export default function CumRapFormModal() {
                   <div className="mt-2 p-6">
                     <div className="mb-8">
                       <span className="mb-2 flex flex-col font-extrabold">
-                        Tên cụm rạp
+                        Tên phương thức vận chuyển
                       </span>
                       <input
                         type="text"
@@ -147,24 +160,14 @@ export default function CumRapFormModal() {
                         ""
                       )}
                     </div>
-                    <div className="mb-8">
-                      <span className="font-extrabold mb-2 flex flex-col">
-                        Hệ thống rạp
-                      </span>
-                      <FilterTheaterSystem
-                        listTheaterSystem={listTheaterSystem}
-                        selected={selectedTheaterSystem}
-                        setSelected={setSelectedTheaterSytem}
-                      />
-                    </div>
 
                     <div className="mb-8">
                       <span className="font-extrabold mb-2 flex flex-col">
-                        Thông tin
+                        Mô tả
                       </span>
                       <input
                         type="text"
-                        {...register("information", {})}
+                        {...register("description", {})}
                         className="h-full w-full appearance-none rounded-full border w-30 py-4 px-6 leading-tight focus:outline-none focus:border-indigo-500 text-gray-500"
                       />
                     </div>

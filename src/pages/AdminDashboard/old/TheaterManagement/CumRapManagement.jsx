@@ -1,5 +1,5 @@
 import { changeAdminNavbarTitle } from "app/redux/commonSlice";
-import { fetchListCumRap } from "app/redux/cumRapSlice";
+import { fetchListCumRap } from "app/redux/old/cumRapSlice";
 import { fetchListTheaterSystem } from "app/redux/theaterSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -51,6 +51,8 @@ export default function LandingPage() {
     PRODUCT_DETAIL,
     INTRODUCTION,
     EDIT_PRODUCT,
+    SHIPPING_METHOD,
+    CARD_TYPE,
   } = AdminRoutes;
 
   return (
@@ -92,7 +94,7 @@ export default function LandingPage() {
               </Link>
               <li className="menu-item">
                 <div className="menu-item__title">
-                  <i className="bx bx-store-alt menu-item__title__icon"></i>
+                  <i className="bx bxs-gift menu-item__title__icon"></i>
                   <span className="menu-item__title__name">Sản phẩm</span>
                   <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
                 </div>
@@ -125,7 +127,7 @@ export default function LandingPage() {
               </li>
               <li className="menu-item">
                 <div className="menu-item__title">
-                  <i className="bx bx-store-alt menu-item__title__icon"></i>
+                  <i className="bx bx-comment-detail menu-item__title__icon"></i>
                   <span className="menu-item__title__name">
                     Quản lý đơn hàng
                   </span>
@@ -143,17 +145,31 @@ export default function LandingPage() {
                   </Link>
                 </ul>
               </li>
+              <li className="menu-item">
+                <div className="menu-item__title">
+                  <i className="bx bxs-truck menu-item__title__icon"></i>
+                  <span className="menu-item__title__name">Vận chuyển</span>
+                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
+                </div>
+                <ul className="submenu-list">
+                  <Link to={SHIPPING_METHOD}>
+                    <li>Phương thức vận chuyển</li>
+                  </Link>
+                </ul>
+              </li>
+              <li className="menu-item">
+                <div className="menu-item__title">
+                  <i className="bx bx-money menu-item__title__icon"></i>
+                  <span className="menu-item__title__name">Thanh toán</span>
+                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
+                </div>
+                <ul className="submenu-list">
+                  <Link to={CARD_TYPE}>
+                    <li>Các loại thẻ</li>
+                  </Link>
+                </ul>
+              </li>
 
-              <Link to={""}>
-                <li className="menu-item">
-                  <div className="menu-item__title">
-                    <i className="bx bx-camera-movie menu-item__title__icon"></i>
-                    <span className="menu-item__title__name">
-                      Quản lý suất chiếu
-                    </span>
-                  </div>
-                </li>
-              </Link>
               {/* <li className="menu-item">
                 <div className="menu-item__title">
                   <i className="bx bx-store-alt menu-item__title__icon"></i>

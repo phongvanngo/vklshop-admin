@@ -1,24 +1,26 @@
-import { filterArrayBySearchTerm } from "app/myLibrary/utilities";
-import { openCumRapFormDialog } from "app/redux/dialogSlice";
-import { deleteCumRap } from "app/redux/old/cumRapSlice";
+import {
+  convertDateTime,
+  filterArrayBySearchTerm,
+} from "app/myLibrary/utilities";
+import { openCardTypeFormDialog } from "app/redux/dialogSlice";
+import { deleteCardType } from "app/redux/cardTypeSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import MenuDropdown from "./CumRap.table.menu";
-import FilterTheaterSystem from "./CumRap.table.filterTheaterSystem";
+import MenuDropdown from "./CardType.table.menu";
 
-export default function CumRapTable({ listCumRap }) {
+export default function CardTypeTable({ listCardType }) {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
 
-  let currentListCumRap = filterArrayBySearchTerm(listCumRap, searchTerm);
+  let currentListCardType = filterArrayBySearchTerm(listCardType, searchTerm);
 
-  const handleEditCumRap = (cumRapData) => {
-    dispatch(openCumRapFormDialog(cumRapData));
+  const handleEditCardType = (cardTypeData) => {
+    dispatch(openCardTypeFormDialog(cardTypeData));
   };
 
-  const handleDeleteCumRap = (id) => {
+  const handleDeleteCardType = (id) => {
     if (window.confirm("Bạn có chắc chắn xóa")) {
-      dispatch(deleteCumRap(id));
+      dispatch(deleteCardType(id));
     }
   };
 
@@ -39,20 +41,17 @@ export default function CumRapTable({ listCumRap }) {
             </div>
           </div>
         </div>
-        <div className="p-6  min-h-20 border-b border-gray-200 rounded-t-3xl bg-white">
-          <div className="flex justify-between items-center">
-            <h1 className="text-xl font-medium">Danh sách cụm rạp</h1>
-            <button
-              onClick={() => {
-                dispatch(openCumRapFormDialog({ id: null }));
-              }}
-              className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-100 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
-            >
-              <i className="bx bx-plus mr-2 align-middle block"></i>
-              <span>Thêm cụm rạp mới</span>
-            </button>
-          </div>
-          <FilterTheaterSystem />
+        <div className="p-6 flex justify-between items-center h-20 border-b border-gray-200 rounded-t-3xl bg-white">
+          <h1 className="text-xl font-medium">Danh sách các loại thẻ</h1>
+          <button
+            onClick={() => {
+              dispatch(openCardTypeFormDialog({ id: null }));
+            }}
+            className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-100 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
+          >
+            <i className="bx bx-plus mr-2 align-middle block"></i>
+            <span>Thêm thẻ</span>
+          </button>
         </div>
         <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
           <table className="table-fixed w-full mb-10">
@@ -61,38 +60,36 @@ export default function CumRapTable({ listCumRap }) {
                 <th scope="col" className="w-1/12 px-2 py-3 break-words">
                   <strong>#</strong>
                 </th>
-                <th scope="col" className="w-3/12 px-2 py-3 break-words">
-                  <strong>Tên cụm rạp</strong>
+                <th scope="col" className="w-5/12 px-2 py-3 break-words">
+                  <strong>Tên thẻ</strong>
                 </th>
-                <th scope="col" className="w-3/12 px-2 py-3 break-words">
-                  <strong>Tên hệ thống rạp</strong>
-                </th>
-                <th scope="col" className="w-4/12 px-2 py-3 break-words">
-                  <strong>Thông tin</strong>
+                <th scope="col" className="w-5/12 px-2 py-3 break-words">
+                  <strong>Phí</strong>
                 </th>
                 <th scope="col" className="w-1/12 px-2 py-3 break-words">
-                  <strong>Action</strong>
+                  <strong></strong>
                 </th>
               </tr>
             </thead>
             <tbody className="text-gray-500 font-normal">
-              {currentListCumRap.map((cumRap, index) => {
-                const { id, name, information, theaterSystemName } = cumRap;
+              {currentListCardType.map((cardType, index) => {
+                const { id, name, fee } = cardType;
                 return (
                   <tr key={index} className="border-b border-gray-200">
                     <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
                       <strong>{index + 1}</strong>
                     </td>
                     <td className="px-2 py-4">{name}</td>
-                    <td className="px-2 py-4">{theaterSystemName}</td>
-                    <td className="px-2 py-4">{information}</td>
+                    <td className="px-2 py-4">
+                      {fee * 100 + " % giá trị hóa đơn"}
+                    </td>
                     <td className="px-2 py-4">
                       <MenuDropdown
                         handleDelete={() => {
-                          handleDeleteCumRap(id);
+                          handleDeleteCardType(id);
                         }}
                         handleEdit={() => {
-                          handleEditCumRap(cumRap);
+                          handleEditCardType(cardType);
                         }}
                       />
                     </td>
@@ -101,7 +98,7 @@ export default function CumRapTable({ listCumRap }) {
               })}
             </tbody>
           </table>
-          {currentListCumRap.length === 0 ? (
+          {currentListCardType.length === 0 ? (
             <div className="text-center text-xl text-gray-500">
               <span>Không có rạp chiếu nào</span>
             </div>

@@ -6,7 +6,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React, { forwardRef, useState } from "react";
-import { createMovieType, updateMovieType } from "app/redux/movieTypeSlice";
+import {
+  createMovieType,
+  updateMovieType,
+} from "app/redux/shippingMethodSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 

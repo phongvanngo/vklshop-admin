@@ -16,6 +16,10 @@ const ProductManagement = lazy(() =>
 const ProductForm = lazy(() =>
   import("./ProductManagement/Product/ProductFormCreate/index")
 );
+const CardType = lazy(() => import("./CardType/CardTypeManagement"));
+const ShippingMethod = lazy(() =>
+  import("./ShippingMethod/ShippingMethodManagement")
+);
 const TestLayout = lazy(() => import("./TestLayout"));
 
 const {
@@ -25,6 +29,8 @@ const {
   PRODUCTS,
   PRODUCT_DETAIL,
   EDIT_PRODUCT,
+  SHIPPING_METHOD,
+  CARD_TYPE,
 } = AdminRoutes;
 
 export default function AdminDashboardRoutes() {
@@ -45,7 +51,10 @@ export default function AdminDashboardRoutes() {
       />
       <Route path={INTRODUCTION + "/test"} component={TestLayout} />
 
-      <Redirect to={INTRODUCTION} />
+      <Route path={SHIPPING_METHOD} component={ShippingMethod} />
+      <Route path={CARD_TYPE} component={CardType} />
+
+      <Redirect to={CARD_TYPE} />
     </Switch>
   );
 }
