@@ -52,6 +52,7 @@ export default function LandingPage() {
     INTRODUCTION,
     EDIT_PRODUCT,
     SHIPPING_METHOD,
+    DISCOUNT,
     CARD_TYPE,
   } = AdminRoutes;
 
@@ -94,7 +95,7 @@ export default function LandingPage() {
               </Link>
               <li className="menu-item">
                 <div className="menu-item__title">
-                  <i className="bx bxs-gift menu-item__title__icon"></i>
+                  <i className="bx bx-cookie menu-item__title__icon"></i>
                   <span className="menu-item__title__name">Sản phẩm</span>
                   <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
                 </div>
@@ -166,6 +167,18 @@ export default function LandingPage() {
                 <ul className="submenu-list">
                   <Link to={CARD_TYPE}>
                     <li>Các loại thẻ</li>
+                  </Link>
+                </ul>
+              </li>
+              <li className="menu-item">
+                <div className="menu-item__title">
+                  <i className="bx bx-gift menu-item__title__icon"></i>
+                  <span className="menu-item__title__name">Khuyến mãi</span>
+                  <i className="bx bx-chevron-down menu-item__title__submenu-icon"></i>
+                </div>
+                <ul className="submenu-list">
+                  <Link to={DISCOUNT}>
+                    <li>Mã giảm giá</li>
                   </Link>
                 </ul>
               </li>

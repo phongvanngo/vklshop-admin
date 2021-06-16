@@ -20,8 +20,9 @@ export const AdminRoutes = {
   PRODUCTS: `${PublicRoutes.ADMIN_DASHBOARD}/product/category`,
   INVENTORY: `${PublicRoutes.ADMIN_DASHBOARD}/invetory/`,
 
-  SHIPPING_METHOD: `${PublicRoutes.ADMIN_DASHBOARD}/product/shipping_method`,
-  CARD_TYPE: `${PublicRoutes.ADMIN_DASHBOARD}/product/card_type`,
+  SHIPPING_METHOD: `${PublicRoutes.ADMIN_DASHBOARD}/shipping_method`,
+  CARD_TYPE: `${PublicRoutes.ADMIN_DASHBOARD}/card_type`,
+  DISCOUNT: `${PublicRoutes.ADMIN_DASHBOARD}/discount`,
 };
 
 export const UserRoutes = {

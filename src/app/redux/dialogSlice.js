@@ -25,6 +25,10 @@ const initialState = {
     isOpen: false,
     defaultData: null,
   },
+  discountCodeFormDialog: {
+    isOpen: false,
+    defaultData: null,
+  },
 };
 
 export const dialogSlice = createSlice({
@@ -83,6 +87,14 @@ export const dialogSlice = createSlice({
       state.shippingMethodFormDialog.isOpen = false;
       state.shippingMethodFormDialog.defaultData = null;
     },
+    openDiscountCodeFormDialog: (state, action) => {
+      state.discountCodeFormDialog.defaultData = action.payload;
+      state.discountCodeFormDialog.isOpen = true;
+    },
+    closeDiscountCodeFormDialog: (state) => {
+      state.discountCodeFormDialog.isOpen = false;
+      state.discountCodeFormDialog.defaultData = null;
+    },
   },
 });
 
@@ -100,6 +112,8 @@ export const {
   closeCardTypeFormDialog,
   openShippingMethodFormDialog,
   closeShippingMethodFormDialog,
+  openDiscountCodeFormDialog,
+  closeDiscountCodeFormDialog,
 } = dialogSlice.actions;
 
 export default dialogSlice.reducer;

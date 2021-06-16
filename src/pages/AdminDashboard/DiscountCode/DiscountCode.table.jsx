@@ -2,24 +2,28 @@ import {
   convertDateTime,
   filterArrayBySearchTerm,
 } from "app/myLibrary/utilities";
-import { openCategoryFormDialog } from "app/redux/dialogSlice";
-import { deleteCategory } from "app/redux/categorySlice";
+import { openDiscountCodeFormDialog } from "app/redux/dialogSlice";
+import { deleteDiscountCode } from "app/redux/discountCodeSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import MenuDropdown from "./Category.table.menu";
+import MenuDropdown from "./DiscountCode.table.menu";
 
-export default function CategoryTable({ listCategory }) {
+export default function DiscountCodeTable({ listDiscountCode }) {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-  let currentListCategory = filterArrayBySearchTerm(listCategory, searchTerm);
 
-  const handleEditCategory = (categoryData) => {
-    dispatch(openCategoryFormDialog(categoryData));
+  let currentListDiscountCode = filterArrayBySearchTerm(
+    listDiscountCode,
+    searchTerm
+  );
+
+  const handleEditDiscountCode = (discountCodeData) => {
+    dispatch(openDiscountCodeFormDialog(discountCodeData));
   };
 
-  const handleDeleteCategory = (id) => {
+  const handleDeleteDiscountCode = (id) => {
     if (window.confirm("Bạn có chắc chắn xóa")) {
-      dispatch(deleteCategory(id));
+      dispatch(deleteDiscountCode(id));
     }
   };
 
@@ -41,15 +45,15 @@ export default function CategoryTable({ listCategory }) {
           </div>
         </div>
         <div className="p-6 flex justify-between items-center h-20 border-b border-gray-200 rounded-t-3xl bg-white">
-          <h1 className="text-xl font-medium">Danh mục sản phẩm</h1>
+          <h1 className="text-xl font-medium">Danh sách mã giảm</h1>
           <button
             onClick={() => {
-              dispatch(openCategoryFormDialog({ id: null }));
+              dispatch(openDiscountCodeFormDialog({ id: null }));
             }}
             className="flex items-center bg-admin_color_1 appearance-none  rounded-full w-100 h-full  py-2 px-8 text-admin_color_2 leading-tight hover:bg-indigo-900 focus:outline-none"
           >
             <i className="bx bx-plus mr-2 align-middle block"></i>
-            <span>Thêm danh mục sản phẩm</span>
+            <span>Thêm thẻ</span>
           </button>
         </div>
         <div className="px-8 py-6 rounded-b-3xl bg-white shadow-sm">
@@ -59,14 +63,20 @@ export default function CategoryTable({ listCategory }) {
                 <th scope="col" className="w-1/12 px-2 py-3 break-words">
                   <strong>#</strong>
                 </th>
+                <th scope="col" className="w-1/12 px-2 py-3 break-words">
+                  <strong>Id</strong>
+                </th>
                 <th scope="col" className="w-2/12 px-2 py-3 break-words">
-                  <strong>Mã</strong>
+                  <strong>Tên mã giảm giá</strong>
                 </th>
                 <th scope="col" className="w-3/12 px-2 py-3 break-words">
-                  <strong>Hình ảnh</strong>
+                  <strong>Chiết khấu</strong>
                 </th>
-                <th scope="col" className="w-5/12 px-2 py-3 break-words">
-                  <strong>Tên danh mục</strong>
+                <th scope="col" className="w-2/12 px-2 py-3 break-words">
+                  <strong>Số lượng</strong>
+                </th>
+                <th scope="col" className="w-3/12 px-2 py-3 break-words">
+                  <strong>Ngày hết hạn</strong>
                 </th>
                 <th scope="col" className="w-1/12 px-2 py-3 break-words">
                   <strong></strong>
@@ -74,31 +84,27 @@ export default function CategoryTable({ listCategory }) {
               </tr>
             </thead>
             <tbody className="text-gray-500 font-normal">
-              {currentListCategory.map((category, index) => {
-                const { id, name, image } = category;
+              {currentListDiscountCode.map((discountCode, index) => {
+                const { id, code, exp, percentage, number } = discountCode;
                 return (
                   <tr key={index} className="border-b border-gray-200">
                     <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
                       <strong>{index + 1}</strong>
                     </td>
-                    <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
-                      <strong>{id}</strong>
-                    </td>
+                    <td className="px-2 py-4">{id}</td>
+                    <td className="px-2 py-4">{code}</td>
                     <td className="px-2 py-4">
-                      <img
-                        className="h-20 w-20 rounded-lg"
-                        alt="logo"
-                        src={image}
-                      />
+                      {percentage * 100 + " % giá trị hóa đơn"}
                     </td>
-                    <td className="px-2 py-4">{name}</td>
+                    <td className="px-2 py-4">{number}</td>
+                    <td className="px-2 py-4">{convertDateTime(exp)}</td>
                     <td className="px-2 py-4">
                       <MenuDropdown
                         handleDelete={() => {
-                          handleDeleteCategory(id);
+                          handleDeleteDiscountCode(id);
                         }}
                         handleEdit={() => {
-                          handleEditCategory(category);
+                          handleEditDiscountCode(discountCode);
                         }}
                       />
                     </td>
@@ -107,9 +113,9 @@ export default function CategoryTable({ listCategory }) {
               })}
             </tbody>
           </table>
-          {currentListCategory.length === 0 ? (
+          {currentListDiscountCode.length === 0 ? (
             <div className="text-center text-xl text-gray-500">
-              <span>Không có danh mục sản phẩm</span>
+              <span>Không có mã giảm nào</span>
             </div>
           ) : null}
         </div>

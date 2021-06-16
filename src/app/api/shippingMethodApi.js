@@ -32,7 +32,7 @@ const shippingMethodApi = {
     console.log("postShippingMethod API response - ", response);
     return {
       status: response.status,
-      data: { listShippingMethod: response.data?.data },
+      data: { id: response.data?.data?.id },
     };
     // let response = await fakeApi({
     //   // request: loginInfo,
@@ -55,7 +55,7 @@ const shippingMethodApi = {
     console.log("patchShippingMethod API response - ", response);
     return {
       status: response.status,
-      data: { listShippingMethod: response.data?.data },
+      data: {},
     };
     // let response = await fakeApi({
     //   // request: loginInfo,

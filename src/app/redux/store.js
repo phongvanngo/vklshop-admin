@@ -10,6 +10,7 @@ import productReducer from "./productSlice";
 import variantReducer from "./variantSlice";
 import cardTypeReducer from "./cardTypeSlice";
 import shippingMethodReducer from "./shippingMethodSlice";
+import discountCodeReducer from "./discountCodeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -25,5 +26,6 @@ export const store = configureStore({
     variant: variantReducer,
     cardType: cardTypeReducer,
     shippingMethod: shippingMethodReducer,
+    discountCode: discountCodeReducer,
   },
 });

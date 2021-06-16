@@ -62,13 +62,16 @@ export default function VariantManagement({ productToEdit }) {
                 <th scope="col" className="w-1/12 px-2 py-3 break-words">
                   <strong>#</strong>
                 </th>
-                <th scope="col" className="w-2/12 px-2 py-3 break-words">
+                <th scope="col" className="w-1/12 px-2 py-3 break-words">
+                  <strong>Mã</strong>
+                </th>
+                <th scope="col" className="w-3/12 px-2 py-3 break-words">
                   <strong>Tên</strong>
                 </th>
-                <th scope="col" className="w-3/12 px-2 py-3 break-words">
+                <th scope="col" className="w-2/12 px-2 py-3 break-words">
                   <strong>Giá gốc</strong>
                 </th>
-                <th scope="col" className="w-3/12 px-2 py-3 break-words">
+                <th scope="col" className="w-2/12 px-2 py-3 break-words">
                   <strong>Giá bán</strong>
                 </th>
                 <th scope="col" className="w-2/12 px-2 py-3 break-words">
@@ -87,6 +90,9 @@ export default function VariantManagement({ productToEdit }) {
                     <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
                       <strong>{index + 1}</strong>
                     </td>
+                    <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
+                      <strong>{id}</strong>
+                    </td>
                     <td className="px-2 py-4">{name}</td>
                     <td className="px-2 py-4">
                       {numberWithSpaces(costPrice, stock) + " VND"}
@@ -94,7 +100,9 @@ export default function VariantManagement({ productToEdit }) {
                     <td className="px-2 py-4">
                       {numberWithSpaces(price) + " VND"}
                     </td>
-                    <td className="px-2 py-4">{stock}</td>
+                    <td className="px-2 py-4">
+                      {stock + " " + productToEdit?.unit}
+                    </td>
                     <td className="px-2 py-4">
                       <MenuDropdown
                         handleDelete={() => {

@@ -78,9 +78,12 @@ export default function ProductTable({ listProduct, currentCategoryId }) {
                   <strong>#</strong>
                 </th>
                 <th scope="col" className="w-2/12 px-2 py-3 break-words">
+                  <strong>Mã</strong>
+                </th>
+                <th scope="col" className="w-2/12 px-2 py-3 break-words">
                   <strong></strong>
                 </th>
-                <th scope="col" className="w-5/12 px-2 py-3 break-words">
+                <th scope="col" className="w-3/12 px-2 py-3 break-words">
                   <strong>Tên sản phẩm</strong>
                 </th>
                 {/* <th scope="col" className="w-2/12 px-2 py-3 break-words">
@@ -102,6 +105,9 @@ export default function ProductTable({ listProduct, currentCategoryId }) {
                   <tr key={index} className="border-b border-gray-200">
                     <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
                       <strong>{index + 1}</strong>
+                    </td>
+                    <td className="px-2 py-4 text-gray-500 text-sm font-extrabold">
+                      <strong>{id}</strong>
                     </td>
                     <td className="px-2 py-4">
                       <img

@@ -1,33 +1,33 @@
 import axiosClient from "./AxiosClient";
 import { fakeApi } from "./fakeApi";
-import { listCardTypes } from "./fakeData";
+// import { listDiscountCodes } from "./fakeData";
 
-const cardTypeApi = {
-  getListCardType: async () => {
+const discountCodeApi = {
+  getListDiscountCode: async () => {
     // let response = await fakeApi({
     //   // request: loginInfo,
     //   response: {
     //     status: 200,
     //     data: {
-    //       listCardType: listCardTypes,
+    //       listDiscountCode: listDiscountCodes,
     //     },
     //   },
     //   timeOut: 1000,
     // });
     // return response;
-    const url = "/services/card";
+    const url = "/services/discount";
     let response = await axiosClient.get(url).then((res) => res);
-    console.log("getCardType API response - ", response);
+    console.log("getDiscountCode API response - ", response);
     return {
       status: response.status,
-      data: { listCardType: response.data?.data },
+      data: { listDiscountCode: response.data?.data },
     };
   },
-  postCardType: async (cardType) => {
-    console.log("postCardType - payload", cardType);
-    const url = "/services/card";
-    let response = await axiosClient.post(url, cardType).then((res) => res);
-    console.log("postCardType API response - ", response);
+  postDiscountCode: async (discountCode) => {
+    console.log("postDiscountCode - payload", discountCode);
+    const url = "/services/discount";
+    let response = await axiosClient.post(url, discountCode).then((res) => res);
+    console.log("postDiscountCode API response - ", response);
     return {
       status: response.status,
       data: { id: response.data?.data?.id },
@@ -44,16 +44,16 @@ const cardTypeApi = {
     // });
     // return response;
   },
-  patchCardType: async (cardType) => {
-    const url = "/services/card/" + cardType.id;
-    const { name, fee } = cardType;
-    let payload = { name, fee };
-    console.log("patchCardType - payload", payload);
+  patchDiscountCode: async (discountCode) => {
+    const url = "/services/discount/" + discountCode.id;
+    const { code, exp, number, percentage } = discountCode;
+    let payload = { code, exp, number, percentage };
+    console.log("patchDiscountCode - payload", payload);
     let response = await axiosClient.patch(url, payload).then((res) => res);
-    console.log("patchCardType API response - ", response);
+    console.log("patchDiscountCode API response - ", response);
     return {
       status: response.status,
-      data: {},
+      data: { listDiscountCode: response.data?.data },
     };
     // let response = await fakeApi({
     //   // request: loginInfo,
@@ -65,7 +65,7 @@ const cardTypeApi = {
     // });
     // return response;
   },
-  deleteCardType: async (cardTypeId) => {
+  deleteDiscountCode: async (discountCodeId) => {
     // let response = await fakeApi({
     //   // request: loginInfo,
     //   response: {
@@ -75,9 +75,9 @@ const cardTypeApi = {
     //   timeOut: 1000,
     // });
     // return response;
-    const url = "/services/card/" + cardTypeId;
+    const url = "/services/discount/" + discountCodeId;
     let response = await axiosClient.delete(url).then((res) => res);
-    console.log("getCardType API response - ", response);
+    console.log("getDiscountCode API response - ", response);
     return {
       status: response.status,
       data: {},
@@ -85,4 +85,4 @@ const cardTypeApi = {
   },
 };
 
-export default cardTypeApi;
+export default discountCodeApi;
