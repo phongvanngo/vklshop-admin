@@ -65,7 +65,7 @@ export default function LandingPage() {
             className="items-center text-admin_color_2"
           >
             <div className="brand">
-              <svg
+              {/* <svg
                 className="transform rotate-45"
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
@@ -79,8 +79,9 @@ export default function LandingPage() {
               >
                 <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
                 <polyline points="17 2 12 7 7 2"></polyline>
-              </svg>
-              <h1 className="font-extrabold text-2xl ml-3">Cinema</h1>
+              </svg> */}
+              <i className="bx bxl-shopify logo-icon"></i>
+              <h1 className="font-extrabold text-2xl ml-3">EShop</h1>
             </div>
           </header>
           <div className="menu-container">
