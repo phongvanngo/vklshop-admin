@@ -111,6 +111,9 @@ export const deleteDiscountCode = createAsyncThunk(
       const response = await discountCodeApi.deleteDiscountCode(payload);
       switch (response.status) {
         case 200:
+          toast.success("Xóa thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { id: payload, responseData: response.data };
         case 401:
