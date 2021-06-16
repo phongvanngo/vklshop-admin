@@ -30,7 +30,7 @@ import queryString from "query-string";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  category: yup.string().required(),
+  categoryId: yup.string().required(),
   unit: yup.string().required(),
 });
 
@@ -88,7 +88,7 @@ export default function ProductOverview({ editingProductId, productToEdit }) {
       setValue("name", name);
       setValue("description", description);
       setValue("content", content);
-      setValue("category", categoryId);
+      setValue("categoryId", categoryId);
       setValue("unit", unit);
       setValue("images", JSON.stringify(images));
 
@@ -170,10 +170,10 @@ export default function ProductOverview({ editingProductId, productToEdit }) {
                   <CategorySelection
                     defaultValue={productToEdit?.categoryId}
                     register={register}
-                    name="category"
+                    name="categoryId"
                     label="Phân loại"
                     validation={{
-                      isError: errors.category,
+                      isError: errors.categoryId,
                       mess: "Không được để trống",
                     }}
                   />

@@ -15,11 +15,18 @@ export default function TextEditor({
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   };
 
-  useEffect(() => {}, [defaultValue]);
+  useEffect(() => {
+    console.log("TextEditor useEffect, defaultValue: ", defaultValue);
+    // try {
+    //   if (defaultValue) {
+    //     editor.current.value = defaultValue;
+    //   }
+    // } catch (error) {}
+  }, [defaultValue]);
 
   try {
     if (defaultValue) {
-      editor.current.value = "<p>" + defaultValue + "</p>";
+      editor.current.value = defaultValue;
     }
   } catch (error) {}
 

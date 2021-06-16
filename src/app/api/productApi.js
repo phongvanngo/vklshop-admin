@@ -165,9 +165,9 @@ const productApi = {
     // });
     // return response;
 
-    let { name, unit, description, category, content, images } = product;
-    // if (images) images = JSON.parse(images);
-    let category_id = category;
+    let { name, unit, description, categoryId, content, images } = product;
+    // if (images) images = JON.parse(images);
+    let category_id = categoryId;
 
     let payload = { name, unit, description, category_id, content, images };
 
@@ -199,14 +199,21 @@ const productApi = {
     // });
     // return response;
 
-    let { name, unit, description, category, content, id } = product;
-    let category_id = category;
+    let { name, unit, description, categoryId, content, id } = product;
+    let category_id = categoryId;
 
-    let payload = { name, unit, description, category_id, content };
+    let payload = {
+      name,
+      unit,
+      description,
+      category_id,
+      content: content || "",
+    };
 
     let url = "/product/" + id;
     let response = await axiosClient.patch(url, payload).then((res) => res);
-
+    console.log("patchProduct API, payload: ", product);
+    console.log("patchProduct API, response: ", response);
     return { status: response.status, data: {} };
   },
   deleteProduct: async (productId) => {

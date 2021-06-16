@@ -22,6 +22,11 @@ export default function Category({
       );
   };
 
+  console.log(
+    "formCreateProduct, categorySelection, defaultValue: ",
+    defaultValue
+  );
+
   return (
     <>
       <div className="mb-8">

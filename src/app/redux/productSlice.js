@@ -153,6 +153,7 @@ export const updateProduct = createAsyncThunk(
         case 400:
           return null;
         default:
+          return null;
       }
     } catch (error) {
       toast.error("Cập nhật sản phẩm thất bại!", {
@@ -329,6 +330,7 @@ export const productSlice = createSlice({
         );
         newListProduct[index] = newProduct;
 
+        state.productToEdit = newProduct;
         state.listProduct = newListProduct;
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
