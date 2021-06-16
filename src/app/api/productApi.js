@@ -17,6 +17,7 @@ const productApi = {
     // return response;
     const url = "/product";
     let response = await axiosClient.get(url).then((res) => res);
+    console.log("getListProduct API - response: ", response);
     return {
       status: response.status,
       data: {
@@ -87,6 +88,7 @@ const productApi = {
       images,
       productVariants: product_variants,
     };
+    console.log("getProductById API - response: ", response);
     return {
       status: response.status,
       data: { productDetail },
@@ -120,6 +122,8 @@ const productApi = {
     // return response;
     const url = `/shop/category/${categoryId}/products`;
     let response = await axiosClient.get(url).then((res) => res);
+    console.log("getListProductInCategory API - response: ", response);
+
     return {
       status: response.status,
       data: {

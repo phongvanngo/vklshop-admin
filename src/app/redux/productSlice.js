@@ -8,8 +8,6 @@ const initialState = {
   listProduct: [],
   productToEdit: null,
   currentProduct: null,
-  listImageToAdd: [],
-  listImageToDelete: [],
 };
 
 export const fetchListProduct = createAsyncThunk(
@@ -149,10 +147,13 @@ export const updateProduct = createAsyncThunk(
           dispatch(stopLoading());
           return { newProduct: payload, responseData: response.data };
         case 401:
+          dispatch(stopLoading());
           return null;
         case 400:
+          dispatch(stopLoading());
           return null;
         default:
+          dispatch(stopLoading());
           return null;
       }
     } catch (error) {
@@ -174,16 +175,22 @@ export const addImageToProduct = createAsyncThunk(
       const response = await productApi.postProductImage(payload);
       switch (response.status) {
         case 200:
-          // toast.success("Cập nhật sản phẩm thành công!", {
-          //   position: toast.POSITION.TOP_RIGHT,
-          // });
+          toast.success("Thêm hình ảnh thàn công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
-          return {};
+          return payload;
         case 401:
+          dispatch(stopLoading());
           return null;
+
         case 400:
+          dispatch(stopLoading());
           return null;
+
         default:
+          dispatch(stopLoading());
+          return null;
       }
     } catch (error) {
       toast.error("Thêm hình ảnh thất bại!", {
@@ -207,16 +214,17 @@ export const removeImageFromProduct = createAsyncThunk(
       const response = await productApi.deleteProductImage(payload);
       switch (response.status) {
         case 200:
-          // toast.success("Cập nhật sản phẩm thành công!", {
-          //   position: toast.POSITION.TOP_RIGHT,
-          // });
+          toast.success("Thêm hình ảnh thàn công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
-          return {};
+          return payload;
         case 401:
           return null;
         case 400:
           return null;
         default:
+          return null;
       }
     } catch (error) {
       toast.error("Xóa hình ảnh thất bại!", {
@@ -269,25 +277,6 @@ export const productSlice = createSlice({
     setProductToEdit: (state, action) => {
       state.productToEdit = action.payload;
     },
-    addImageProduct: (state, action) => {
-      //thêm hình vào hàng đợi để cập nhật sản phẩm trên server
-      let imageToAdd = action.payload;
-      state.listImageToAdd.push(imageToAdd);
-    },
-    removeImageProduct: (state, action) => {
-      //thêm hình vào hàng đợi để xóa sản phẩm trên server
-      let imageToRemove = action.payload;
-      if (imageToRemove.id) {
-        //xoa hinh da co tren server
-        state.listImageToDelete.push(imageToRemove);
-      } else {
-        //xoa hinh trong hang doi de day len server
-        let newListImateToAdd =
-          state.listImageToAdd.filter((e) => e.name !== imageToRemove.name) ||
-          [];
-        state.listImageToAdd = newListImateToAdd;
-      }
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -319,6 +308,18 @@ export const productSlice = createSlice({
         state.productToEdit = newProduct;
         state.listProduct = newListProduct;
       })
+      .addCase(addImageToProduct.fulfilled, (state, action) => {
+        if (action.payload === null) return;
+        let { image } = action.payload;
+        state.productToEdit.images.push({ name: image.name });
+      })
+      .addCase(removeImageFromProduct.fulfilled, (state, action) => {
+        if (action.payload === null) return;
+        let image = action.payload;
+        state.productToEdit.images = state.productToEdit.images.filter(
+          (e) => e.id !== image.id
+        );
+      })
       .addCase(updateProduct.fulfilled, (state, action) => {
         if (action.payload === null) return;
         let { newProduct } = action.payload;
@@ -330,7 +331,7 @@ export const productSlice = createSlice({
         );
         newListProduct[index] = newProduct;
 
-        state.productToEdit = newProduct;
+        state.productToEdit = { ...state.productToEdit, newProduct };
         state.listProduct = newListProduct;
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
@@ -344,7 +345,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { addImageProduct, removeImageProduct, setProductToEdit } =
-  productSlice.actions;
+export const { setProductToEdit } = productSlice.actions;
 
 export default productSlice.reducer;

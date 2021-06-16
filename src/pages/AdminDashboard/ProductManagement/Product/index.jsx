@@ -33,6 +33,9 @@ export default function ProductManagement() {
     dispatch(setProductToEdit(null));
   }, [dispatch]);
 
+  console.log(
+    "ProductMangement render--------------------------------------------------------------------"
+  );
   return (
     <div>
       <ProductFormModal />

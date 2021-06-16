@@ -23,7 +23,7 @@ export default function Category({
   };
 
   console.log(
-    "formCreateProduct, categorySelection, defaultValue: ",
+    "formCreateProduct - categorySelection - defaultValue: ",
     defaultValue
   );
 

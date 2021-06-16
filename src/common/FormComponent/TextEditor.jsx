@@ -16,7 +16,7 @@ export default function TextEditor({
   };
 
   useEffect(() => {
-    console.log("TextEditor useEffect, defaultValue: ", defaultValue);
+    console.log("TextEditor - useEffect - defaultValue: ", defaultValue);
     // try {
     //   if (defaultValue) {
     //     editor.current.value = defaultValue;

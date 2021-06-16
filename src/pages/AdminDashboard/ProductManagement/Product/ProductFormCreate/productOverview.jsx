@@ -198,7 +198,6 @@ export default function ProductOverview({ editingProductId, productToEdit }) {
               addImage={(image) => {
                 //TH sửa sản phẩm
                 if (editingProductId) {
-                  console.log(image);
                   dispatch(
                     addImageToProduct({ image, productId: editingProductId })
                   );
@@ -207,7 +206,6 @@ export default function ProductOverview({ editingProductId, productToEdit }) {
               removeImage={(image) => {
                 //TH sửa sản phẩm
                 if (editingProductId) {
-                  console.log(image);
                   dispatch(removeImageFromProduct(image));
                 }
               }}
