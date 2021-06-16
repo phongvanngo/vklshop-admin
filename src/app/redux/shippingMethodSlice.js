@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import shippingMethodApi from "app/api/shippingMethodApi";
 import { openErrorNofificationDialog } from "./dialogSlice";
 import { startLoading, stopLoading } from "./loadingSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   listShippingMethod: [],
@@ -30,6 +31,9 @@ export const fetchListShippingMethod = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -45,7 +49,9 @@ export const createShippingMethod = createAsyncThunk(
       const response = await shippingMethodApi.postShippingMethod(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Tạo mới thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newShippingMethod: payload, responseData: response.data };
         case 401:
@@ -56,11 +62,9 @@ export const createShippingMethod = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Thêm hệ thống rạp mới thất bại",
-        })
-      );
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -73,9 +77,12 @@ export const updateShippingMethod = createAsyncThunk(
 
     dispatch(startLoading());
     try {
-      const response = await shippingMethodApi.postShippingMethod(payload);
+      const response = await shippingMethodApi.patchShippingMethod(payload);
       switch (response.status) {
         case 200:
+          toast.success("Cập nhật thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { newShippingMethod: payload, responseData: response.data };
         case 401:
@@ -86,11 +93,10 @@ export const updateShippingMethod = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Cập nhập hệ thống rạp thất bại",
-        })
-      );
+      console.log("patchShippingMethodSlice - error", error);
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -106,7 +112,9 @@ export const deleteShippingMethod = createAsyncThunk(
       const response = await shippingMethodApi.deleteShippingMethod(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
+          toast.success("Xóa thành công", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           dispatch(stopLoading());
           return { id: payload, responseData: response.data };
         case 401:
@@ -117,11 +125,9 @@ export const deleteShippingMethod = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Xóa rạp thất bại",
-        })
-      );
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }

@@ -49,15 +49,12 @@ export default function ShippingMethodFormModal() {
 
   function onSaveData(data) {
     if (defaultData?.id === null) {
-      dispatch(
-        createShippingMethod({ ...data, premiereDay: startDate.toDateString() })
-      );
+      dispatch(createShippingMethod({ ...data }));
       dispatch(closeShippingMethodFormDialog());
     } else {
       dispatch(
         updateShippingMethod({
           ...data,
-          premiereDay: startDate.toDateString(),
           id: defaultData.id,
         })
       );

@@ -100,7 +100,7 @@ export default function CardTypeTable({ listCardType }) {
           </table>
           {currentListCardType.length === 0 ? (
             <div className="text-center text-xl text-gray-500">
-              <span>Không có rạp chiếu nào</span>
+              <span>Không có loại thẻ nào</span>
             </div>
           ) : null}
         </div>

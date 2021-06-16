@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import cardTypeApi from "app/api/cardTypeApi";
 import { openErrorNofificationDialog } from "./dialogSlice";
 import { startLoading, stopLoading } from "./loadingSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   listCardType: [],
@@ -30,6 +31,9 @@ export const fetchListCardType = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -42,7 +46,7 @@ export const createCardType = createAsyncThunk(
 
     dispatch(startLoading());
     try {
-      const response = await cardTypeApi.postCardType(payload);
+      let response = await cardTypeApi.postCardType(payload);
       switch (response.status) {
         case 200:
           // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
@@ -56,11 +60,9 @@ export const createCardType = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Thêm hệ thống rạp mới thất bại",
-        })
-      );
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -73,7 +75,7 @@ export const updateCardType = createAsyncThunk(
 
     dispatch(startLoading());
     try {
-      const response = await cardTypeApi.postCardType(payload);
+      const response = await cardTypeApi.patchCardType(payload);
       switch (response.status) {
         case 200:
           dispatch(stopLoading());
@@ -86,11 +88,9 @@ export const updateCardType = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Cập nhập hệ thống rạp thất bại",
-        })
-      );
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
@@ -106,7 +106,6 @@ export const deleteCardType = createAsyncThunk(
       const response = await cardTypeApi.deleteCardType(payload);
       switch (response.status) {
         case 200:
-          // dispatch(notify({ message: "Đăng nhập thành công", options: { variant: 'success' } }));
           dispatch(stopLoading());
           return { id: payload, responseData: response.data };
         case 401:
@@ -117,11 +116,9 @@ export const deleteCardType = createAsyncThunk(
           throw new Error("Error");
       }
     } catch (error) {
-      dispatch(
-        openErrorNofificationDialog({
-          title: "Xóa rạp thất bại",
-        })
-      );
+      toast.error("Mất kết nối đến máy chủ, kiểm tra lại internet của bạn", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(stopLoading());
       return null;
     }
