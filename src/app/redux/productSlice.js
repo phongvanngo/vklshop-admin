@@ -175,7 +175,7 @@ export const addImageToProduct = createAsyncThunk(
       const response = await productApi.postProductImage(payload);
       switch (response.status) {
         case 200:
-          toast.success("Thêm hình ảnh thàn công", {
+          toast.success("Thêm hình ảnh thành công", {
             position: toast.POSITION.TOP_RIGHT,
           });
           dispatch(stopLoading());
@@ -214,7 +214,7 @@ export const removeImageFromProduct = createAsyncThunk(
       const response = await productApi.deleteProductImage(payload);
       switch (response.status) {
         case 200:
-          toast.success("Thêm hình ảnh thàn công", {
+          toast.success("Xóa hình ảnh thành công", {
             position: toast.POSITION.TOP_RIGHT,
           });
           dispatch(stopLoading());

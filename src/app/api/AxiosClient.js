@@ -4,7 +4,7 @@ import queryString from "query-string";
 // import { get, save } from './localStorage';
 
 const instance = axios.create({
-  baseURL: "http://103.142.137.207:3000",
+  baseURL: `${process.env.REACT_APP_API_URL}`,
   headers: {
     "content-type": "application/json",
   },
